@@ -15,6 +15,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	print(get_viewport_rect().size.x)
 	_tick_game(delta)
 
 func _tick_game(delta: float) -> void:
@@ -24,7 +25,7 @@ func handle_input():
 	if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
 		player.velocity.y = Jump_velocity
 	
-	if player.running:
+	if player.running or player.jump:
 		var direction := Input.get_axis("ui_left", "ui_right")
 		if direction:
 			player.velocity.x = direction * Speed

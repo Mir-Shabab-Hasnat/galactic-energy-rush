@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 
 	
 	if can_move:
-		if position.y < 290:
+		if position.y < 250:
 			jump = true
 			running = false
 			idle = false

@@ -12,14 +12,13 @@ distance = -33.0
 [node name="Game" type="Node2D"]
 script = ExtResource("1_07uqo")
 
-[node name="Player" parent="." instance=ExtResource("1_41bkr")]
-position = Vector2(305, 217)
-
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 1)
 anchor_mode = 0
 zoom = Vector2(2, 2)
 
 [node name="FloorStatic" type="StaticBody2D" parent="."]
+position = Vector2(0, -47)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStatic"]
 position = Vector2(305, 300)
@@ -42,8 +41,11 @@ rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_b1j6n")
 
 [node name="Background" parent="." instance=ExtResource("3_d7q4l")]
-position = Vector2(0, 280)
+position = Vector2(0, 214)
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_41bkr")]
+position = Vector2(304, 216)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
