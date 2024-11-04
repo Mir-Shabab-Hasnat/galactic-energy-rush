@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdbf2so3gvxyi"]
+
+[ext_resource type="Script" path="res://scripts/background.gd" id="1_75ad2"]
+[ext_resource type="Texture2D" uid="uid://da75q1ehmelbt" path="res://assets/platform-demo.png" id="2_2pte7"]
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_75ad2")
+
+[node name="Background1" type="Sprite2D" parent="."]
+position = Vector2(1, -7.62939e-06)
+scale = Vector2(1, 0.295)
+texture = ExtResource("2_2pte7")
+centered = false
+
+[node name="Background2" type="Sprite2D" parent="."]
+position = Vector2(576, 1)
+scale = Vector2(1, 0.287)
+texture = ExtResource("2_2pte7")
+centered = false
