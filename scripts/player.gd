@@ -8,7 +8,8 @@ var jump = false
 @onready var animated_player = $AnimatedSprite2D
 
 func _ready():
-	pass
+	print(get_viewport_rect().size.x / 2)
+	print(get_viewport_rect().size.y / 2)
 
 func _physics_process(delta: float) -> void:
 	# Add gravity

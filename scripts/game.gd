@@ -4,6 +4,7 @@ extends Node2D
 @export var Jump_velocity = -400.0
 
 @onready var player = $Player
+@onready var platform = $Platform
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Start the timer when the game is ready
@@ -15,7 +16,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(get_viewport_rect().size.x)
+	
 	_tick_game(delta)
 
 func _tick_game(delta: float) -> void:
@@ -36,3 +37,5 @@ func handle_input():
 
 func _on_timer_timeout() -> void:
 	player.can_move = true
+	platform.start_scroll = true
+	

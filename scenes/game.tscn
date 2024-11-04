@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
-[ext_resource type="PackedScene" uid="uid://cdbf2so3gvxyi" path="res://scenes/background.tscn" id="3_d7q4l"]
+[ext_resource type="PackedScene" uid="uid://cdbf2so3gvxyi" path="res://scenes/platform.tscn" id="3_d7q4l"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -40,7 +40,7 @@ position = Vector2(33, 166)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_b1j6n")
 
-[node name="Background" parent="." instance=ExtResource("3_d7q4l")]
+[node name="Platform" parent="." instance=ExtResource("3_d7q4l")]
 position = Vector2(0, 214)
 
 [node name="Timer" type="Timer" parent="."]

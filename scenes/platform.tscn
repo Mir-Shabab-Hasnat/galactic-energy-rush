@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdbf2so3gvxyi"]
+
+[ext_resource type="Script" path="res://scripts/platform.gd" id="1_ueny2"]
+[ext_resource type="Texture2D" uid="uid://b56s60kj2k75t" path="res://assets/run_platform.png" id="2_e5d5u"]
+
+[node name="Platform" type="Node2D"]
+script = ExtResource("1_ueny2")
+
+[node name="Background1" type="Sprite2D" parent="."]
+texture = ExtResource("2_e5d5u")
+centered = false
+
+[node name="Background2" type="Sprite2D" parent="."]
+position = Vector2(575, 0)
+texture = ExtResource("2_e5d5u")
+centered = false
