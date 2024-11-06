@@ -1,4 +1,5 @@
 [gd_scene load_steps=9 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=9 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
@@ -6,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c8g7ytr2jjwhn" path="res://scenes/Systems/enemy_spawner.tscn" id="5_os26m"]
 [ext_resource type="PackedScene" uid="uid://d1jri3j612yir" path="res://scenes/Systems/PowerUpManager.tscn" id="5_rp0wt"]
 [ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="6_0yogw"]
+[ext_resource type="PackedScene" uid="uid://cse58sxy2arjb" path="res://scenes/energy_bar.tscn" id="6_51ajn"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -59,5 +61,7 @@ position = Vector2(304, 216)
 [node name="PowerUpManager" parent="." instance=ExtResource("5_rp0wt")]
 
 [node name="HealthBar" parent="." instance=ExtResource("6_0yogw")]
+
+[node name="EnergyBar" parent="." instance=ExtResource("6_51ajn")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

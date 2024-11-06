@@ -12,6 +12,7 @@ extends Node2D
 @onready var powerup_manager = $"PowerUpManager"
 
 @onready var healthbar = $HealthBar
+@onready var energyBar = $EnergyBar
 
 @export var energy = 0;
 @export var health = 50;
@@ -20,6 +21,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	healthbar.health = health
+	energyBar.energy = energy
 	
 	# Start the timer when the game is ready
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
