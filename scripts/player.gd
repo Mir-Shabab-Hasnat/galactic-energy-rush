@@ -7,6 +7,8 @@ var jump = false
 
 @onready var animated_player = $AnimatedSprite2D
 
+
+
 func _ready():
 	print(get_viewport_rect().size.x / 2)
 	print(get_viewport_rect().size.y / 2)

@@ -1,7 +1,7 @@
 extends Node2D
 
 var start_scroll = false
-var energy = 100
+var energy = 0
 var scroll_speed: float = 125.0
 @onready var background1 = $Background1  # Ensure these are the correct names of your sprite nodes
 @onready var background2 = $Background2  # Ensure these are the correct names of your sprite nodes

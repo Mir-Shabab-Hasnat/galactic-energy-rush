@@ -1,7 +1,7 @@
 extends Area2D
 
 var can_move = false
-var energy = 100
+var energy = 0
 @onready var animated_sprite = $AnimatedSprite2D
 
 @export var speed: float = 200;
