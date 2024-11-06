@@ -5,7 +5,7 @@ extends Node2D
 
 @onready var player = $Player
 @onready var platform = $Platform
-@onready var Obstacle = $EvilEye
+#@onready var Obstacle = $Evil_eye
 
 @onready var ObstacleSpawner = $"Enemy Spawner"
 
@@ -41,11 +41,11 @@ func handle_input():
 			
 	player.move_and_slide()
 	
-func set_start_spawn(can_move: bool) -> void:
-	if can_move:
-		ObstacleSpawner.set_spawn_state(can_move)
-	else:
-		ObstacleSpawner.set_spawn_state(false)
+#func set_start_spawn(can_move: bool) -> void:
+	#if can_move:
+		#ObstacleSpawner.set_spawn_state(can_move)
+	#else:
+		#ObstacleSpawner.set_spawn_state(false)
 
 func _on_timer_timeout() -> void:
 	player.can_move = true

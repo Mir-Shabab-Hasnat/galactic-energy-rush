@@ -10,7 +10,9 @@ var jump = false
 func _ready():
 	print(get_viewport_rect().size.x / 2)
 	print(get_viewport_rect().size.y / 2)
-
+	
+	
+	
 func _physics_process(delta: float) -> void:
 	# Add gravity
 	
@@ -40,3 +42,5 @@ func _physics_process(delta: float) -> void:
 	if running:
 		
 		animated_player.play("run")
+
+#detects palyer collosion with obstacles

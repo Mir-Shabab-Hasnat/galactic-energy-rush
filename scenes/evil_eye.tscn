@@ -28,14 +28,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2a70t"]
 size = Vector2(128, 62)
 
-[node name="EvilEye" type="Area2D"]
+[node name="EvilEye" type="Area2D" groups=["evileyeObst"]]
 collision_layer = 4
 script = ExtResource("1_op3tn")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["evileyeObst"]]
 sprite_frames = SubResource("SpriteFrames_0l1aw")
 animation = &"idle"
 frame_progress = 0.315502
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["evileyeObst"]]
 shape = SubResource("RectangleShape2D_2a70t")
