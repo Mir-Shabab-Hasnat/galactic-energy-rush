@@ -25,16 +25,8 @@ func _ready() -> void:
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
 	$Timer.one_shot = true   # Ensure the timer only runs once
 	$Timer.start()           # Start the timer
-	
-	# Debugging: Print to verify powerup_manager initialization
-	print("PowerUpManager: ", powerup_manager)
 
-	# Example of creating and adding a powerup to the scene
-	if powerup_manager:
-		var powerup = powerup_manager.create_powerup(powerup_manager.PowerUpType.INVINCIBILITY, Vector2(100, 200))
-		add_child(powerup)
-	else:
-		print("Error: PowerUpManager is not initialized")
+	powerup_manager.start_spawn = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

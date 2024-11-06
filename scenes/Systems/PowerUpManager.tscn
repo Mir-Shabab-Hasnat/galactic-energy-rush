@@ -4,3 +4,5 @@
 
 [node name="PowerUpManager" type="Node"]
 script = ExtResource("1_w016k")
+
+[node name="Timer" type="Timer" parent="."]

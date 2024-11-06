@@ -12,7 +12,10 @@ func remove_effect(player):
 	pass
 
 func start_effect(player):
-	apply_effect(player)
-	await get_tree().create_timer(duration).timeout
+	apply_effect(player)    
+	if get_tree():
+		await get_tree().create_timer(duration).timeout
+	else:
+		print("Error: Node is not added to the scene tree")
 	remove_effect(player)
 	queue_free()

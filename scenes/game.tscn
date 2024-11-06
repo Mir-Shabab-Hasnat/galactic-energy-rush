@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxoyqjirljn4f"]
-[gd_scene load_steps=8 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=9 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
 [ext_resource type="PackedScene" uid="uid://cdbf2so3gvxyi" path="res://scenes/platform.tscn" id="3_d7q4l"]
 [ext_resource type="PackedScene" uid="uid://c8g7ytr2jjwhn" path="res://scenes/Systems/enemy_spawner.tscn" id="5_os26m"]
-[ext_resource type="PackedScene" uid="uid://c552dtay6v1ob" path="res://scenes/health_bar.tscn" id="5_v88yl"]
 [ext_resource type="PackedScene" uid="uid://d1jri3j612yir" path="res://scenes/Systems/PowerUpManager.tscn" id="5_rp0wt"]
+[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="6_0yogw"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -57,8 +56,8 @@ position = Vector2(304, 216)
 
 [node name="Enemy Spawner" parent="." instance=ExtResource("5_os26m")]
 
-[node name="HealthBar" parent="." instance=ExtResource("5_v88yl")]
-
 [node name="PowerUpManager" parent="." instance=ExtResource("5_rp0wt")]
+
+[node name="HealthBar" parent="." instance=ExtResource("6_0yogw")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

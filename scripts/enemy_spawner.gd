@@ -1,7 +1,7 @@
 extends Node
 
 @export var evil_eye_scene = preload("res://scenes/evil_eye.tscn")
-@export var spawn_interval: float = 2.0
+@export var spawn_interval: float = 10.0
 
 var start_spawn = false
 
@@ -26,5 +26,3 @@ func spawn() -> void:
 	evil_eye.global_position.x = 630
 	evil_eye.global_position.y = 200
 	evil_eye.scale = Vector2(0.4, 0.4)
-	print(evil_eye.position.x)
-	print(evil_eye.position.y)
