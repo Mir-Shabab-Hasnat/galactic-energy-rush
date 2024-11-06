@@ -15,6 +15,11 @@ func _process(delta: float) -> void:
 	if can_move:
 		position.x -= (speed + energy) * delta
 
+	# Check if the powerup is off-screen
+	var viewport_rect = get_viewport().get_visible_rect()
+	if position.x < viewport_rect.position.x:
+		queue_free()
+
 func _ready():
 	connect("body_entered", Callable(self, "_on_Area2D_body_entered"))
 

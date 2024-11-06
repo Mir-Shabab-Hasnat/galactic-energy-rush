@@ -1,7 +1,7 @@
 extends Node
 
 @export var evil_eye_scene = preload("res://scenes/evil_eye.tscn")
-@export var spawn_interval: float = 10.0
+@export var spawn_interval: float = 3.0
 
 var start_spawn = false
 

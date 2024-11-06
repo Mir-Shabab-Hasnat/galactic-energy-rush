@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://2gacbpnolesw"]
+[gd_scene load_steps=7 format=3 uid="uid://ggpwm6anf4al"]
 
 [ext_resource type="Script" path="res://scripts/evil_eye.gd" id="1_op3tn"]
 [ext_resource type="Texture2D" uid="uid://de0hwgqd6j8uk" path="res://assets/evil-eye.png" id="1_unir8"]
