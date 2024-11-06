@@ -12,7 +12,7 @@ extends Node2D
 @onready var healthbar = $HealthBar
 
 @export var energy = 0;
-@export var health = 100;
+@export var health = 50;
 
 
 # Called when the node enters the scene tree for the first time.
