@@ -1,3 +1,4 @@
+# Main Game Script
 extends Node2D
 
 @export var Speed = 300.0
@@ -8,6 +9,7 @@ extends Node2D
 @onready var Obstacle = $EvilEye
 
 @onready var ObstacleSpawner = $"Enemy Spawner"
+@onready var powerup_manager = $"PowerUpManager"
 
 var energy = 0;
 # Called when the node enters the scene tree for the first time.
@@ -17,6 +19,15 @@ func _ready() -> void:
 	$Timer.one_shot = true   # Ensure the timer only runs once
 	$Timer.start()           # Start the timer
 	
+	# Debugging: Print to verify powerup_manager initialization
+	print("PowerUpManager: ", powerup_manager)
+
+	# Example of creating and adding a powerup to the scene
+	if powerup_manager:
+		var powerup = powerup_manager.create_powerup(powerup_manager.PowerUpType.INVINCIBILITY, Vector2(100, 200))
+		add_child(powerup)
+	else:
+		print("Error: PowerUpManager is not initialized")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

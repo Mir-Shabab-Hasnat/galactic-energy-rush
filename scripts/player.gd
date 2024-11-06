@@ -1,9 +1,13 @@
 extends CharacterBody2D
 
+const TYPE = "player"
+
 var can_move = false
 var idle = false
 var running = false
 var jump = false
+var is_invincible: bool = false
+var double_points = false
 
 @onready var animated_player = $AnimatedSprite2D
 
@@ -38,5 +42,14 @@ func _physics_process(delta: float) -> void:
 		animated_player.play("jump")
 	
 	if running:
-		
 		animated_player.play("run")
+
+	if is_invincible:
+		print("Invincible")
+		animated_player.modulate = Color(1, 1, 1, 0.5)
+	else:
+		animated_player.modulate = Color(1, 1, 1, 1)
+
+	if double_points:
+		print("Double Points Active")
+		pass
