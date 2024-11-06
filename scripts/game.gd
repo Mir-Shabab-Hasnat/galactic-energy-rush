@@ -6,7 +6,7 @@ extends Node2D
 
 @onready var player = $Player
 @onready var platform = $Platform
-@onready var Obstacle = $EvilEye
+# @onready var Obstacle = $EvilEye
 
 @onready var ObstacleSpawner = $"Enemy Spawner"
 @onready var powerup_manager = $"PowerUpManager"
@@ -35,7 +35,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_tick_game(delta)
 
-func _tick_game(delta: float) -> void:
+func _tick_game(_delta: float) -> void:
 	handle_input()
 	energyBar.energy = energy
 	healthbar.health = health

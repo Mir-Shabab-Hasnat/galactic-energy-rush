@@ -12,8 +12,9 @@ var double_points = false
 @onready var animated_player = $AnimatedSprite2D
 
 func _ready():
-	print(get_viewport_rect().size.x / 2)
-	print(get_viewport_rect().size.y / 2)
+	# print(get_viewport_rect().size.x / 2)
+	# print(get_viewport_rect().size.y / 2)
+	pass
 
 func _physics_process(delta: float) -> void:
 	# Add gravity

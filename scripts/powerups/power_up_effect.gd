@@ -3,11 +3,11 @@ extends Node
 
 @export var duration: float = 5.0
 
-func apply_effect(player):
+func apply_effect(_player):
 	# To be overridden by subclasses
 	pass
 
-func remove_effect(player):
+func remove_effect(_player):
 	# To be overridden by subclasses
 	pass
 

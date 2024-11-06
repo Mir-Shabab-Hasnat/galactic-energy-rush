@@ -36,7 +36,7 @@ func apply_power_up(player):
 		get_tree().root.add_child(effect_instance)
 		effect_instance.start_effect(player)
 		game.energy += 10  # Increment the energy value in the game node
-		print("Energy increased by 10. Current energy: ", game.energy)
-		print("Powerup applied: ", power_up_type)
+		# print("Energy increased by 10. Current energy: ", game.energy)
+		# print("Powerup applied: ", power_up_type)
 	else:
 		print("Error: effect_script is not set")

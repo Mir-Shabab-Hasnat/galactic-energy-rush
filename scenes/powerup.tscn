@@ -7,7 +7,7 @@
 size = Vector2(120, 120)
 
 [node name="powerup" type="Area2D"]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.2, 0.2)
 script = ExtResource("2_j2xb0")
 
 [node name="powerup" type="Sprite2D" parent="."]
