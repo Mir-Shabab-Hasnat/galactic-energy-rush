@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://2gacbpnolesw"]
+
+[ext_resource type="Script" path="res://scripts/evil_eye.gd" id="1_op3tn"]
+[ext_resource type="Texture2D" uid="uid://de0hwgqd6j8uk" path="res://assets/evil-eye.png" id="1_unir8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04bo7"]
+atlas = ExtResource("1_unir8")
+region = Rect2(0, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_un0yh"]
+atlas = ExtResource("1_unir8")
+region = Rect2(0, 64, 128, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0l1aw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04bo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_un0yh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2a70t"]
+size = Vector2(128, 62)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_op3tn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0l1aw")
+animation = &"idle"
+frame_progress = 0.421575
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2a70t")

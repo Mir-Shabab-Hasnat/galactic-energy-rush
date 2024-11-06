@@ -5,6 +5,7 @@ extends Node2D
 
 @onready var player = $Player
 @onready var platform = $Platform
+@onready var Obstacle = $EvilEye
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Start the timer when the game is ready
@@ -38,4 +39,5 @@ func handle_input():
 func _on_timer_timeout() -> void:
 	player.can_move = true
 	platform.start_scroll = true
+	Obstacle.can_move = true
 	
