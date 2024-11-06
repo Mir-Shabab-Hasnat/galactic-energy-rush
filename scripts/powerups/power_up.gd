@@ -1,12 +1,13 @@
 # power_up.gd
 extends Area2D
 
-enum PowerUpType { INVINCIBILITY, DOUBLE_POINTS }
+enum PowerUpType { INVINCIBILITY, DOUBLE_POINTS, ENERGY_PICKUP }
 
 var power_up_type: PowerUpType 
 var effect_script: GDScript
 var can_move = false
 var energy = 0
+var game
 
 @export var speed: float = 200;
 
@@ -34,6 +35,8 @@ func apply_power_up(player):
 		var effect_instance = effect_script.new()
 		get_tree().root.add_child(effect_instance)
 		effect_instance.start_effect(player)
+		game.energy += 10  # Increment the energy value in the game node
+		print("Energy increased by 10. Current energy: ", game.energy)
 		print("Powerup applied: ", power_up_type)
 	else:
 		print("Error: effect_script is not set")

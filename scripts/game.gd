@@ -14,7 +14,7 @@ extends Node2D
 @onready var healthbar = $HealthBar
 @onready var energyBar = $EnergyBar
 
-@export var energy = 0;
+@export var energy: int = 0;
 @export var health = 50;
 
 
@@ -33,11 +33,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
 	_tick_game(delta)
 
 func _tick_game(delta: float) -> void:
 	handle_input()
+	energyBar.energy = energy
+	healthbar.health = health
 	#set_start_spawn(player.can_move)
 	
 func handle_input():

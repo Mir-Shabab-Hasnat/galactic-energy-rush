@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cse58sxy2arjb"]
+[gd_scene load_steps=5 format=3 uid="uid://3twjj60qwn1o"]
 
 [ext_resource type="Script" path="res://scripts/energy_bar_model.gd" id="1_12t8e"]
 [ext_resource type="Texture2D" uid="uid://d06v7gq6g2b31" path="res://assets/energy-bar_under.png" id="2_ug4a6"]
