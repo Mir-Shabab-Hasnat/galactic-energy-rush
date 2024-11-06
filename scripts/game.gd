@@ -50,6 +50,7 @@ func set_start_spawn(can_move: bool) -> void:
 func _on_timer_timeout() -> void:
 	player.can_move = true
 	platform.start_scroll = true
+	ObstacleSpawner.start_spawn = true
 	
 	
 

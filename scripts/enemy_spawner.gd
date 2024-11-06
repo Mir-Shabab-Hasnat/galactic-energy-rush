@@ -3,7 +3,7 @@ extends Node
 @export var evil_eye_scene = preload("res://scenes/evil_eye.tscn")
 @export var spawn_interval: float = 2.0
 
-var start_spawn = true
+var start_spawn = false
 
 var timer = 0.0
 
@@ -13,10 +13,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	timer += delta
-	if timer >= spawn_interval:
-		spawn()
-		timer = 0.0
+	if start_spawn:
+		timer += delta
+		if timer >= spawn_interval:
+			spawn()
+			timer = 0.0
 
 func spawn() -> void:
 	var evil_eye = evil_eye_scene.instantiate()
