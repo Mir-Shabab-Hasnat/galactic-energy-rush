@@ -1,7 +1,7 @@
 extends Area2D
 
 var can_move = false
-var energy = 1
+var energy = 100
 @onready var animated_sprite = $AnimatedSprite2D
 
 @export var speed: float = 200;
@@ -14,4 +14,4 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if can_move:
 		animated_sprite.play("idle")
-		position.x -= speed * energy * delta
+		position.x -= (speed + energy) * delta
