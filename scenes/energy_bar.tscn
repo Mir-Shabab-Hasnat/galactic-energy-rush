@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cse58sxy2arjb"]
+
+[ext_resource type="Script" path="res://scripts/energy_bar_model.gd" id="1_12t8e"]
+[ext_resource type="Texture2D" uid="uid://d06v7gq6g2b31" path="res://assets/energy-bar_under.png" id="2_ug4a6"]
+[ext_resource type="Texture2D" uid="uid://cc08shcs1dsxn" path="res://assets/energy-progress.png" id="3_y1vru"]
+[ext_resource type="Script" path="res://scripts/energy_view.gd" id="4_o3byb"]
+
+[node name="EnergyBar" type="CanvasLayer"]
+script = ExtResource("1_12t8e")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 22.0
+offset_top = 89.0
+offset_right = 349.0
+offset_bottom = 145.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = 18.0
+offset_top = 92.0
+offset_right = 82.0
+offset_bottom = 102.0
+scale = Vector2(5.29559, 5.58505)
+texture_under = ExtResource("2_ug4a6")
+texture_progress = ExtResource("3_y1vru")
+script = ExtResource("4_o3byb")
