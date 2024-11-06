@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpo0xoilrmto2"]
+
+[ext_resource type="Script" path="res://Controller/Game.gd" id="1_qx4ld"]
+[ext_resource type="PackedScene" uid="uid://cy3xcrbdeak2r" path="res://backGround.tscn" id="1_vb82m"]
+[ext_resource type="PackedScene" uid="uid://duapu2e67n8th" path="res://ground.tscn" id="2_1rwkr"]
+[ext_resource type="PackedScene" uid="uid://bxxppjt3rvrh2" path="res://local_player.tscn" id="2_csu0s"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_qx4ld")
+
+[node name="ground" parent="." instance=ExtResource("2_1rwkr")]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_vb82m")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(7, 7)
+anchor_mode = 0
+zoom = Vector2(1.5, 1)
+
+[node name="LocalPlayer" parent="." instance=ExtResource("2_csu0s")]
+position = Vector2(458, 906)
