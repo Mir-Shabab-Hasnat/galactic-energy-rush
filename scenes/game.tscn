@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=8 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
 [ext_resource type="PackedScene" uid="uid://cdbf2so3gvxyi" path="res://scenes/platform.tscn" id="3_d7q4l"]
 [ext_resource type="PackedScene" uid="uid://c8g7ytr2jjwhn" path="res://scenes/Systems/enemy_spawner.tscn" id="5_os26m"]
+[ext_resource type="PackedScene" uid="uid://cry5e2l4vpcat" path="res://scenes/health_bar.tscn" id="5_v88yl"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -53,5 +54,7 @@ position = Vector2(0, 214)
 position = Vector2(304, 216)
 
 [node name="Enemy Spawner" parent="." instance=ExtResource("5_os26m")]
+
+[node name="HealthBar" parent="." instance=ExtResource("5_v88yl")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
