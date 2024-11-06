@@ -9,9 +9,16 @@ extends Node2D
 
 @onready var ObstacleSpawner = $"Enemy Spawner"
 
-var energy = 0;
+@onready var healthbar = $HealthBar
+
+@export var energy = 0;
+@export var health = 50;
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	healthbar.health = health
+	
 	# Start the timer when the game is ready
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
 	$Timer.one_shot = true   # Ensure the timer only runs once
