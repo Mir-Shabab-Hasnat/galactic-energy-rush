@@ -5,6 +5,11 @@ extends Node2D
 
 @onready var player = $Player
 @onready var platform = $Platform
+@onready var Obstacle = $EvilEye
+
+@onready var ObstacleSpawner = $"Enemy Spawner"
+
+var energy = 0;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Start the timer when the game is ready
@@ -21,6 +26,7 @@ func _process(delta: float) -> void:
 
 func _tick_game(delta: float) -> void:
 	handle_input()
+	#set_start_spawn(player.can_move)
 	
 func handle_input():
 	if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
@@ -34,8 +40,18 @@ func handle_input():
 			player.velocity.x = move_toward(player.velocity.x, 0, Speed)
 			
 	player.move_and_slide()
+	
+func set_start_spawn(can_move: bool) -> void:
+	if can_move:
+		ObstacleSpawner.set_spawn_state(can_move)
+	else:
+		ObstacleSpawner.set_spawn_state(false)
 
 func _on_timer_timeout() -> void:
 	player.can_move = true
 	platform.start_scroll = true
+	ObstacleSpawner.start_spawn = true
+	
+	
+
 	

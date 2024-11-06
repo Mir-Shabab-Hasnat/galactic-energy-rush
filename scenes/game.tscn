@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=7 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
 [ext_resource type="PackedScene" uid="uid://cdbf2so3gvxyi" path="res://scenes/platform.tscn" id="3_d7q4l"]
+[ext_resource type="PackedScene" uid="uid://c8g7ytr2jjwhn" path="res://scenes/Systems/enemy_spawner.tscn" id="5_os26m"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -19,12 +20,14 @@ zoom = Vector2(2, 2)
 
 [node name="FloorStatic" type="StaticBody2D" parent="."]
 position = Vector2(0, -47)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStatic"]
 position = Vector2(305, 300)
 shape = SubResource("WorldBoundaryShape2D_n7mas")
 
 [node name="LeftScreenBound" type="StaticBody2D" parent="."]
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftScreenBound"]
 position = Vector2(33, 166)
@@ -34,6 +37,7 @@ shape = SubResource("WorldBoundaryShape2D_b1j6n")
 [node name="RightScreenBounds" type="StaticBody2D" parent="."]
 position = Vector2(577, 321)
 rotation = 3.14159
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightScreenBounds"]
 position = Vector2(33, 166)
@@ -47,5 +51,7 @@ position = Vector2(0, 214)
 
 [node name="Player" parent="." instance=ExtResource("1_41bkr")]
 position = Vector2(304, 216)
+
+[node name="Enemy Spawner" parent="." instance=ExtResource("5_os26m")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
