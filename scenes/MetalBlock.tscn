@@ -11,7 +11,10 @@ position = Vector2(283, 18)
 collision_layer = 4
 collision_mask = 3
 mass = 1000.0
-gravity_scale = 8.0
+gravity_scale = -0.533
+freeze = true
+freeze_mode = 1
+linear_velocity = Vector2(80, 0)
 script = ExtResource("1_atqh3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,3 +23,5 @@ texture = ExtResource("1_ocqgt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6p1eu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

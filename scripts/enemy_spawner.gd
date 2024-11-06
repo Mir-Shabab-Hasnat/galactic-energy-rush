@@ -23,6 +23,7 @@ func _process(delta: float) -> void:
 
 func spawn() -> void:
 	var evil_eye = evil_eye_scene.instantiate()
+	
 	add_child(evil_eye)
 	evil_eye.can_move = true
 	evil_eye.global_position.x = 630
@@ -30,13 +31,15 @@ func spawn() -> void:
 	evil_eye.scale = Vector2(0.4, 0.4)
 	
 	
+	
+	
 func spawnBox() -> void:
 	
 	var MetalBox= MetalBlock_scene.instantiate()
 	add_child(MetalBox)
 	
-	
-	MetalBox.global_position.x = 300
-	MetalBox.global_position.y = 230
+	MetalBox.scale = Vector2(0.5, 1.5)
+	MetalBox.global_position.x = 640
+	MetalBox.global_position.y = 220
 	
 	print(MetalBox.global_position.x, " ",MetalBox.global_position.y)
