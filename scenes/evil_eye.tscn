@@ -28,7 +28,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2a70t"]
 size = Vector2(128, 62)
 
-[node name="Area2D" type="Area2D"]
+[node name="EvilEye" type="Area2D"]
+collision_layer = 4
 script = ExtResource("1_op3tn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
