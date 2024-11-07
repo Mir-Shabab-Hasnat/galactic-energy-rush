@@ -15,11 +15,13 @@ extends Node2D
 @onready var energyBar = $EnergyBar
 
 @export var energy: int = 0;
+var appliedEnergy
 @export var health = 50;
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	healthbar.health = health
 	energyBar.energy = energy
 	
@@ -34,12 +36,16 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	_tick_game(delta)
+	
+	
 
 func _tick_game(_delta: float) -> void:
 	handle_input()
 	energyBar.energy = energy
 	healthbar.health = health
-	#set_start_spawn(player.can_move)
+	
+	apply_energy()
+	
 	
 func handle_input():
 	if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
@@ -48,18 +54,17 @@ func handle_input():
 	if player.running or player.jump:
 		var direction := Input.get_axis("ui_left", "ui_right")
 		if direction:
-			player.velocity.x = direction * Speed
+			player.velocity.x = direction * (Speed + energy)
 		else:
-			player.velocity.x = move_toward(player.velocity.x, 0, Speed)
+			player.velocity.x = move_toward(player.velocity.x, 0, (Speed + energy))
 			
 	player.move_and_slide()
-	
-#func set_start_spawn(can_move: bool) -> void:
-	#if can_move:
-		#ObstacleSpawner.set_spawn_state(can_move)
-	#else:
-		#ObstacleSpawner.set_spawn_state(false)
 
+func apply_energy():
+	appliedEnergy = energy * 2
+	platform.energy = appliedEnergy
+	
+	
 func _on_timer_timeout() -> void:
 	player.can_move = true
 	platform.start_scroll = true
