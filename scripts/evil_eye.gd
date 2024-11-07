@@ -31,6 +31,8 @@ func _process(delta: float) -> void:
 func _on_body_entered(body):
 	if body.is_in_group("player"):  # Assuming obstacles are in an "obstacles" group
 		print("Collision with obstacle detected!")
+		game_instance.health -= 10
+		game_instance.energy -= 5
 		queue_free()
 		
 
