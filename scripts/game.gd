@@ -1,3 +1,4 @@
+# Main Game Script
 extends Node2D
 
 @export var Speed = 300.0
@@ -5,14 +6,15 @@ extends Node2D
 
 @onready var player = $Player
 @onready var platform = $Platform
-#@onready var Obstacle = $Evil_eye
+# @onready var Obstacle = $EvilEye
 
 @onready var ObstacleSpawner = $"Enemy Spawner"
+@onready var powerup_manager = $"PowerUpManager"
 
 @onready var healthbar = $HealthBar
 @onready var energyBar = $EnergyBar
 
-@export var energy = 0;
+@export var energy: int = 0;
 @export var health = 50;
 
 
@@ -25,16 +27,18 @@ func _ready() -> void:
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
 	$Timer.one_shot = true   # Ensure the timer only runs once
 	$Timer.start()           # Start the timer
-	
+
+	powerup_manager.start_spawn = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
 	_tick_game(delta)
 
-func _tick_game(delta: float) -> void:
+func _tick_game(_delta: float) -> void:
 	handle_input()
+	energyBar.energy = energy
+	healthbar.health = health
 	#set_start_spawn(player.can_move)
 	
 func handle_input():
