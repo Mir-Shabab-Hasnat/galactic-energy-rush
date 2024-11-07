@@ -102,21 +102,17 @@ animations = [{
 radius = 12.0
 height = 54.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_qojc7")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 position = Vector2(0, -33)
 sprite_frames = SubResource("SpriteFrames_ktues")
 animation = &"run"
 autoplay = "idle"
 frame_progress = 0.928722
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
 position = Vector2(0, -27)
 shape = SubResource("CapsuleShape2D_1ohk5")
-
-[node name="Timer" type="Timer" parent="."]
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

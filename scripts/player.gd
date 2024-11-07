@@ -15,7 +15,9 @@ func _ready():
 	# print(get_viewport_rect().size.x / 2)
 	# print(get_viewport_rect().size.y / 2)
 	pass
-
+	
+	
+	
 func _physics_process(delta: float) -> void:
 	# Add gravity
 	
@@ -53,3 +55,5 @@ func _physics_process(delta: float) -> void:
 	if double_points:
 		# Double the current score
 		pass
+
+#detects palyer collosion with obstacles
