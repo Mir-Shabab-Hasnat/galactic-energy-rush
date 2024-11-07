@@ -1,7 +1,8 @@
 extends Node
 @export var MetalBlock_scene = preload("res://scenes/MetalBlock.tscn")
 @export var evil_eye_scene = preload("res://scenes/evil_eye.tscn")
-@export var spawn_interval: float = 2.0
+@export var floatingPlatform_scene = preload("res://scenes/floating_platform.tscn")
+@export var spawn_interval: float = randf_range(1.5,3.5)
 
 var start_spawn = false
 
@@ -19,6 +20,7 @@ func _process(delta: float) -> void:
 			
 			spawn()
 			spawnBox()
+			spawnFloatingplatform()
 			timer = 0.0
 
 func spawn() -> void:
@@ -37,9 +39,22 @@ func spawnBox() -> void:
 	
 	var MetalBox= MetalBlock_scene.instantiate()
 	add_child(MetalBox)
+	var height = randf_range(0.5,1.5)
 	
-	MetalBox.scale = Vector2(0.5, 1.5)
+	MetalBox.scale = Vector2(0.5, height)
 	MetalBox.global_position.x = 640
 	MetalBox.global_position.y = 220
 	
 	print(MetalBox.global_position.x, " ",MetalBox.global_position.y)
+
+func spawnFloatingplatform() -> void:
+	
+	var flPlatform = floatingPlatform_scene.instantiate()
+	add_child(flPlatform)
+	var height = randf_range(150,200)
+	
+	
+	flPlatform.global_position.x = 500
+	flPlatform.global_position.y = height
+	
+	print(flPlatform.global_position.x, " ",flPlatform.global_position.y)

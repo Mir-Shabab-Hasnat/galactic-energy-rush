@@ -6,7 +6,6 @@ var speed: float = 125
 func _ready() -> void:
 	gravity_scale = 0
 	
-	connect("body_entered", Callable(self, "_on_body_entered"))
 	pass
 
 
