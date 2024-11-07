@@ -47,6 +47,7 @@ func _process(delta: float) -> void:
 
 func _tick_game(_delta: float) -> void:
 	updateGameState()
+	
 	handle_input()
 	
 	energyBar.energy = energy
@@ -60,16 +61,16 @@ func handle_input():
 		start_run = false
 		print("trying to pause the game")
 		print(start_run)
-	
-	if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
-		player.velocity.y = Jump_velocity
-	
-	if player.running or player.jump:
-		var direction := Input.get_axis("ui_left", "ui_right")
-		if direction:
-			player.velocity.x = direction * (Speed + energy)
-		else:
-			player.velocity.x = move_toward(player.velocity.x, 0, (Speed + energy))
+	if start_run:
+		if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
+			player.velocity.y = Jump_velocity
+		
+		if player.running or player.jump:
+			var direction := Input.get_axis("ui_left", "ui_right")
+			if direction:
+				player.velocity.x = direction * (Speed + energy)
+			else:
+				player.velocity.x = move_toward(player.velocity.x, 0, (Speed + energy))
 			
 	player.move_and_slide()
 
@@ -87,10 +88,12 @@ func updateGameState() -> void:
 		player.can_move = true
 		platform.start_scroll = true
 		ObstacleSpawner.start_spawn = true
+		powerup_manager.start_spawn = true
 	else:
 		player.can_move = false
 		platform.start_scroll = false
 		ObstacleSpawner.start_spawn = false
+		powerup_manager.start_spawn = true
 		
 
 	
