@@ -35,7 +35,9 @@ func _on_Area2D_body_entered(body):
 func apply_power_up(player):
 	if power_up_type == PowerUpType.ENERGY_PICKUP:
 		if game:
-			game.energy += 10  # Increment the energy value in the game node
+			if game.energy <= 100:
+				game.energy += 10  # Increment the energy value in the game node
+			print("Applied Energy increased by 10. Current energy: ", game.appliedEnergy)
 			print("Energy increased by 10. Current energy: ", game.energy)
 		else:
 			print("Error: game reference is not set")
