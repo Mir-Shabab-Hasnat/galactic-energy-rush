@@ -64,6 +64,17 @@ position = Vector2(304, 216)
 
 [node name="EnergyBar" parent="." instance=ExtResource("7_6hyyh")]
 
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 321.0
+offset_top = 4.0
+offset_right = 545.0
+offset_bottom = 27.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "
+"
+horizontal_alignment = 2
+
 [node name="MetalBlock" parent="." instance=ExtResource("5_bdi6l")]
 position = Vector2(-4, -416)
 
