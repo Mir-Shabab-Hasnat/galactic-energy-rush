@@ -47,6 +47,11 @@ func apply_power_up(player):
 			print("Energy increased by 10. Current energy: ", game.energy)
 		else:
 			print("Error: game reference is not set")
+	if power_up_type == PowerUpType.DOUBLE_POINTS:
+		if game:
+			if game.health <= 100:
+				game.health += 25
+			print("HEALTH: ", game.health)
 	else:
 		if effect_script:
 			var effect_instance = effect_script.new()

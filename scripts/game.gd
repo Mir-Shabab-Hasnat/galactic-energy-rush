@@ -35,6 +35,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if health > 100:
+		health = 100
+	if energy > 100:
+		energy = 100
 	_tick_game(delta)
 	
 	
