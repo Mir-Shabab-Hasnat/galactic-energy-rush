@@ -57,7 +57,7 @@ func _tick_game(_delta: float) -> void:
 	
 	
 func handle_input():
-	if Input.is_action_just_pressed("pause") and start_run:
+	if Input.is_action_just_pressed("pause"):
 		start_run = false
 		print("trying to pause the game")
 		print(start_run)

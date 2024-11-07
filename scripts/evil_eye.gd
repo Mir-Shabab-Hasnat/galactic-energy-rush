@@ -17,7 +17,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var viewport_rect = get_viewport().get_visible_rect()
-	
+	update_move_state()
 	update_energy()
 	if can_move:
 		animated_sprite.play("idle")
@@ -37,5 +37,7 @@ func _on_body_entered(body):
 		
 
 func update_energy() -> void:
-	
 	energy = game_instance.energy * 3
+
+func update_move_state() -> void:
+	can_move = game_instance.start_run
