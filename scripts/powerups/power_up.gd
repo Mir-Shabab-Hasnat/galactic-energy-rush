@@ -14,6 +14,7 @@ var game
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	update_energy()
 	if can_move:
 		position.x -= (speed + energy) * delta
 
@@ -23,6 +24,7 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func _ready():
+	
 	connect("body_entered", Callable(self, "_on_Area2D_body_entered"))
 	set_powerup_color()
 
@@ -31,6 +33,10 @@ func _on_Area2D_body_entered(body):
 		apply_power_up(body)
 		queue_free()
 
+
+func update_energy() -> void:
+	
+	energy = game.energy * 3
 
 func apply_power_up(player):
 	if power_up_type == PowerUpType.ENERGY_PICKUP:
