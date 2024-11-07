@@ -16,7 +16,7 @@ extends Node2D
 
 @export var energy: int = 0;
 var appliedEnergy
-@export var health = 50;
+@export var health = 100;
 
 
 # Called when the node enters the scene tree for the first time.
