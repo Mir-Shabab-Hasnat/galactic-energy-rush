@@ -58,9 +58,10 @@ func _tick_game(_delta: float) -> void:
 	
 func handle_input():
 	if Input.is_action_just_pressed("pause"):
-		start_run = false
-		print("trying to pause the game")
-		print(start_run)
+		if start_run:
+			start_run = false
+		else:
+			start_run = true
 	if start_run:
 		if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
 			player.velocity.y = Jump_velocity
