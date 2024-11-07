@@ -18,6 +18,8 @@ extends Node2D
 var appliedEnergy
 @export var health = 100;
 
+var start_run = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -44,7 +46,10 @@ func _process(delta: float) -> void:
 	
 
 func _tick_game(_delta: float) -> void:
+	updateGameState()
+	
 	handle_input()
+	
 	energyBar.energy = energy
 	healthbar.health = health
 	
@@ -52,15 +57,21 @@ func _tick_game(_delta: float) -> void:
 	
 	
 func handle_input():
-	if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
-		player.velocity.y = Jump_velocity
-	
-	if player.running or player.jump:
-		var direction := Input.get_axis("ui_left", "ui_right")
-		if direction:
-			player.velocity.x = direction * (Speed + energy)
+	if Input.is_action_just_pressed("pause"):
+		if start_run:
+			start_run = false
 		else:
-			player.velocity.x = move_toward(player.velocity.x, 0, (Speed + energy))
+			start_run = true
+	if start_run:
+		if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
+			player.velocity.y = Jump_velocity
+		
+		if player.running or player.jump:
+			var direction := Input.get_axis("ui_left", "ui_right")
+			if direction:
+				player.velocity.x = direction * (Speed + energy)
+			else:
+				player.velocity.x = move_toward(player.velocity.x, 0, (Speed + energy))
 			
 	player.move_and_slide()
 
@@ -70,10 +81,20 @@ func apply_energy():
 	
 	
 func _on_timer_timeout() -> void:
-	player.can_move = true
-	platform.start_scroll = true
-	ObstacleSpawner.start_spawn = true
+	start_run = true
 	
 	
+func updateGameState() -> void:
+	if start_run:
+		player.can_move = true
+		platform.start_scroll = true
+		ObstacleSpawner.start_spawn = true
+		powerup_manager.start_spawn = true
+	else:
+		player.can_move = false
+		platform.start_scroll = false
+		ObstacleSpawner.start_spawn = false
+		powerup_manager.start_spawn = true
+		
 
 	
