@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 			
 			spawn()
 			spawnBox()
-			spawnFloatingplatform()
+			#spawnFloatingplatform()
 			timer = 0.0
 
 func spawn() -> void:
