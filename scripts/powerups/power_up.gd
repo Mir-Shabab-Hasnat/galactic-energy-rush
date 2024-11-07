@@ -14,6 +14,7 @@ var game
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	update_move_state()
 	update_energy()
 	if can_move:
 		position.x -= (speed + energy) * delta
@@ -22,6 +23,9 @@ func _process(delta: float) -> void:
 	var viewport_rect = get_viewport().get_visible_rect()
 	if position.x < viewport_rect.position.x:
 		queue_free()
+
+func update_move_state() -> void:
+	can_move = game.start_run
 
 func _ready():
 	

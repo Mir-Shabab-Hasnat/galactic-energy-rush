@@ -3,7 +3,9 @@ extends RigidBody2D
 var energy = 0
 var speed: float = 125
 var game_instance 
+var can_move
 # Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	gravity_scale = 0
 	game_instance = get_node("/root/Game")
@@ -13,6 +15,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	update_move_state()
 	update_energy()
 	var viewport_rect = get_viewport().get_visible_rect()
 	if global_position.x < viewport_rect.position.x:
@@ -23,8 +26,12 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 # Apply a force to the right (increase x component to increase speed)
-	position.x -= (speed + energy) * delta  # Move the body right at 100 pixels per second
+	if can_move:
+		position.x -= (speed + energy) * delta  # Move the body right at 100 pixels per second
 	
 func update_energy() -> void:
 	
 	energy = game_instance.energy * 3
+	
+func update_move_state() -> void:
+	can_move = game_instance.start_run
