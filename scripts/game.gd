@@ -13,10 +13,14 @@ extends Node2D
 
 @onready var healthbar = $HealthBar
 @onready var energyBar = $EnergyBar
+@onready var scoreLabel = $ScoreLabel
 
 @export var energy: int = 0;
 var appliedEnergy
 @export var health = 100;
+var score: int = 0;
+var accumulated_score: float = 0.0;
+var game_started: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,6 +43,18 @@ func _process(delta: float) -> void:
 		health = 100
 	if energy > 100:
 		energy = 100
+	
+	if game_started:
+		# Increment the accumulated score based on the player's velocity
+		accumulated_score += max(5, energy) * delta
+
+		# Update the integer score variable when the accumulated score exceeds 1
+		if accumulated_score >= 1.0:
+			score += int(accumulated_score)
+			accumulated_score -= int(accumulated_score)
+		scoreLabel.text = "Score: " + str(int(score))  # Update the score label
+
+
 	_tick_game(delta)
 	
 	
@@ -73,6 +89,7 @@ func _on_timer_timeout() -> void:
 	player.can_move = true
 	platform.start_scroll = true
 	ObstacleSpawner.start_spawn = true
+	game_started = true
 	
 	
 
