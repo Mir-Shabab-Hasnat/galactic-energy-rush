@@ -33,6 +33,7 @@ func _on_body_entered(body):
 		print("Collision with obstacle detected!")
 		game_instance.health -= 10
 		game_instance.energy -= 5
+		print(game_instance.health)
 		queue_free()
 		
 
