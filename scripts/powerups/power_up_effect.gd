@@ -17,5 +17,9 @@ func start_effect(player):
 		await get_tree().create_timer(duration).timeout
 	else:
 		print("Error: Node is not added to the scene tree")
-	remove_effect(player)
-	queue_free()
+		
+	if player != null:
+		remove_effect(player)
+		queue_free()
+	else:
+		print("Error: player reference is not set")
