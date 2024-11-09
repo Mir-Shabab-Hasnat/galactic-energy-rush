@@ -4,9 +4,13 @@ extends Node2D
 @export var Speed = 300.0
 @export var Jump_velocity = -400.0
 
+var main_menu = preload("res://scenes/main_menu.tscn")
+
 @onready var player = $Player
 @onready var platform = $Platform
 # @onready var Obstacle = $EvilEye
+
+
 
 @onready var ObstacleSpawner = $"Enemy Spawner"
 @onready var powerup_manager = $"PowerUpManager"
@@ -17,7 +21,7 @@ extends Node2D
 
 @export var energy: int = 0;
 var appliedEnergy
-@export var health = 100;
+@export var health = 20;
 var score: int = 0;
 var accumulated_score: float = 0.0;
 var game_started: bool = false
@@ -46,7 +50,10 @@ func _process(delta: float) -> void:
 	if energy > 100:
 		energy = 100
 	
-	if game_started:
+	if health <= 0:
+		game_end()
+	
+	if start_run:
 		# Increment the accumulated score based on the player's velocity
 		accumulated_score += max(5, energy) * delta
 
@@ -114,4 +121,16 @@ func updateGameState() -> void:
 		powerup_manager.start_spawn = true
 		
 
+func game_end()-> void:
 	
+	if main_menu:
+		# Remove the current game scene
+		self.queue_free()
+		
+		# Load and add the main menu scene
+		var main_menu_instance = main_menu.instantiate()
+   
+		get_tree().root.add_child(main_menu_instance)
+		print("Loaded main menu scene.")
+	else:
+		print("Error: main_menu scene is not loaded correctly.")
