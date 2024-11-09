@@ -5,6 +5,7 @@ extends Node2D
 @export var Jump_velocity = -400.0
 
 var main_menu = preload("res://scenes/main_menu.tscn")
+var game_reload = preload("res://scenes/game.tscn")
 
 @onready var player = $Player
 @onready var platform = $Platform
@@ -21,7 +22,7 @@ var main_menu = preload("res://scenes/main_menu.tscn")
 
 @export var energy: int = 0;
 var appliedEnergy
-@export var health = 20;
+@export var health = 1;
 var score: int = 0;
 var accumulated_score: float = 0.0;
 var game_started: bool = false
@@ -126,7 +127,7 @@ func game_end()-> void:
 	if main_menu:
 		# Remove the current game scene
 		#var main_menu_instance = main_menu.instantiate()
-		get_tree().change_scene_to_file("res://scenes/game.tscn")
+		get_tree().change_scene_to_packed(game_reload)
 		start_run = false
    
 		
