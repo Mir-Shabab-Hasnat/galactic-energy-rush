@@ -125,12 +125,11 @@ func game_end()-> void:
 	
 	if main_menu:
 		# Remove the current game scene
-		self.queue_free()
-		
-		# Load and add the main menu scene
-		var main_menu_instance = main_menu.instantiate()
+		#var main_menu_instance = main_menu.instantiate()
+		get_tree().change_scene_to_file("res://scenes/game.tscn")
+		start_run = false
    
-		get_tree().root.add_child(main_menu_instance)
+		
 		print("Loaded main menu scene.")
 	else:
 		print("Error: main_menu scene is not loaded correctly.")
