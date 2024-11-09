@@ -50,6 +50,8 @@ func _process(delta: float) -> void:
 		health = 100
 	if energy > 100:
 		energy = 100
+	if energy < 0:
+		energy = 0
 	
 	if health <= 0:
 		game_end()
