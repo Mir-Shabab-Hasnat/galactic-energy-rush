@@ -21,7 +21,7 @@ var main_menu = preload("res://scenes/main_menu.tscn")
 
 @export var energy: int = 0;
 var appliedEnergy
-@export var health = 20;
+@export var health = 100;
 var score: int = 0;
 var accumulated_score: float = 0.0;
 var game_started: bool = false
