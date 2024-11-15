@@ -3,7 +3,7 @@ extends Node
 # Preload the powerup scene
 var PowerUpScene = preload("res://scenes/powerup.tscn")
 
-@export var spawn_interval: float = 2
+@export var spawn_interval: float = 5
 @export var energy_pickup_spawn_interval: float = 1.5  # More frequent spawn interval for ENERGY_PICKUP
 
 
@@ -67,11 +67,11 @@ func create_powerup(power_up_type: int) -> Node:
 		
 		match power_up_type:
 			PowerUpType.INVINCIBILITY:
-				print("Invincibility powerup created")
+				# print("Invincibility powerup created")
 				powerup.power_up_type = PowerUpType.INVINCIBILITY
 				powerup.effect_script = InvincibilityEffectScript
 			PowerUpType.SHIELD:
-				print("Shield powerup created")
+				# print("Shield powerup created")
 				powerup.power_up_type = PowerUpType.SHIELD
 				powerup.effect_script = ShieldEffectScript
 		

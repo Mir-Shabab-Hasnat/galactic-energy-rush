@@ -4,7 +4,7 @@ extends "res://scripts/powerups/power_up_effect.gd"
 # @onready var animated_sprite = $Sprite2D
 
 func apply_effect(player):
-	print("Player is invincible")
+	# print("Player is invincible")
 	player.is_invincible = true
 
 func remove_effect(player):
