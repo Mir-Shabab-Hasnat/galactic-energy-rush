@@ -21,7 +21,6 @@ func _ready():
 	shield.connect("area_entered", Callable(self, "_on_shield_area_entered"))
 	
 	
-	
 func _physics_process(delta: float) -> void:
 	# Add gravity
 	
@@ -73,7 +72,6 @@ func _on_shield_body_entered(body):
 	if has_shield and body.is_in_group("enemyObstacle"):
 		# print("Shield collided with enemyObstacle: ", body.name)
 		# Push the enemy away or vaporize it
-		# For now, let's vaporize the enemy
 		body.queue_free()
 
 
@@ -81,5 +79,4 @@ func _on_shield_area_entered(area):
 	if has_shield and area.is_in_group("enemyObstacle"):
 		# print("Shield collided with enemyObstacle: ", area.name)
 		# Push the enemy away or vaporize it
-		# For now, let's vaporize the enemy
 		area.queue_free()

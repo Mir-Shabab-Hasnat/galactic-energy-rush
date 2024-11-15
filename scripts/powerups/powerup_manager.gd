@@ -3,7 +3,7 @@ extends Node
 # Preload the powerup scene
 var PowerUpScene = preload("res://scenes/powerup.tscn")
 
-@export var spawn_interval: float = 5
+@export var spawn_interval: float = 2
 @export var energy_pickup_spawn_interval: float = 1.5  # More frequent spawn interval for ENERGY_PICKUP
 
 

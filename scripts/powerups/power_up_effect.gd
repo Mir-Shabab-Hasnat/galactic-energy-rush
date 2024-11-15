@@ -1,7 +1,14 @@
-# power_up_effect.gd
 extends Node
 
 @export var duration: float = 5.0
+var timer: Timer
+
+func _ready():
+	timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = duration
+	timer.connect("timeout", Callable(self, "_on_timeout"))
+	add_child(timer)
 
 func apply_effect(_player):
 	# To be overridden by subclasses
@@ -12,14 +19,12 @@ func remove_effect(_player):
 	pass
 
 func start_effect(player):
-	apply_effect(player)    
-	if get_tree():
-		await get_tree().create_timer(duration).timeout
-	else:
-		print("Error: Node is not added to the scene tree")
-		
-	if player != null:
-		remove_effect(player)
-		queue_free()
-	else:
-		print("Error: player reference is not set")
+	apply_effect(player)
+	timer.start()
+
+func refresh_duration():
+	timer.start()
+
+func _on_timeout():
+	remove_effect(get_parent())
+	queue_free()

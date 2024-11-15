@@ -49,9 +49,16 @@ func apply_power_up(player):
 			print("Error: player reference is not set")
 	else:
 		if effect_script:
-			var effect_instance = effect_script.new()
-			get_tree().root.add_child(effect_instance)
-			effect_instance.start_effect(player)
+			var effect_group_name = "effect_" + str(power_up_type)
+			var existing_effect = player.get_node_or_null(effect_group_name)
+			# print("if existing_effect: ", existing_effect)
+			if existing_effect:
+				existing_effect.refresh_duration()
+			else:
+				var effect_instance = effect_script.new()
+				player.add_child(effect_instance)
+				effect_instance.name = effect_group_name
+				effect_instance.start_effect(player)
 		else:
 			print("Error: effect_script is not set")
 
