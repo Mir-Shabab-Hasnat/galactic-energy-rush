@@ -3,9 +3,11 @@ extends Node
 # Preload the powerup scene
 var PowerUpScene = preload("res://scenes/powerup.tscn")
 
-@export var spawn_interval: float = 2
-@export var energy_pickup_spawn_interval: float = 1.5  # More frequent spawn interval for ENERGY_PICKUP
+@export var spawn_interval: float = 3.5
+@export var energy_pickup_spawn_interval: float = 0.75  # More frequent spawn interval for ENERGY_PICKUP
 
+@export var spawn_interval_variation: float = 0.5  # Maximum variation for powerup spawn interval
+@export var energy_pickup_spawn_interval_variation: float = 0.5  # Maximum variation for energy pickup spawn interval
 
 # Preload the effect scenes
 var InvincibilityEffectScript = preload("res://scripts/powerups/Invincibility.gd")
@@ -34,10 +36,18 @@ func _process(delta: float) -> void:
 		if timer >= spawn_interval:
 			spawn_powerup()
 			timer = 0.0
+			# Add random variation to the next spawn interval
+			spawn_interval += randf_range(-spawn_interval_variation, spawn_interval_variation)
+			# Clamp the spawn interval to stay within reasonable bounds
+			spawn_interval = clamp(spawn_interval, 2.0, 5.0)
 
 		if energy_pickup_timer >= energy_pickup_spawn_interval:
 			spawn_energy_pickup()
 			energy_pickup_timer = 0.0
+			# Add random variation to the next energy pickup spawn interval
+			energy_pickup_spawn_interval += randf_range(-energy_pickup_spawn_interval_variation, energy_pickup_spawn_interval_variation)
+			# Clamp the energy pickup spawn interval to stay within reasonable bounds
+			energy_pickup_spawn_interval = clamp(energy_pickup_spawn_interval, 0.25, 1.5)
 
 
 func spawn_powerup() -> void:

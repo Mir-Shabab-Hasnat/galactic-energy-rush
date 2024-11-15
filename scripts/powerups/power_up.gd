@@ -44,7 +44,7 @@ func apply_power_up(player):
 	if power_up_type == PowerUpType.ENERGY_PICKUP: 
 		if player:
 			if player.energy <= 100:
-				player.energy += 10  # Increment the energy value in the game node
+				player.energy += 3  # Increment the energy value in the game node
 		else:
 			print("Error: player reference is not set")
 	else:
