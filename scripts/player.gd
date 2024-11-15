@@ -52,11 +52,7 @@ func _physics_process(delta: float) -> void:
 
 	if is_invincible:
 		animated_player.modulate = Color(1, 1, 1, 0.4)
-	else:
-		animated_player.modulate = Color(1, 1, 1, 1)
-	
-	
-	if has_shield:
+	elif has_shield:
 		shield.visible = true
 		animated_player.modulate = Color(0, 0, 1, 1) # Blue color for shield
 	else:

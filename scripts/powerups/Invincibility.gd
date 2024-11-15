@@ -1,4 +1,4 @@
-# invincibility_effect.gd
+# invincibility.gd
 extends "res://scripts/powerups/power_up_effect.gd"
 
 # @onready var animated_sprite = $Sprite2D
