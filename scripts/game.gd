@@ -23,6 +23,7 @@ var score: int = 0;
 var accumulated_score: float = 0.0;
 var game_started: bool = false
 var start_run = false
+var elapsed_time: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,6 +40,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	elapsed_time += delta
 	if player.energy > 100:
 		player.energy = 100
 		player_energy = player.energy

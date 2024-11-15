@@ -20,6 +20,8 @@ enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP }
 var start_spawn = false
 var timer = 0.0
 var energy_pickup_timer = 0.0
+var shield_spawn_time: float = 30.0  # Time in seconds after which the Shield powerup can start spawning
+
 
 var game_instance
 
@@ -52,6 +54,12 @@ func _process(delta: float) -> void:
 
 func spawn_powerup() -> void:
 	var power_up_type = randi() % PowerUpType.size()-1  # Randomly select a powerup type
+	
+	# Ensure Shield powerup doesn't spawn before the specified time
+	if power_up_type == PowerUpType.SHIELD and game_instance.elapsed_time < shield_spawn_time:
+		# select a different powerup type
+		power_up_type = PowerUpType.INVINCIBILITY
+
 	var viewport_rect = get_viewport().get_visible_rect()
 	var powerup = create_powerup(power_up_type)
 	add_child(powerup)
