@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bqdmouxemwvb"]
+[gd_scene load_steps=18 format=3 uid="uid://bqdmouxemwvb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qojc7"]
 [ext_resource type="Texture2D" uid="uid://bw27sasqhccyv" path="res://assets/character-idl-run.png" id="2_7wq02"]
+[ext_resource type="Texture2D" uid="uid://pysxhmi5phdp" path="res://icon.svg" id="3_e0d38"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6q13"]
 atlas = ExtResource("2_7wq02")
@@ -102,6 +103,9 @@ animations = [{
 radius = 12.0
 height = 54.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ygws"]
+radius = 45.0999
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_qojc7")
@@ -116,3 +120,18 @@ frame_progress = 0.928722
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
 position = Vector2(0, -27)
 shape = SubResource("CapsuleShape2D_1ohk5")
+
+[node name="Shield" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+position = Vector2(0, -29)
+shape = SubResource("CircleShape2D_1ygws")
+debug_color = Color(0.72549, 0.172549, 0.701961, 0.682353)
+
+[node name="DebugSprite" type="Sprite2D" parent="Shield"]
+modulate = Color(1, 0.0941176, 1, 0.313726)
+position = Vector2(0, -30)
+scale = Vector2(0.53125, 0.53125)
+texture = ExtResource("3_e0d38")

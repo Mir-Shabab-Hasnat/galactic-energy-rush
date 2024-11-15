@@ -7,6 +7,7 @@ var can_move
 # Called when the node enters the scene tree for the first time.
 
 func _ready() -> void:
+	add_to_group("enemyObstacle")
 	gravity_scale = 0
 	game_instance = get_node("/root/Game")
 	

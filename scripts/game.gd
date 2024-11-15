@@ -9,7 +9,7 @@ var game_reload = preload("res://scenes/game.tscn")
 
 @onready var player = $Player
 @onready var platform = $Platform
-@onready var enemy = $EvilEye
+#@onready var enemy = $EvilEye
 
 @onready var ObstacleSpawner = $"Enemy Spawner"
 @onready var powerup_manager = $"PowerUpManager"
