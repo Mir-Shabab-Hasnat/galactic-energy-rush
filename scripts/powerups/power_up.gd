@@ -7,7 +7,7 @@ var power_up_type: PowerUpType
 var effect_script: GDScript
 var can_move = false
 var energy = 0
-var game
+var game_instance
 
 @export var speed: float = 200;
 @onready var sprite = $powerupSprite  # Reference to the Sprite2D node
@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func update_move_state() -> void:
-	can_move = game.start_run
+	can_move = game_instance.start_run
 
 func _ready():
 	
@@ -39,29 +39,23 @@ func _on_Area2D_body_entered(body):
 
 
 func update_energy() -> void:
-	
-	energy = game.energy * 3
+	energy = game_instance.player_energy * 3
 
 func apply_power_up(player):
-	if power_up_type == PowerUpType.ENERGY_PICKUP:
-		if game:
-			if game.energy <= 100:
-				game.energy += 10  # Increment the energy value in the game node
-			print("Applied Energy increased by 10. Current energy: ", game.appliedEnergy)
-			print("Energy increased by 10. Current energy: ", game.energy)
+	if power_up_type == PowerUpType.ENERGY_PICKUP: 
+		if game_instance:
+			if player.energy <= 100:
+				player.energy += 10  # Increment the energy value in the game node
 		else:
 			print("Error: game reference is not set")
 	if power_up_type == PowerUpType.DOUBLE_POINTS:
-		if game:
-			if game.health <= 100:
-				game.health += 25
-			print("HEALTH: ", game.health)
+		pass
 	else:
 		if effect_script:
 			var effect_instance = effect_script.new()
 			get_tree().root.add_child(effect_instance)
 			effect_instance.start_effect(player)
-			print("Powerup applied: ", power_up_type)
+			# print("Powerup applied: ", power_up_type)
 		else:
 			print("Error: effect_script is not set")
 

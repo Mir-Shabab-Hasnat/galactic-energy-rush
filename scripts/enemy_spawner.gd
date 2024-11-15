@@ -4,8 +4,9 @@ extends Node
 @export var floatingPlatform_scene = preload("res://scenes/floating_platform.tscn")
 @export var spawn_interval: float = randf_range(1.5,3.5)
 
-var start_spawn = false
+@onready var game_instance = get_node("/root/Game")
 
+var start_spawn = false
 var timer = 0.0
 
 # Called when the node enters the scene tree for the first time.
@@ -27,6 +28,7 @@ func spawn() -> void:
 	var evil_eye = evil_eye_scene.instantiate()
 	
 	add_child(evil_eye)
+	evil_eye.connect("player_collided", Callable(game_instance, "_on_player_collided"))
 	evil_eye.can_move = true
 	evil_eye.global_position.x = 630
 	evil_eye.global_position.y = 200
@@ -45,7 +47,7 @@ func spawnBox() -> void:
 	MetalBox.global_position.x = 640
 	MetalBox.global_position.y = 220
 	
-	print(MetalBox.global_position.x, " ",MetalBox.global_position.y)
+	# print(MetalBox.global_position.x, " ",MetalBox.global_position.y)
 
 func spawnFloatingplatform() -> void:
 	
@@ -57,4 +59,4 @@ func spawnFloatingplatform() -> void:
 	flPlatform.global_position.x = 500
 	flPlatform.global_position.y = height
 	
-	print(flPlatform.global_position.x, " ",flPlatform.global_position.y)
+	# print(flPlatform.global_position.x, " ",flPlatform.global_position.y)

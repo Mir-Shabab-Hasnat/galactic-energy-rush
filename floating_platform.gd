@@ -15,5 +15,5 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	var viewport_rect = get_viewport().get_visible_rect()
 	if global_position.x < viewport_rect.position.x -100:
-		print("platform free at ", position.x)
+		# print("platform free at ", position.x)
 		queue_free()

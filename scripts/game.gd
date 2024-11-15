@@ -9,32 +9,25 @@ var game_reload = preload("res://scenes/game.tscn")
 
 @onready var player = $Player
 @onready var platform = $Platform
-# @onready var Obstacle = $EvilEye
-
-
+@onready var enemy = $EvilEye
 
 @onready var ObstacleSpawner = $"Enemy Spawner"
 @onready var powerup_manager = $"PowerUpManager"
 
-@onready var healthbar = $HealthBar
 @onready var energyBar = $EnergyBar
 @onready var scoreLabel = $ScoreLabel
 
-@export var energy: int = 0;
-var appliedEnergy
-@export var health = 1;
+var appliedEnergy # whats the point of this
+var player_energy
 var score: int = 0;
 var accumulated_score: float = 0.0;
 var game_started: bool = false
-
 var start_run = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	healthbar.health = health
-	energyBar.energy = energy
+	energyBar.energy = player.energy
 	
 	# Start the timer when the game is ready
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
@@ -46,17 +39,16 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if health > 100:
-		health = 100
-	if energy > 100:
-		energy = 100
+	if player.energy > 100:
+		player.energy = 100
+		player_energy = player.energy
 	
-	if health <= 0:
+	if player.energy <= 0:
 		game_end()
 	
 	if start_run:
 		# Increment the accumulated score based on the player's velocity
-		accumulated_score += max(5, energy) * delta
+		accumulated_score += max(5, player.energy) * delta
 
 		# Update the integer score variable when the accumulated score exceeds 1
 		if accumulated_score >= 1.0:
@@ -74,8 +66,8 @@ func _tick_game(_delta: float) -> void:
 	
 	handle_input()
 	
-	energyBar.energy = energy
-	healthbar.health = health
+	energyBar.energy = player.energy
+	player_energy = player.energy
 	
 	apply_energy()
 	
@@ -93,16 +85,24 @@ func handle_input():
 		if player.running or player.jump:
 			var direction := Input.get_axis("ui_left", "ui_right")
 			if direction:
-				player.velocity.x = direction * (Speed + energy)
+				player.velocity.x = direction * (Speed + player.energy)
 			else:
-				player.velocity.x = move_toward(player.velocity.x, 0, (Speed + energy))
+				player.velocity.x = move_toward(player.velocity.x, 0, (Speed + player.energy))
 			
 	player.move_and_slide()
 
+func _on_player_collided(energy_loss):
+	if not player.is_invincible:
+		player.decrement_energy(energy_loss)
+		player.energy -= energy_loss
+		player_energy = player.energy
+		energyBar.energy = player.energy  # Update energy bar with player's energy
+
+
+# What does this function do?
 func apply_energy():
-	appliedEnergy = energy * 2
+	appliedEnergy = player.energy * 2
 	platform.energy = appliedEnergy
-	
 	
 func _on_timer_timeout() -> void:
 	start_run = true
@@ -131,6 +131,6 @@ func game_end()-> void:
 		start_run = false
    
 		
-		print("Loaded main menu scene.")
+		# print("Loaded main menu scene.")
 	else:
 		print("Error: main_menu scene is not loaded correctly.")

@@ -8,6 +8,7 @@ var running = false
 var jump = false
 var is_invincible: bool = false
 var double_points = false
+var energy: int = 50
 
 @onready var animated_player = $AnimatedSprite2D
 
@@ -56,4 +57,6 @@ func _physics_process(delta: float) -> void:
 		# Double the current score
 		pass
 
-#detects palyer collosion with obstacles
+func decrement_energy(amount: int):
+	if not is_invincible:
+		energy -= amount

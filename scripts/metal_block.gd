@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 	update_energy()
 	var viewport_rect = get_viewport().get_visible_rect()
 	if global_position.x < viewport_rect.position.x:
-		print("metal free at ", position.x)
+		# print("metal free at ", position.x)
 		queue_free()
 	pass
 
@@ -30,8 +30,7 @@ func _physics_process(delta: float) -> void:
 		position.x -= (speed + energy) * delta  # Move the body right at 100 pixels per second
 	
 func update_energy() -> void:
-	
-	energy = game_instance.energy * 3
+	energy = game_instance.player_energy * 3
 	
 func update_move_state() -> void:
 	can_move = game_instance.start_run

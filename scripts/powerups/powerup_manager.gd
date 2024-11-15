@@ -3,7 +3,7 @@ extends Node
 # Preload the powerup scene
 var PowerUpScene = preload("res://scenes/powerup.tscn")
 
-@export var spawn_interval: float = 1
+@export var spawn_interval: float = 5
 
 # Preload the effect scenes
 var InvincibilityEffectScript = preload("res://scripts/powerups/Invincibility.gd")
@@ -16,11 +16,11 @@ enum PowerUpType { INVINCIBILITY, DOUBLE_POINTS, ENERGY_PICKUP }
 var start_spawn = false
 var timer = 0.0
 
-var game
+var game_instance
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	game = get_node("/root/Game")
+	game_instance = get_node("/root/Game")
 
 
 func _process(delta: float) -> void:
@@ -38,7 +38,7 @@ func spawn_powerup() -> void:
 	powerup.can_move = true
 	powerup.global_position.x = viewport_rect.size.x + 20 # Spawn just off the right side
 	powerup.global_position.y = 225
-	powerup.game = game  # Pass the game reference to the powerup
+	powerup.game_instance = game_instance  # Pass the game reference to the powerup
 	# print("Powerup spawned: ", powerup.power_up_type)
 	# print("At x: ", powerup.global_position.x, " y: ", powerup.global_position.y)
 
