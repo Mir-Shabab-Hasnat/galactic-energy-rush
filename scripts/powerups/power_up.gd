@@ -1,7 +1,7 @@
 # power_up.gd
 extends Area2D
 
-enum PowerUpType { INVINCIBILITY, DOUBLE_POINTS, ENERGY_PICKUP }
+enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP }
 
 var power_up_type: PowerUpType 
 var effect_script: GDScript
@@ -9,7 +9,7 @@ var can_move = false
 var energy = 0
 var game_instance
 
-@export var speed: float = 200;
+@export var speed: float = 125.0;
 @onready var sprite = $powerupSprite  # Reference to the Sprite2D node
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,7 +28,6 @@ func update_move_state() -> void:
 	can_move = game_instance.start_run
 
 func _ready():
-	
 	connect("body_entered", Callable(self, "_on_Area2D_body_entered"))
 	set_powerup_color()
 
@@ -43,19 +42,16 @@ func update_energy() -> void:
 
 func apply_power_up(player):
 	if power_up_type == PowerUpType.ENERGY_PICKUP: 
-		if game_instance:
+		if player:
 			if player.energy <= 100:
 				player.energy += 10  # Increment the energy value in the game node
 		else:
-			print("Error: game reference is not set")
-	if power_up_type == PowerUpType.DOUBLE_POINTS:
-		pass
+			print("Error: player reference is not set")
 	else:
 		if effect_script:
 			var effect_instance = effect_script.new()
 			get_tree().root.add_child(effect_instance)
 			effect_instance.start_effect(player)
-			# print("Powerup applied: ", power_up_type)
 		else:
 			print("Error: effect_script is not set")
 
@@ -64,7 +60,7 @@ func set_powerup_color():
 	match power_up_type:
 		PowerUpType.INVINCIBILITY:
 			sprite.modulate = Color(1, 1, 1, 0.4)  # White color for invincibility
-		PowerUpType.DOUBLE_POINTS:
-			sprite.modulate = Color(0, 1, 0)  # Green color for double points
+		PowerUpType.SHIELD:
+			sprite.modulate = Color(0, 1, 0)  # Green color for shield
 		PowerUpType.ENERGY_PICKUP:
 			sprite.modulate = Color(0, 0, 1)  # Blue color for energy pickup

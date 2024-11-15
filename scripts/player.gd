@@ -7,14 +7,12 @@ var idle = false
 var running = false
 var jump = false
 var is_invincible: bool = false
-var double_points = false
+var has_shield = false
 var energy: int = 50
 
 @onready var animated_player = $AnimatedSprite2D
 
 func _ready():
-	# print(get_viewport_rect().size.x / 2)
-	# print(get_viewport_rect().size.y / 2)
 	pass
 	
 	
@@ -52,10 +50,13 @@ func _physics_process(delta: float) -> void:
 		animated_player.modulate = Color(1, 1, 1, 0.4)
 	else:
 		animated_player.modulate = Color(1, 1, 1, 1)
+	
+	
+	if has_shield:
+		animated_player.modulate = Color(0, 0, 1, 1) # Blue color for shield
+	else:
+		animated_player.modulate = Color(1, 1, 1, 1)
 
-	if double_points:
-		# Double the current score
-		pass
 
 func decrement_energy(amount: int):
 	if not is_invincible:
