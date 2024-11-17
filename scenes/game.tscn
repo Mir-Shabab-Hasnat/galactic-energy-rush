@@ -75,4 +75,10 @@ horizontal_alignment = 2
 [node name="MetalBlock" parent="." instance=ExtResource("5_bdi6l")]
 position = Vector2(-4, -416)
 
+[node name="TimeLabel" type="Label" parent="."]
+offset_left = 281.0
+offset_top = 2.0
+offset_right = 321.0
+offset_bottom = 25.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

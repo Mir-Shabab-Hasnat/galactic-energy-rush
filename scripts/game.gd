@@ -16,6 +16,7 @@ var game_reload = preload("res://scenes/game.tscn")
 
 @onready var energyBar = $EnergyBar
 @onready var scoreLabel = $ScoreLabel
+@onready var timeLabel = $TimeLabel
 
 var appliedEnergy # whats the point of this
 var player_energy
@@ -41,6 +42,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	elapsed_time += delta
+	timeLabel.text = "Time: " + str(int(elapsed_time))
 	if player.energy > 100:
 		player.energy = 100
 		player_energy = player.energy
