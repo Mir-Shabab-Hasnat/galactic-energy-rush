@@ -2,10 +2,10 @@ extends Node
 
 # List of weapon scenes to spawn
 @export var weapon_scenes: Array[PackedScene] = []
-@export var min_spawn_interval: float = 5.0 # Minimum interval between spawns
-@export var max_spawn_interval: float = 10.0 # Maximum interval between spawns
-@export var spawn_area: Rect2 = Rect2(Vector2(577, 230), Vector2(10, 10))
-@export var start_delay: float = 20 # Delay in seconds before starting to spawn
+@export var min_spawn_interval: float = 8.0 # Initial minimum interval between spawns
+@export var max_spawn_interval: float = 15.0 # Initial maximum interval between spawns
+@export var spawn_area: Rect2 = Rect2(Vector2(577, 230), Vector2(10, 10)) # Fixed spawn area
+@export var start_delay: float = 5 # Delay in seconds before starting to spawn
 
 var _elapsed_time: float = 0 # Tracks how long the game has been running
 
@@ -23,7 +23,8 @@ func start_spawning() -> void:
 	_schedule_next_spawn()
 
 func _schedule_next_spawn() -> void:
-	var interval = randf_range(min_spawn_interval, max_spawn_interval)
+	# Add randomness to spawn intervals
+	var interval = randf_range(min_spawn_interval, max_spawn_interval) + randf() * 2.0
 	await get_tree().create_timer(interval).timeout
 	spawn_weapon()
 	_schedule_next_spawn()
@@ -36,7 +37,7 @@ func spawn_weapon() -> void:
 	var weapon_scene = weapon_scenes[randi() % weapon_scenes.size()]
 	var weapon_instance = weapon_scene.instantiate()
 	
-	# Spawn the weapon at a random position within the spawn area
+	# Spawn the weapon at a random position within the fixed spawn area
 	var spawn_position = Vector2(
 		randf_range(spawn_area.position.x, spawn_area.position.x + spawn_area.size.x),
 		randf_range(spawn_area.position.y, spawn_area.position.y + spawn_area.size.y)
@@ -47,10 +48,11 @@ func spawn_weapon() -> void:
 func _process(delta: float) -> void:
 	_elapsed_time += delta
 
-	# Adjust spawn parameters as time progresses
+	# Adjust spawn intervals as time progresses
 	adjust_spawn_rate()
 
 func adjust_spawn_rate() -> void:
-	# Example: Decrease the interval range over time
-	min_spawn_interval = max(0.2, 1.0 - _elapsed_time / 120.0) # Slowly reduce to a min of 0.2
-	max_spawn_interval = max(1.0, 3.0 - _elapsed_time / 120.0) # Slowly reduce to a min of 1.0
+	# Decrease the interval range over 5 minutes (300 seconds)
+	var time_factor = _elapsed_time / 300.0
+	min_spawn_interval = lerp(8.0, 2.0, clamp(time_factor, 0, 1)) # Min interval reduces from 8s to 2s
+	max_spawn_interval = lerp(15.0, 5.0, clamp(time_factor, 0, 1)) # Max interval reduces from 15s to 5s
