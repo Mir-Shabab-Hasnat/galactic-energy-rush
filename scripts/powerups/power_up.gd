@@ -10,7 +10,7 @@ var energy = 0
 var game_instance
 
 @export var speed: float = 125.0;
-@onready var sprite = $powerupSprite  # Reference to the Sprite2D node
+@onready var animated_sprite = $AnimatedPowerupSprite  # Reference to the Sprite2D node
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -29,7 +29,8 @@ func update_move_state() -> void:
 
 func _ready():
 	connect("body_entered", Callable(self, "_on_Area2D_body_entered"))
-	set_powerup_color()
+	set_powerup_animation()
+	# set_powerup_color()
 
 func _on_Area2D_body_entered(body):
 	if body.get("TYPE") == "player":
@@ -62,12 +63,22 @@ func apply_power_up(player):
 		else:
 			print("Error: effect_script is not set")
 
+func set_powerup_animation():
+	match power_up_type:
+		PowerUpType.INVINCIBILITY:
+			animated_sprite.animation = "invincibility"
+		PowerUpType.SHIELD:
+			animated_sprite.animation = "shield"
+		PowerUpType.ENERGY_PICKUP:
+			animated_sprite.animation = "energy_pickup"
+	animated_sprite.play()
+
 
 func set_powerup_color():
 	match power_up_type:
 		PowerUpType.INVINCIBILITY:
-			sprite.modulate = Color(1, 1, 1, 0.4)  # White color for invincibility
+			animated_sprite.modulate = Color(1, 1, 1, 0.4)  # White color for invincibility
 		PowerUpType.SHIELD:
-			sprite.modulate = Color(0, 1, 0)  # Green color for shield
+			animated_sprite.modulate = Color(0, 1, 0)  # Green color for shield
 		PowerUpType.ENERGY_PICKUP:
-			sprite.modulate = Color(0, 0, 1)  # Blue color for energy pickup
+			animated_sprite.modulate = Color(0, 0, 1)  # Blue color for energy pickup
