@@ -102,6 +102,8 @@ func _on_player_collided(energy_loss):
 		player_energy = player.energy
 		energyBar.energy = player.energy  # Update energy bar with player's energy
 
+func _on_weapon_collided() :
+	pass
 
 # What does this function do?
 func apply_energy():

@@ -3,6 +3,9 @@ var energy = 0
 @export var speed: float = 200;
 var game_instance 
 var can_move = false
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	game_instance = get_node("/root/Game")
@@ -21,8 +24,17 @@ func _process(delta: float) -> void:
 		# print("eye free at ", position.x)
 		queue_free()
 		
+
+		
 func update_energy() -> void:
 	energy = game_instance.player_energy * 3
 
 func update_move_state() -> void:
 	can_move = game_instance.start_run		
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		# print("Evil Eye collided with player")
+		body.holdWeapon = true
+		queue_free()

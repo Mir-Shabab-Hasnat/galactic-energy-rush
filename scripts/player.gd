@@ -9,8 +9,10 @@ var jump = false
 var is_invincible: bool = false
 var has_shield = false
 var energy: int = 50
+var holdWeapon = false
 
 @onready var animated_player = $AnimatedSprite2D
+@onready var shotGun = $Shotgun 
 @onready var shield = $Shield
 @onready var shield_collision_shape = $Shield/CollisionShape2D
 @onready var shield_debug_sprite = $Shield/DebugSprite  # Temporary debug sprite
@@ -23,6 +25,7 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	# Add gravity
+	gunLogic()
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -76,3 +79,10 @@ func _on_shield_area_entered(area):
 		# print("Shield collided with enemyObstacle: ", area.name)
 		# Push the enemy away or vaporize it
 		area.queue_free()
+		
+func gunLogic():
+	if holdWeapon:
+		shotGun.visible = true
+		shotGun.play("default")
+	else:
+		shotGun.visible = false

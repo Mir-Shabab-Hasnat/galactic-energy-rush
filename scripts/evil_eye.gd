@@ -9,6 +9,7 @@ var energy = 0
 var game_instance 
 signal player_collided(damage)
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group("enemyObstacle")

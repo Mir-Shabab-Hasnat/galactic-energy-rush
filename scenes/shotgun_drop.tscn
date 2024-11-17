@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://be01o35684hnq"]
 
-[ext_resource type="Script" path="res://scripts/shotgun.gd" id="1_7wfg1"]
+[ext_resource type="Script" path="res://scripts/shotgunDrop.gd" id="1_7wfg1"]
 [ext_resource type="Texture2D" uid="uid://bxla7mdyn5kxx" path="res://assets/shotgunDrop.png" id="1_gff1a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ichc5"]
@@ -17,3 +17,5 @@ shape = SubResource("RectangleShape2D_ichc5")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(31.6667, 10)
 texture = ExtResource("1_gff1a")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
