@@ -14,6 +14,7 @@ var holdWeapon = false
 @onready var animated_player = $AnimatedSprite2D
 @onready var shotGun = $Shotgun 
 @onready var shield = $Shield
+@onready var animated_shield = $Shield/AnimatedShield
 @onready var shield_collision_shape = $Shield/CollisionShape2D
 @onready var shield_debug_sprite = $Shield/DebugSprite  # Temporary debug sprite
 
@@ -57,6 +58,7 @@ func _physics_process(delta: float) -> void:
 		animated_player.modulate = Color(1, 1, 1, 0.4)
 	elif has_shield:
 		shield.visible = true
+		animated_shield.play("default")
 		animated_player.modulate = Color(0, 0, 1, 1) # Blue color for shield
 	else:
 		shield.visible = false
