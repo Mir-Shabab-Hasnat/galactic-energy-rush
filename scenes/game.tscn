@@ -29,7 +29,7 @@ collision_layer = 2
 position = Vector2(305, 300)
 shape = SubResource("WorldBoundaryShape2D_n7mas")
 
-[node name="LeftScreenBound" type="StaticBody2D" parent="."]
+[node name="LeftScreenBound" type="Area2D" parent="."]
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftScreenBound"]
