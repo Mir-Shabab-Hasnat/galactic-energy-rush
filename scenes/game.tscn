@@ -13,7 +13,7 @@
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b1j6n"]
 distance = -33.0
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" groups=["barriers"]]
 script = ExtResource("1_07uqo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -21,28 +21,28 @@ position = Vector2(0, 1)
 anchor_mode = 0
 zoom = Vector2(2, 2)
 
-[node name="FloorStatic" type="StaticBody2D" parent="."]
+[node name="FloorStatic" type="StaticBody2D" parent="." groups=["barriers"]]
 position = Vector2(0, -47)
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStatic"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorStatic" groups=["barriers"]]
 position = Vector2(305, 300)
 shape = SubResource("WorldBoundaryShape2D_n7mas")
 
-[node name="LeftScreenBound" type="Area2D" parent="."]
+[node name="LeftScreenBound" type="Area2D" parent="." groups=["barriers"]]
 collision_layer = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftScreenBound"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftScreenBound" groups=["barriers"]]
 position = Vector2(33, 166)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_b1j6n")
 
-[node name="RightScreenBounds" type="StaticBody2D" parent="."]
+[node name="RightScreenBounds" type="StaticBody2D" parent="." groups=["barriers"]]
 position = Vector2(577, 321)
 rotation = 3.14159
 collision_layer = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightScreenBounds"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightScreenBounds" groups=["barriers"]]
 position = Vector2(33, 166)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_b1j6n")
