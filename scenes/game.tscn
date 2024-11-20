@@ -60,6 +60,8 @@ position = Vector2(304, 216)
 [node name="PowerUpManager" parent="." instance=ExtResource("5_rp0wt")]
 
 [node name="EnergyBar" parent="." instance=ExtResource("7_6hyyh")]
+offset = Vector2(0, -70)
+transform = Transform2D(1, 0, 0, 1, 0, -70)
 
 [node name="ScoreLabel" type="Label" parent="."]
 offset_left = 321.0

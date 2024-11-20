@@ -191,10 +191,12 @@ func update_scoreboard(player_score: int) -> void:
 
 	# Display the scoreboard
 func display_scoreboard() -> void:
-	var scoreboard_text = "Top 10 Scores:\n"
+	var scoreboard_text = "[center][b]Top 10 Scores:[/b]\n"
 	for i in range(top_scores.size()):
-		scoreboard_text += str(i + 1) + ". " + str(top_scores[i]) + "\n"
-	print(scoreboard_text)  # Replace this with code to display the scoreboard in the game
+		scoreboard_text += str(i + 1) + ".  " + str(top_scores[i]) + "\n"
+	scoreboard_text += "[/center]"
+	game_over.get_node("Control/ScoreLabel").bbcode_text = scoreboard_text
+	game_over.visible = true
 
 
 # Save the top 10 scores to a file
