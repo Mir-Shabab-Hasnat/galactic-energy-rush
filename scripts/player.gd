@@ -84,6 +84,17 @@ func _on_shield_area_entered(area):
 		# Push the enemy away or vaporize it
 		area.queue_free()
 
+func check_and_free_existing_bodies():
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsShapeQueryParameters2D.new()
+	query.shape_rid = shield_collision_shape.shape.get_rid()
+	query.transform = shield_collision_shape.global_transform
+	query.margin = 0.1
+	var result = space_state.intersect_shape(query, 32)  # Corrected call
+	for item in result:
+		var body = item.collider
+		if body and body.is_in_group("enemyObstacle"):
+			body.queue_free()
 
 func toggle_shield():
 	if has_shield:
@@ -97,3 +108,4 @@ func toggle_shield():
 			shield_active = true
 			shield.visible = true
 			shield_debug_sprite.visible = true
+			check_and_free_existing_bodies()
