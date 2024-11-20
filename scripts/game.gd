@@ -24,12 +24,15 @@ var player_energy
 var score: int = 0;
 var accumulated_score: float = 0.0;
 var game_started: bool = false
+var game_ended: bool = false
 var start_run = false
 var elapsed_time: float = 0.0
 
+var top_scores = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	load_scores()  # Load the top scores when the game starts
 	energyBar.energy = player.energy
 	
 	# Start the timer when the game is ready
@@ -48,6 +51,12 @@ func _ready() -> void:
 		leftBoundary.connect("body_entered", Callable(self, "_on_left_boundary_entered"))
 
 
+	# Initialize the top_scores array with 0s if it's empty
+	if top_scores.is_empty():
+		for i in range(10):
+			top_scores.append(0)
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -56,7 +65,8 @@ func _process(delta: float) -> void:
 		player.energy = 100
 		player_energy = player.energy
 	
-	if player.energy <= 0:
+	if player.energy <= 0 and not game_ended:
+		game_ended = true
 		await get_tree().create_timer(0.1).timeout
 		_game_end()
 	
@@ -137,6 +147,10 @@ func updateGameState() -> void:
 		
 
 func _game_end():
+	print("Game Over!")
+	update_scoreboard(score)
+	save_scores()  # Save the top scores when the game ends
+	display_scoreboard()
 
 	get_tree().paused = true
 	
@@ -150,6 +164,7 @@ func _game_end():
 func _on_restart_game():
 	print("Restarting game...")
 
+	game_ended = false
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
@@ -165,3 +180,41 @@ func _on_left_boundary_entered(body):
 func _check_if_player_off_screen():
 	if player.global_position.x < leftBoundary.global_position.x:
 		_on_player_collided(10*((leftBoundary.global_position.x-player.global_position.x)/1000))
+
+# Update the scoreboard with the player's score
+func update_scoreboard(player_score: int) -> void:
+	top_scores.append(player_score)
+	top_scores.sort()
+	top_scores.reverse()
+	if top_scores.size() > 10:
+		top_scores.resize(10)
+
+	# Display the scoreboard
+func display_scoreboard() -> void:
+	var scoreboard_text = "Top 10 Scores:\n"
+	for i in range(top_scores.size()):
+		scoreboard_text += str(i + 1) + ". " + str(top_scores[i]) + "\n"
+	print(scoreboard_text)  # Replace this with code to display the scoreboard in the game
+
+
+# Save the top 10 scores to a file
+func save_scores():
+	var file = FileAccess.open("user://top_scores.save", FileAccess.WRITE)
+	if file:
+		for score in top_scores:
+			file.store_line(str(score))
+		file.close()
+
+# Load the top 10 scores from a file
+func load_scores():
+	var file = FileAccess.open("user://top_scores.save", FileAccess.READ)
+	if file:
+		top_scores.clear()
+		while not file.eof_reached():
+			var score = file.get_line().to_int()
+			top_scores.append(score)
+		file.close()
+		top_scores.sort()
+		top_scores.reverse()
+		if top_scores.size() > 10:
+			top_scores.resize(10)

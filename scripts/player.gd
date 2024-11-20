@@ -8,7 +8,7 @@ var running = false
 var jump = false
 var is_invincible: bool = false
 var has_shield = false
-var energy: int = 100
+var energy: int = 50
 
 @onready var animated_player = $AnimatedSprite2D
 @onready var shield = $Shield
