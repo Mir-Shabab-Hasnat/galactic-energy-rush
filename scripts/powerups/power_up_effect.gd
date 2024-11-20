@@ -20,10 +20,16 @@ func remove_effect(_player):
 
 func start_effect(player):
 	apply_effect(player)
-	timer.start()
+	if timer:
+		timer.start()
+	else:
+		print("Error: Timer is not initialized")
 
 func refresh_duration():
-	timer.start()
+	if timer:
+		timer.start()
+	else:
+		print("Error: Timer is not initialized")
 
 func _on_timeout():
 	remove_effect(get_parent())

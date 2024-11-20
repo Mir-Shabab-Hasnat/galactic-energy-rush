@@ -28,6 +28,9 @@ var game_ended: bool = false
 var start_run = false
 var elapsed_time: float = 0.0
 
+
+enum PowerUpType { SHIELD, INVINCIBILITY, ENERGY_PICKUP }
+
 var top_scores = []
 
 # Called when the node enters the scene tree for the first time.
@@ -112,7 +115,12 @@ func handle_input():
 				player.velocity.x = direction * (Speed + player.energy)
 			else:
 				player.velocity.x = move_toward(player.velocity.x, 0, (Speed + player.energy))
-			
+		
+		# Handle shield toggle input
+		if Input.is_action_just_pressed("toggle_shield") and player.has_shield:
+			# print("input detected for shield toggle")
+			player.toggle_shield()
+
 	player.move_and_slide()
 
 func _on_player_collided(energy_loss):

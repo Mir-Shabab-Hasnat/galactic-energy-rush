@@ -2,13 +2,17 @@ extends CharacterBody2D
 
 const TYPE = "player"
 
+enum PowerUpType { SHIELD, INVINCIBILITY, ENERGY_PICKUP }
+
 var can_move = false
 var idle = false
 var running = false
 var jump = false
 var is_invincible: bool = false
 var has_shield = false
+var shield_active: bool = false
 var energy: int = 50
+var energy_decrement_accumulator: float = 0.0
 
 @onready var animated_player = $AnimatedSprite2D
 @onready var shield = $Shield
@@ -22,11 +26,15 @@ func _ready():
 	
 	
 func _physics_process(delta: float) -> void:
-	# Add gravity
-	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
+	if shield_active:
+		energy_decrement_accumulator += 10 * delta
+		if energy_decrement_accumulator >= 1.0:
+			decrement_energy(int(energy_decrement_accumulator))
+			energy_decrement_accumulator -= int(energy_decrement_accumulator)
+	
 	
 	if can_move:
 		if position.y < 250:
@@ -52,8 +60,7 @@ func _physics_process(delta: float) -> void:
 
 	if is_invincible:
 		animated_player.modulate = Color(1, 1, 1, 0.4)
-	elif has_shield:
-		shield.visible = true
+	elif has_shield and shield.visible:
 		animated_player.modulate = Color(0, 0, 1, 1) # Blue color for shield
 	else:
 		shield.visible = false
@@ -65,14 +72,28 @@ func decrement_energy(amount: int):
 		energy -= amount
 
 func _on_shield_body_entered(body):
-	if has_shield and body.is_in_group("enemyObstacle"):
+	if has_shield and shield_active and body.is_in_group("enemyObstacle"):
 		# print("Shield collided with enemyObstacle: ", body.name)
 		# Push the enemy away or vaporize it
 		body.queue_free()
 
 
 func _on_shield_area_entered(area):
-	if has_shield and area.is_in_group("enemyObstacle"):
+	if has_shield and shield_active and area.is_in_group("enemyObstacle"):
 		# print("Shield collided with enemyObstacle: ", area.name)
 		# Push the enemy away or vaporize it
 		area.queue_free()
+
+
+func toggle_shield():
+	if has_shield:
+		if shield_active:
+			print("Shield deactivated")
+			shield_active = false
+			shield.visible = false
+			shield_debug_sprite.visible = false
+		else:
+			print("Shield activated")
+			shield_active = true
+			shield.visible = true
+			shield_debug_sprite.visible = true

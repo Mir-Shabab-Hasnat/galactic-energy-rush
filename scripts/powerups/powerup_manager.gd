@@ -20,7 +20,7 @@ enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP }
 var start_spawn = false
 var timer = 0.0
 var energy_pickup_timer = -1.0
-var shield_spawn_time: float = 30.0  # Time in seconds after which the Shield powerup can start spawning
+var shield_spawn_time: float = 5.0  # Time in seconds after which the Shield powerup can start spawning
 
 
 var game_instance

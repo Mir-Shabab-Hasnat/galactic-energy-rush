@@ -82,5 +82,4 @@ func shoot() -> void:
 	if bullet.has_method("set_velocity"):
 		bullet.set_velocity(Vector2(0, projectile_speed))
 
-	# Print a message indicating a projectile has been dropped
-	print("Projectile dropped!")
+	# print("Projectile dropped!")
