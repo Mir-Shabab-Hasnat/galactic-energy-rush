@@ -18,6 +18,8 @@ var holdWeapon = false
 @onready var shield_collision_shape = $Shield/CollisionShape2D
 @onready var shield_debug_sprite = $Shield/DebugSprite  # Temporary debug sprite
 
+@onready var shotgunMuzzle = shotGun.get_node("Muzzle")
+@export var bullet_scene: PackedScene
 
 var gunDirection = "straight"
 
@@ -91,3 +93,13 @@ func gunLogic():
 		shotGun.play("default")
 	else:
 		shotGun.visible = false
+		
+func shoot():
+	if bullet_scene and shotgunMuzzle:
+		var bullet_instance = bullet_scene.instantiate()
+		
+		bullet_instance.global_position = shotgunMuzzle.global_position
+		var direction = Vector2.RIGHT.rotated(shotgunMuzzle.global_rotation)
+		bullet_instance.rotation = shotGun.global_rotation
+		bullet_instance.direction = direction.normalized()  # Set bullet's direction
+		get_parent().add_child(bullet_instance)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://bqdmouxemwvb"]
+[gd_scene load_steps=27 format=3 uid="uid://bqdmouxemwvb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qojc7"]
 [ext_resource type="Texture2D" uid="uid://bw27sasqhccyv" path="res://assets/character-idl-run.png" id="2_7wq02"]
+[ext_resource type="PackedScene" uid="uid://d33ekg771hquj" path="res://scenes/bullet.tscn" id="2_n0cy3"]
 [ext_resource type="Texture2D" uid="uid://dhk743fcgyw02" path="res://assets/player-shield-effect.png" id="4_27oyj"]
 [ext_resource type="Texture2D" uid="uid://g1mq8x2cnse2" path="res://assets/shotgun.png" id="4_qsviv"]
 
@@ -161,6 +162,7 @@ animations = [{
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_qojc7")
+bullet_scene = ExtResource("2_n0cy3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 position = Vector2(0, -33)
@@ -179,6 +181,9 @@ scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_0blcx")
 frame_progress = 0.505689
 offset = Vector2(6.66667, 0)
+
+[node name="Muzzle" type="Node2D" parent="Shotgun"]
+position = Vector2(40, -3.33333)
 
 [node name="Shield" type="Area2D" parent="."]
 visible = false

@@ -103,6 +103,12 @@ func handle_input():
 			player.shotGun.rotation_degrees = 0
 		
 			player.gunDirection = "straight"
+		
+		if player.holdWeapon and player.gunDirection == "straight" and Input.is_action_just_pressed("ui_right"):
+			player.shoot()
+		if player.holdWeapon and player.gunDirection == "up" and Input.is_action_just_pressed("ui_up"):
+			player.shoot()
+		
 	player.move_and_slide()
 
 func _on_player_collided(energy_loss):
