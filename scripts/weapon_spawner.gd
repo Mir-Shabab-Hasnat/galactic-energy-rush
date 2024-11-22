@@ -2,10 +2,10 @@ extends Node
 
 # List of weapon scenes to spawn
 @export var weapon_scenes: Array[PackedScene] = []
-@export var min_spawn_interval: float = 8 # Initial minimum interval between spawns
-@export var max_spawn_interval: float = 15.0 # Initial maximum interval between spawns
+@export var min_spawn_interval: float = 2 # Initial minimum interval between spawns
+@export var max_spawn_interval: float = 3.0 # Initial maximum interval between spawns
 @export var spawn_area: Rect2 = Rect2(Vector2(577, 230), Vector2(10, 10)) # Fixed spawn area
-@export var start_delay: float = 20 # Delay in seconds before starting to spawn
+@export var start_delay: float = 2 # Delay in seconds before starting to spawn
 
 var _elapsed_time: float = 0 # Tracks how long the game has been running
 
@@ -54,5 +54,5 @@ func _process(delta: float) -> void:
 func adjust_spawn_rate() -> void:
 	# Decrease the interval range over 5 minutes (300 seconds)
 	var time_factor = _elapsed_time / 300.0
-	min_spawn_interval = lerp(8.0, 2.0, clamp(time_factor, 0, 1)) # Min interval reduces from 8s to 2s
-	max_spawn_interval = lerp(15.0, 5.0, clamp(time_factor, 0, 1)) # Max interval reduces from 15s to 5s
+	min_spawn_interval = lerp(min_spawn_interval, 2.0, clamp(time_factor, 0, 1)) # Min interval reduces from 8s to 2s
+	max_spawn_interval = lerp(max_spawn_interval, 5.0, clamp(time_factor, 0, 1)) # Max interval reduces from 15s to 5s

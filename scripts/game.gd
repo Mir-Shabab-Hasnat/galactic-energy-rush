@@ -27,6 +27,7 @@ var start_run = false
 var elapsed_time: float = 0.0
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	energyBar.energy = player.energy
@@ -73,6 +74,7 @@ func _tick_game(_delta: float) -> void:
 	energyBar.energy = player.energy
 	player_energy = player.energy
 	
+	
 	apply_energy()
 	
 	
@@ -83,16 +85,24 @@ func handle_input():
 		else:
 			start_run = true
 	if start_run:
-		if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
+		if Input.is_action_just_pressed("Jump") and player.is_on_floor():
 			player.velocity.y = Jump_velocity
 		
 		if player.running or player.jump:
-			var direction := Input.get_axis("ui_left", "ui_right")
+			var direction := Input.get_axis("left", "right")
 			if direction:
 				player.velocity.x = direction * (Speed + player.energy)
 			else:
 				player.velocity.x = move_toward(player.velocity.x, 0, (Speed + player.energy))
+		
+		if player.holdWeapon and Input.is_action_just_pressed("ui_up"):
+			player.shotGun.rotation_degrees = -90
 			
+			player.gunDirection = "up"
+		if player.holdWeapon and Input.is_action_just_pressed("ui_right"):
+			player.shotGun.rotation_degrees = 0
+		
+			player.gunDirection = "straight"
 	player.move_and_slide()
 
 func _on_player_collided(energy_loss):

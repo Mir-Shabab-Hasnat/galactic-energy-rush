@@ -18,6 +18,9 @@ var holdWeapon = false
 @onready var shield_collision_shape = $Shield/CollisionShape2D
 @onready var shield_debug_sprite = $Shield/DebugSprite  # Temporary debug sprite
 
+
+var gunDirection = "straight"
+
 func _ready():
 	shield.add_to_group("shield")
 	shield.connect("body_entered", Callable(self, "_on_shield_body_entered"))
