@@ -6,5 +6,5 @@ func apply_effect(player):
 	player.has_shield = true
 
 func remove_effect(player):
-	# Shield is never removed?
+	# Shield is never removed
 	pass

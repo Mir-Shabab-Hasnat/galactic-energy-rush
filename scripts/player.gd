@@ -29,6 +29,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
+	# Decrement energy when the shield is active
 	if shield_active:
 		energy_decrement_accumulator += 10 * delta
 		if energy_decrement_accumulator >= 1.0:
