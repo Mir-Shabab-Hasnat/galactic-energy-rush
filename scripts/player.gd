@@ -100,13 +100,13 @@ func check_and_free_existing_bodies():
 func toggle_shield():
 	if has_shield:
 		if shield_active:
-			print("Shield deactivated")
 			shield_active = false
 			shield.visible = false
 			shield_debug_sprite.visible = false
+			shield_debug_sprite.stop()
 		else:
-			print("Shield activated")
 			shield_active = true
 			shield.visible = true
 			shield_debug_sprite.visible = true
+			shield_debug_sprite.play()
 			check_and_free_existing_bodies()

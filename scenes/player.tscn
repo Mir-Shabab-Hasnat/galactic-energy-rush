@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://bqdmouxemwvb"]
+[gd_scene load_steps=22 format=3 uid="uid://bqdmouxemwvb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qojc7"]
 [ext_resource type="Texture2D" uid="uid://bw27sasqhccyv" path="res://assets/character-idl-run.png" id="2_7wq02"]
-[ext_resource type="Texture2D" uid="uid://pysxhmi5phdp" path="res://icon.svg" id="3_e0d38"]
+[ext_resource type="Texture2D" uid="uid://dhk743fcgyw02" path="res://assets/player-shield-effect.png" id="3_288y8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6q13"]
 atlas = ExtResource("2_7wq02")
@@ -106,6 +106,35 @@ height = 54.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ygws"]
 radius = 45.0999
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb1dy"]
+atlas = ExtResource("3_288y8")
+region = Rect2(0, 0, 64, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w1yr"]
+atlas = ExtResource("3_288y8")
+region = Rect2(64, 0, 64, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apgb8"]
+atlas = ExtResource("3_288y8")
+region = Rect2(0, 63, 64, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g1t5q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb1dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w1yr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apgb8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 14
 script = ExtResource("1_qojc7")
@@ -118,6 +147,7 @@ autoplay = "idle"
 frame_progress = 0.928722
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+visible = false
 position = Vector2(0, -27)
 shape = SubResource("CapsuleShape2D_1ohk5")
 
@@ -126,12 +156,14 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+visible = false
 position = Vector2(0, -29)
 shape = SubResource("CircleShape2D_1ygws")
 debug_color = Color(0.72549, 0.172549, 0.701961, 0.682353)
 
-[node name="DebugSprite" type="Sprite2D" parent="Shield"]
-modulate = Color(1, 0.0941176, 1, 0.313726)
-position = Vector2(0, -30)
-scale = Vector2(0.53125, 0.53125)
-texture = ExtResource("3_e0d38")
+[node name="DebugSprite" type="AnimatedSprite2D" parent="Shield"]
+modulate = Color(1, 1, 1, 0.690196)
+position = Vector2(0, -40)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_g1t5q")
+frame_progress = 0.779466
