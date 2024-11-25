@@ -37,4 +37,5 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		# print("Evil Eye collided with player")
 		body.holdWeapon = true
+		game_instance.ammo += 10
 		queue_free()

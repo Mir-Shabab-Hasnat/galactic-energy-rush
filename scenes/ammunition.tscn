@@ -24,10 +24,10 @@ position = Vector2(39, -40)
 texture = ExtResource("2_4facb")
 
 [node name="capacity" type="Label" parent="."]
-offset_left = 124.0
-offset_top = -59.0
-offset_right = 205.0
-offset_bottom = 8.0
+offset_left = 149.0
+offset_top = -60.0
+offset_right = 230.0
+offset_bottom = 7.0
 scale = Vector2(1.31837, 0.984125)
 theme_override_fonts/font = ExtResource("1_qa0ao")
 theme_override_font_sizes/font_size = 64

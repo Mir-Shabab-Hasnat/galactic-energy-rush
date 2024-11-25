@@ -10,6 +10,9 @@ var is_invincible: bool = false
 var has_shield = false
 var energy: int = 50
 var holdWeapon = false
+var ammo: int = 0
+
+var has_ammo = false
 
 @onready var animated_player = $AnimatedSprite2D
 @onready var shotGun = $Shotgun 
@@ -30,6 +33,11 @@ func _ready():
 	
 	
 func _physics_process(delta: float) -> void:
+	print(ammo)
+	if ammo > 0:
+		has_ammo = true
+	if ammo <= 0:
+		has_ammo = false
 	# Add gravity
 	gunLogic()
 	
@@ -96,6 +104,7 @@ func gunLogic():
 		
 func shoot():
 	if bullet_scene and shotgunMuzzle:
+		
 		var bullet_instance = bullet_scene.instantiate()
 		
 		bullet_instance.global_position = shotgunMuzzle.global_position
@@ -103,3 +112,5 @@ func shoot():
 		bullet_instance.rotation = shotGun.global_rotation
 		bullet_instance.direction = direction.normalized()  # Set bullet's direction
 		get_parent().add_child(bullet_instance)
+		
+		

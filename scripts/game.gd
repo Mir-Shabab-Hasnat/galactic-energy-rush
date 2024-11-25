@@ -17,6 +17,7 @@ var game_reload = preload("res://scenes/game.tscn")
 @onready var energyBar = $EnergyBar
 @onready var scoreLabel = $ScoreLabel
 @onready var timeLabel = $TimeLabel
+@onready var ammoLabel = $Ammunition
 
 var appliedEnergy # whats the point of this
 var player_energy
@@ -31,6 +32,7 @@ var ammo = 0;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	energyBar.energy = player.energy
+	ammoLabel.ammo = player.ammo
 	
 	# Start the timer when the game is ready
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
@@ -43,10 +45,18 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	elapsed_time += delta
+	
 	timeLabel.text = "Time: " + str(int(elapsed_time))
 	if player.energy > 100:
 		player.energy = 100
 		player_energy = player.energy
+	
+	
+	
+	if ammo > 15:
+		ammo = 15
+	if ammo < 0:
+		ammo = 0
 	
 	if player.energy <= 0:
 		game_end()
@@ -73,7 +83,9 @@ func _tick_game(_delta: float) -> void:
 	
 	energyBar.energy = player.energy
 	player_energy = player.energy
+	ammoLabel.ammo = player.ammo
 	
+	player.ammo = ammo
 	
 	apply_energy()
 	
@@ -104,10 +116,12 @@ func handle_input():
 		
 			player.gunDirection = "straight"
 		
-		if player.holdWeapon and player.gunDirection == "straight" and Input.is_action_just_pressed("ui_right"):
+		if player.holdWeapon and player.gunDirection == "straight" and Input.is_action_just_pressed("ui_right") and player.has_ammo:
 			player.shoot()
-		if player.holdWeapon and player.gunDirection == "up" and Input.is_action_just_pressed("ui_up"):
+			ammo -= 1
+		if player.holdWeapon and player.gunDirection == "up" and Input.is_action_just_pressed("ui_up") and player.has_ammo:
 			player.shoot()
+			ammo -= 1
 		
 	player.move_and_slide()
 
