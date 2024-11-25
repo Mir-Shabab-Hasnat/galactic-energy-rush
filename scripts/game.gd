@@ -26,7 +26,7 @@ var game_started: bool = false
 var start_run = false
 var elapsed_time: float = 0.0
 
-
+var ammo = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

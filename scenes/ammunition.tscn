@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv6tncqefwdiq"]
+
+[ext_resource type="Script" path="res://scenes/ammunition.gd" id="1_nbngm"]
+[ext_resource type="FontFile" uid="uid://d0rv36s7vgfl7" path="res://assets/Arcades Italic.ttf" id="1_qa0ao"]
+[ext_resource type="Texture2D" uid="uid://d30ag8k0tq115" path="res://assets/ammo-icon.png" id="2_4facb"]
+
+[node name="Ammunition" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nbngm")
+
+[node name="current" type="Label" parent="."]
+offset_left = 81.0
+offset_top = -62.0
+offset_right = 120.0
+offset_bottom = 5.0
+theme_override_fonts/font = ExtResource("1_qa0ao")
+theme_override_font_sizes/font_size = 64
+text = "0
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(39, -40)
+texture = ExtResource("2_4facb")
+
+[node name="capacity" type="Label" parent="."]
+offset_left = 124.0
+offset_top = -59.0
+offset_right = 205.0
+offset_bottom = 8.0
+scale = Vector2(1.31837, 0.984125)
+theme_override_fonts/font = ExtResource("1_qa0ao")
+theme_override_font_sizes/font_size = 64
+text = "/15
+"

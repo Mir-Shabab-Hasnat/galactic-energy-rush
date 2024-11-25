@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=12 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d1jri3j612yir" path="res://scenes/Systems/PowerUpManager.tscn" id="5_rp0wt"]
 [ext_resource type="PackedScene" uid="uid://3twjj60qwn1o" path="res://scenes/energy_bar.tscn" id="7_6hyyh"]
 [ext_resource type="PackedScene" uid="uid://vvi85w1a52ux" path="res://scenes/Systems/weapon_spawner.tscn" id="8_012p4"]
+[ext_resource type="PackedScene" uid="uid://cv6tncqefwdiq" path="res://scenes/ammunition.tscn" id="9_jvr4a"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -54,7 +55,7 @@ position = Vector2(0, 214)
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("1_41bkr")]
-position = Vector2(304, 216)
+position = Vector2(81, 217)
 
 [node name="Enemy Spawner" parent="." instance=ExtResource("5_os26m")]
 
@@ -83,5 +84,12 @@ offset_right = 321.0
 offset_bottom = 25.0
 
 [node name="WeaponSpawner" parent="." instance=ExtResource("8_012p4")]
+
+[node name="Ammunition" parent="." instance=ExtResource("9_jvr4a")]
+offset_left = 3.0
+offset_top = 323.0
+offset_right = 3.0
+offset_bottom = 323.0
+scale = Vector2(0.5, 0.5)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
