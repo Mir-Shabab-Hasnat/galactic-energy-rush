@@ -18,6 +18,8 @@ var energy_decrement_accumulator: float = 0.0
 @onready var shield = $Shield
 @onready var shield_collision_shape = $Shield/CollisionShape2D
 @onready var shield_debug_sprite = $Shield/DebugSprite  # Temporary debug sprite
+@onready var shield_icon = null
+var shield_icon_scene = preload("res://scenes/ShieldIcon.tscn")
 
 func _ready():
 	shield.add_to_group("shield")
@@ -110,3 +112,11 @@ func toggle_shield():
 			shield_debug_sprite.visible = true
 			shield_debug_sprite.play()
 			check_and_free_existing_bodies()
+
+func apply_shield():
+	has_shield = true
+	if not shield_icon:
+		shield_icon = shield_icon_scene.instantiate()
+		get_tree().root.add_child(shield_icon)
+		shield_icon.scale = Vector2(0.5, 0.5)  # Scale the icon down
+		shield_icon.position = Vector2(15, 40)  # Position the icon in the top-left corner

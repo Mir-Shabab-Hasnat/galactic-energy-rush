@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2c2ie6e3j8r6"]
+
+[ext_resource type="Texture2D" uid="uid://j2oq54d1qaa1" path="res://assets/shield-powerup.png" id="1_quqos"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 65.0
+offset_bottom = 68.0
+texture = ExtResource("1_quqos")
+expand_mode = 2
+stretch_mode = 1
