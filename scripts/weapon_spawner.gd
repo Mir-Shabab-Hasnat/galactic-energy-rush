@@ -2,8 +2,8 @@ extends Node
 
 # List of weapon scenes to spawn
 @export var weapon_scenes: Array[PackedScene] = []
-@export var min_spawn_interval: float = 2 # Initial minimum interval between spawns
-@export var max_spawn_interval: float = 3.0 # Initial maximum interval between spawns
+@export var min_spawn_interval: float = 8 # Initial minimum interval between spawns
+@export var max_spawn_interval: float = 15 # Initial maximum interval between spawns
 @export var spawn_area: Rect2 = Rect2(Vector2(577, 230), Vector2(10, 10)) # Fixed spawn area
 @export var start_delay: float = 2 # Delay in seconds before starting to spawn
 
