@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=12 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://c8g7ytr2jjwhn" path="res://scenes/Systems/enemy_spawner.tscn" id="5_os26m"]
 [ext_resource type="PackedScene" uid="uid://d1jri3j612yir" path="res://scenes/Systems/PowerUpManager.tscn" id="5_rp0wt"]
 [ext_resource type="PackedScene" uid="uid://3twjj60qwn1o" path="res://scenes/energy_bar.tscn" id="7_6hyyh"]
+[ext_resource type="PackedScene" uid="uid://u5migamxqtrq" path="res://scenes/Systems/weapon_spawner.tscn" id="8_012p4"]
+[ext_resource type="PackedScene" uid="uid://dmreecyac8yrb" path="res://scenes/ammunition.tscn" id="9_jvr4a"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -53,15 +55,13 @@ position = Vector2(0, 214)
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("1_41bkr")]
-position = Vector2(304, 216)
+position = Vector2(81, 217)
 
 [node name="Enemy Spawner" parent="." instance=ExtResource("5_os26m")]
 
 [node name="PowerUpManager" parent="." instance=ExtResource("5_rp0wt")]
 
 [node name="EnergyBar" parent="." instance=ExtResource("7_6hyyh")]
-offset = Vector2(0, -70)
-transform = Transform2D(1, 0, 0, 1, 0, -70)
 
 [node name="ScoreLabel" type="Label" parent="."]
 offset_left = 321.0
@@ -76,5 +76,20 @@ horizontal_alignment = 2
 
 [node name="MetalBlock" parent="." instance=ExtResource("5_bdi6l")]
 position = Vector2(-4, -416)
+
+[node name="TimeLabel" type="Label" parent="."]
+offset_left = 281.0
+offset_top = 2.0
+offset_right = 321.0
+offset_bottom = 25.0
+
+[node name="WeaponSpawner" parent="." instance=ExtResource("8_012p4")]
+
+[node name="Ammunition" parent="." instance=ExtResource("9_jvr4a")]
+offset_left = 3.0
+offset_top = 323.0
+offset_right = 3.0
+offset_bottom = 323.0
+scale = Vector2(0.5, 0.5)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,20 +1,13 @@
 extends Area2D
-
-var can_move = false
 var energy = 0
-@onready var animated_sprite = $AnimatedSprite2D
-
 @export var speed: float = 200;
-
 var game_instance 
-signal player_collided(damage)
+var can_move = false
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	add_to_group("enemyObstacle")
-	 # Connect the collision detection signal
-	connect("body_entered", Callable(self, "_on_body_entered"))
 	game_instance = get_node("/root/Game")
 
 
@@ -24,23 +17,25 @@ func _process(delta: float) -> void:
 	update_move_state()
 	update_energy()
 	if can_move:
-		animated_sprite.play("idle")
+		
 		position.x -= (speed + energy) * delta
 		
 	if global_position.x < viewport_rect.position.x:
 		# print("eye free at ", position.x)
 		queue_free()
-	
-
-func _on_body_entered(body):
-	if body.is_in_group("player"):
-		# print("Evil Eye collided with player")
-		emit_signal("player_collided", 5)  # Example damage value
-		queue_free()
 		
 
+		
 func update_energy() -> void:
 	energy = game_instance.player_energy * 3
 
 func update_move_state() -> void:
-	can_move = game_instance.start_run
+	can_move = game_instance.start_run		
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		# print("Evil Eye collided with player")
+		body.holdWeapon = true
+		game_instance.ammo += 10
+		queue_free()

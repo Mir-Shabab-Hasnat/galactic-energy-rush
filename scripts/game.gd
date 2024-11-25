@@ -17,6 +17,8 @@ var game_reload = preload("res://scenes/game.tscn")
 
 @onready var energyBar = $EnergyBar
 @onready var scoreLabel = $ScoreLabel
+@onready var timeLabel = $TimeLabel
+@onready var ammoLabel = $Ammunition
 
 @onready var leftBoundary = $LeftScreenBound
 var appliedEnergy # whats the point of this
@@ -28,6 +30,7 @@ var game_ended: bool = false
 var start_run = false
 var elapsed_time: float = 0.0
 
+var ammo = 0;
 
 enum PowerUpType { SHIELD, INVINCIBILITY, ENERGY_PICKUP }
 
@@ -37,6 +40,7 @@ var top_scores = []
 func _ready() -> void:
 	load_scores()  # Load the top scores when the game starts
 	energyBar.energy = player.energy
+	ammoLabel.ammo = player.ammo
 	
 	# Start the timer when the game is ready
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
@@ -64,9 +68,18 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	elapsed_time += delta
+	
+	timeLabel.text = "Time: " + str(int(elapsed_time))
 	if player.energy > 100:
 		player.energy = 100
 		player_energy = player.energy
+	
+	
+	
+	if ammo > 15:
+		ammo = 15
+	if ammo < 0:
+		ammo = 0
 	
 	if player.energy <= 0 and not game_ended:
 		game_ended = true
@@ -95,6 +108,9 @@ func _tick_game(_delta: float) -> void:
 	
 	energyBar.energy = player.energy
 	player_energy = player.energy
+	ammoLabel.ammo = player.ammo
+	
+	player.ammo = ammo
 	
 	apply_energy()
 	
@@ -106,18 +122,35 @@ func handle_input():
 		else:
 			start_run = true
 	if start_run:
-		if Input.is_action_just_pressed("ui_accept") and player.is_on_floor():
+		if Input.is_action_just_pressed("Jump") and player.is_on_floor():
 			player.velocity.y = Jump_velocity
 		
 		if player.running or player.jump:
-			var direction := Input.get_axis("ui_left", "ui_right")
+			var direction := Input.get_axis("left", "right")
 			if direction:
 				player.velocity.x = direction * (Speed + player.energy)
 			else:
 				player.velocity.x = move_toward(player.velocity.x, 0, (Speed + player.energy))
 		
+		if player.holdWeapon and Input.is_action_just_pressed("ui_up"):
+			player.shotGun.rotation_degrees = -90
+			
+			player.gunDirection = "up"
+		if player.holdWeapon and Input.is_action_just_pressed("ui_right"):
+			player.shotGun.rotation_degrees = 0
+		
+			player.gunDirection = "straight"
+		
+		if player.holdWeapon and player.gunDirection == "straight" and Input.is_action_just_pressed("ui_right") and player.has_ammo:
+			player.shoot()
+			ammo -= 1
+		if player.holdWeapon and player.gunDirection == "up" and Input.is_action_just_pressed("ui_up") and player.has_ammo:
+			player.shoot()
+			ammo -= 1
+		
+		
 		# Handle shield toggle input
-		if Input.is_action_just_pressed("toggle_shield") and player.has_shield:
+		if Input.is_action_just_pressed("shield") and player.has_shield:
 			# print("input detected for shield toggle")
 			player.toggle_shield()
 
@@ -130,6 +163,8 @@ func _on_player_collided(energy_loss):
 		player_energy = player.energy
 		energyBar.energy = player.energy  # Update energy bar with player's energy
 
+func _on_weapon_collided() :
+	pass
 
 # What does this function do?
 func apply_energy():
