@@ -1,6 +1,5 @@
 extends Node
 
-# Preload the powerup scene
 var PowerUpScene = preload("res://scenes/powerup.tscn")
 
 @export var spawn_interval: float = 3.5
@@ -20,7 +19,7 @@ enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP }
 var start_spawn = false
 var timer = 0.0
 var energy_pickup_timer = -1.0
-var shield_spawn_time: float = 30.0  # Time in seconds after which the Shield powerup can start spawning
+var shield_spawn_time: float = 5.0  # Time in seconds after which the Shield powerup can start spawning
 
 
 var game_instance
@@ -53,8 +52,15 @@ func _process(delta: float) -> void:
 
 
 func spawn_powerup() -> void:
-	var power_up_type = randi() % PowerUpType.size()-1  # Randomly select a powerup type
-	
+	var power_up_type = randi() % PowerUpType.size()  # Randomly select a powerup type
+
+	if power_up_type == PowerUpType.ENERGY_PICKUP:
+		# select a different powerup type
+		if randi() % 2 == 0:
+			power_up_type = PowerUpType.INVINCIBILITY
+		else:
+			power_up_type = PowerUpType.SHIELD
+			
 	# Ensure Shield powerup doesn't spawn before the specified time
 	if power_up_type == PowerUpType.SHIELD and game_instance.elapsed_time < shield_spawn_time:
 		# select a different powerup type
@@ -82,7 +88,7 @@ func spawn_energy_pickup() -> void:
 func create_powerup(power_up_type: int) -> Node:
 	if PowerUpScene:
 		var powerup = PowerUpScene.instantiate()
-		
+		print("Powerup type: ", power_up_type)
 		match power_up_type:
 			PowerUpType.INVINCIBILITY:
 				# print("Invincibility powerup created")

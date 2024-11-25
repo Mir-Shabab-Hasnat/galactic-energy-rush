@@ -172,6 +172,7 @@ autoplay = "idle"
 frame_progress = 0.928722
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+visible = false
 position = Vector2(0, -27)
 shape = SubResource("CapsuleShape2D_1ohk5")
 
@@ -191,6 +192,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+visible = false
 position = Vector2(0, -29)
 shape = SubResource("CircleShape2D_1ygws")
 debug_color = Color(0, 0.6, 0.701961, 0)

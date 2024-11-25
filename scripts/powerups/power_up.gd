@@ -52,7 +52,6 @@ func apply_power_up(player):
 		if effect_script:
 			var effect_group_name = "effect_" + str(power_up_type)
 			var existing_effect = player.get_node_or_null(effect_group_name)
-			# print("if existing_effect: ", existing_effect)
 			if existing_effect:
 				existing_effect.refresh_duration()
 			else:
@@ -64,6 +63,7 @@ func apply_power_up(player):
 			print("Error: effect_script is not set")
 
 func set_powerup_animation():
+	# Set the animation based on the powerup type
 	match power_up_type:
 		PowerUpType.INVINCIBILITY:
 			animated_sprite.animation = "invincibility"
@@ -76,9 +76,10 @@ func set_powerup_animation():
 
 func set_powerup_color():
 	match power_up_type:
+		# Set the color of the powerup based on its type
 		PowerUpType.INVINCIBILITY:
-			animated_sprite.modulate = Color(1, 1, 1, 0.4)  # White color for invincibility
+			animated_sprite.modulate = Color(1, 1, 1, 0.4)
 		PowerUpType.SHIELD:
-			animated_sprite.modulate = Color(0, 1, 0)  # Green color for shield
+			animated_sprite.modulate = Color(0, 1, 0)
 		PowerUpType.ENERGY_PICKUP:
-			animated_sprite.modulate = Color(0, 0, 1)  # Blue color for energy pickup
+			animated_sprite.modulate = Color(0, 0, 1)
