@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://c8g7ytr2jjwhn" path="res://scenes/Systems/enemy_spawner.tscn" id="5_os26m"]
 [ext_resource type="PackedScene" uid="uid://d1jri3j612yir" path="res://scenes/Systems/PowerUpManager.tscn" id="5_rp0wt"]
 [ext_resource type="PackedScene" uid="uid://3twjj60qwn1o" path="res://scenes/energy_bar.tscn" id="7_6hyyh"]
-[ext_resource type="PackedScene" uid="uid://vvi85w1a52ux" path="res://scenes/Systems/weapon_spawner.tscn" id="8_012p4"]
-[ext_resource type="PackedScene" uid="uid://cv6tncqefwdiq" path="res://scenes/ammunition.tscn" id="9_jvr4a"]
+[ext_resource type="PackedScene" uid="uid://u5migamxqtrq" path="res://scenes/Systems/weapon_spawner.tscn" id="8_012p4"]
+[ext_resource type="PackedScene" uid="uid://dmreecyac8yrb" path="res://scenes/ammunition.tscn" id="9_jvr4a"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 

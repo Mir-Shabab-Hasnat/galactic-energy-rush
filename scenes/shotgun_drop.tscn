@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://be01o35684hnq"]
+[gd_scene load_steps=4 format=3 uid="uid://d2j2g0xvbsntv"]
 
 [ext_resource type="Script" path="res://scripts/shotgunDrop.gd" id="1_7wfg1"]
 [ext_resource type="Texture2D" uid="uid://bxla7mdyn5kxx" path="res://assets/shotgunDrop.png" id="1_gff1a"]

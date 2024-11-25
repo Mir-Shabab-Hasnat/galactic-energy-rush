@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://vvi85w1a52ux"]
+[gd_scene load_steps=3 format=3 uid="uid://u5migamxqtrq"]
 
 [ext_resource type="Script" path="res://scripts/weapon_spawner.gd" id="1_44m3e"]
-[ext_resource type="PackedScene" uid="uid://be01o35684hnq" path="res://scenes/shotgun_drop.tscn" id="2_1l71m"]
+[ext_resource type="PackedScene" uid="uid://d2j2g0xvbsntv" path="res://scenes/shotgun_drop.tscn" id="2_1l71m"]
 
 [node name="WeaponSpawner" type="Node"]
 script = ExtResource("1_44m3e")

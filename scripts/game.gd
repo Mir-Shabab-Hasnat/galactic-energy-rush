@@ -150,7 +150,7 @@ func handle_input():
 		
 		
 		# Handle shield toggle input
-		if Input.is_action_just_pressed("toggle_shield") and player.has_shield:
+		if Input.is_action_just_pressed("shield") and player.has_shield:
 			# print("input detected for shield toggle")
 			player.toggle_shield()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cv6tncqefwdiq"]
+[gd_scene load_steps=4 format=3 uid="uid://dmreecyac8yrb"]
 
 [ext_resource type="Script" path="res://scenes/ammunition.gd" id="1_nbngm"]
 [ext_resource type="FontFile" uid="uid://d0rv36s7vgfl7" path="res://assets/Arcades Italic.ttf" id="1_qa0ao"]
