@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qojc7"]
 [ext_resource type="Texture2D" uid="uid://bw27sasqhccyv" path="res://assets/character-idl-run.png" id="2_7wq02"]
-[ext_resource type="PackedScene" uid="uid://d33ekg771hquj" path="res://scenes/bullet.tscn" id="2_n0cy3"]
+[ext_resource type="PackedScene" uid="uid://d33ekg771hquj" path="res://scenes/playerBullet.tscn" id="2_n0cy3"]
 [ext_resource type="Texture2D" uid="uid://dhk743fcgyw02" path="res://assets/player-shield-effect.png" id="4_27oyj"]
 [ext_resource type="Texture2D" uid="uid://g1mq8x2cnse2" path="res://assets/shotgun.png" id="4_qsviv"]
 
@@ -192,7 +192,6 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
-visible = false
 position = Vector2(0, -29)
 shape = SubResource("CircleShape2D_1ygws")
 debug_color = Color(0, 0.6, 0.701961, 0)

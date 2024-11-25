@@ -37,7 +37,7 @@ func _ready():
 	
 	
 func _physics_process(delta: float) -> void:
-	print(ammo)
+	
 	if ammo > 0:
 		has_ammo = true
 	if ammo <= 0:
@@ -81,6 +81,7 @@ func _physics_process(delta: float) -> void:
 	if is_invincible:
 		animated_player.modulate = Color(1, 1, 1, 0.4)
 	elif has_shield and shield.visible:
+		shield.visible = true
 		animated_shield.play("default")
 		pass
 	else:
@@ -143,6 +144,7 @@ func toggle_shield():
 			shield_active = false
 			shield.visible = false
 			shield_debug_sprite.visible = false
+			
 			shield_debug_sprite.stop()
 		else:
 			shield_active = true
