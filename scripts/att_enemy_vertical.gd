@@ -56,9 +56,24 @@ func shoot() -> void:
 	# Set the bullet's starting position at the position of the `projectileMarker`
 	bullet.global_position = projectile_mark.global_position
 
-	# Set horizontal velocity for the projectile if the bullet has the `set_velocity` method
-	if bullet.has_method("set_velocity"):
-		bullet.set_velocity(Vector2(projectile_speed, 0)) # Set velocity to move leftward
+	# Get the player's global position
+	var player = get_node("/root/Game/Player")  # Adjust the path to your player's node
+	var player_position = player.global_position
 
-	# Print a message indicating a projectile has been dropped
-	print("Horizontal projectile shot!")
+	# Calculate the direction vector from the bullet to the player
+	var direction = (player_position - bullet.global_position).normalized()
+
+	# Set the bullet's velocity towards the player
+	var velocity = direction * projectile_speed
+
+	# Set the bullet's velocity if the bullet has the `set_velocity` method
+	
+	bullet.set_velocity(velocity)
+	
+	print("Projectile shot towards player!")
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("PlayerBullet"):
+		print("enemy shot")
+		queue_free()	

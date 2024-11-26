@@ -83,3 +83,10 @@ func shoot() -> void:
 		bullet.set_velocity(Vector2(0, projectile_speed))
 
 	# print("Projectile dropped!")
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("PlayerBullet"):
+		print("enemy shot")
+		queue_free()	
+	

@@ -12,9 +12,7 @@ signal player_collided(damage)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	add_to_group("enemyObstacle")
-	 # Connect the collision detection signal
-	connect("body_entered", Callable(self, "_on_body_entered"))
+	
 	game_instance = get_node("/root/Game")
 
 
@@ -34,13 +32,20 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body):
 	if body.is_in_group("player"):
-		# print("Evil Eye collided with player")
+		print("Evil Eye collided with player")
 		emit_signal("player_collided", 5)  # Example damage value
 		queue_free()
 		
+
 
 func update_energy() -> void:
 	energy = game_instance.player_energy * 3
 
 func update_move_state() -> void:
 	can_move = game_instance.start_run
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("PlayerBullet"):
+		print("enemy shot")
+		queue_free()	

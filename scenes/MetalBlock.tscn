@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bh3nynn1fmqqf" path="res://assets/Metal Box.png" id="1_ocqgt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6p1eu"]
-size = Vector2(44, 46)
+size = Vector2(42, 46)
 
 [node name="MetalBlock" type="RigidBody2D"]
 position = Vector2(283, 18)
@@ -17,8 +17,11 @@ freeze_mode = 1
 script = ExtResource("1_atqh3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-85, 86)
 scale = Vector2(0.0805, 0.0889999)
 texture = ExtResource("1_ocqgt")
+offset = Vector2(1055.9, -966.293)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_6p1eu")

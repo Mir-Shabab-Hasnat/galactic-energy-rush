@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 	update_energy()
 
 
-	position -= velocity * delta
+	position += velocity * delta
 	#free off screen
 	if self.global_position.x < 0 :
 		print("spcae bullet freed")
