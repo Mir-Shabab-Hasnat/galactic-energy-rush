@@ -7,6 +7,7 @@ extends Node2D
 var main_menu = preload("res://scenes/main_menu.tscn")
 var game_reload = preload("res://scenes/game.tscn")
 @onready var game_over = preload("res://scenes/game_over_menu.tscn").instantiate()
+@onready var game_paused = preload("res://scenes/pause_menu.tscn").instantiate()
 
 @onready var player = $Player
 @onready var platform = $Platform
@@ -38,6 +39,8 @@ var top_scores = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("SceneTree available:", get_tree())
+	
 	load_scores()  # Load the top scores when the game starts
 	energyBar.energy = player.energy
 	ammoLabel.ammo = player.ammo
@@ -49,11 +52,19 @@ func _ready() -> void:
 
 	powerup_manager.start_spawn = true
 	
+	#for game over menu
 	add_child(game_over)
 	game_over.visible = false
 	game_over.connect("restart_game",Callable( self, "_on_restart_game"))
 	game_over.connect("exit_game", Callable(self, "_on_exit_game"))
 	
+	add_child(game_paused)
+	game_paused.visible = false
+	game_paused.connect("restart_game",Callable( self, "_on_restart_game"))
+	game_paused.connect("exit_game", Callable(self, "_on_exit_game"))
+	game_paused.connect("resume_game", Callable(self, "_on_resume_game"))
+	
+	#detects if objects have colided with left boundary
 	if leftBoundary:
 		leftBoundary.connect("body_entered", Callable(self, "_on_left_boundary_entered"))
 
@@ -117,6 +128,7 @@ func _tick_game(_delta: float) -> void:
 	
 func handle_input():
 	if Input.is_action_just_pressed("pause"):
+		_game_pause()
 		if start_run:
 			start_run = false
 		else:
@@ -153,6 +165,8 @@ func handle_input():
 		if Input.is_action_just_pressed("shield") and player.has_shield:
 			# print("input detected for shield toggle")
 			player.toggle_shield()
+			
+		
 
 	player.move_and_slide()
 
@@ -204,6 +218,25 @@ func _game_end():
 	
 	game_over.visible = true
 
+func _game_pause():
+	print("Game paused!")
+	get_tree().paused = true
+	print("Game tree:", get_tree())
+	game_paused.global_position.x = 0
+	game_paused.global_position.y = 0
+	game_paused.visible = true
+	game_paused.scale = Vector2(0.5,0.5)
+	
+func _on_resume_game():
+	print("Resume game signal received")
+	print("Game tree before checking:", get_tree())
+	print("Is node in tree?", is_inside_tree())  # Check if the node is part of the tree
+	if get_tree():
+		get_tree().paused = false  # Resume the game
+		game_paused.visible = false  # Hide the pause menu
+		start_run = true
+	else:
+		print("Error: SceneTree is null, cannot resume game")
 func _on_restart_game():
 	print("Restarting game...")
 
