@@ -3,6 +3,7 @@ extends Area2D
 @export var bullet_scene = preload("res://scenes/bullet.tscn") # Preload the projectile scene
 @onready var game_instance = get_node("/root/Game")
 
+
 @export var drop_interval: float = 2.0 # Interval in seconds between each projectile drop
 @export var projectile_speed: float = 500.0 # Speed of the projectile
 
@@ -81,6 +82,8 @@ func shoot() -> void:
 	# Set downward velocity for the projectile if the bullet has the `set_velocity` method
 	if bullet.has_method("set_velocity"):
 		bullet.set_velocity(Vector2(0, projectile_speed))
+		
+	$BulletSound.play()
 
 	# print("Projectile dropped!")
 
@@ -88,5 +91,9 @@ func shoot() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("PlayerBullet"):
 		print("enemy shot")
+		
+		$AnimatedSprite2D.play('death')
+		$DeathSound.play()
+		await game_instance.get_tree().create_timer(0.583).timeout
 		queue_free()	
 	

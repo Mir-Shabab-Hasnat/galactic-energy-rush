@@ -1,7 +1,49 @@
-[gd_scene load_steps=7 format=3 uid="uid://ggpwm6anf4al"]
+[gd_scene load_steps=19 format=3 uid="uid://ggpwm6anf4al"]
 
 [ext_resource type="Script" path="res://scripts/evil_eye.gd" id="1_op3tn"]
 [ext_resource type="Texture2D" uid="uid://de0hwgqd6j8uk" path="res://assets/evil-eye.png" id="1_unir8"]
+[ext_resource type="Texture2D" uid="uid://ddhx85ja4a4sm" path="res://assets/evil-eyeDeath.png" id="2_i0c8b"]
+[ext_resource type="AudioStream" uid="uid://d4bbgki5cbjp" path="res://sounds/mixkit-video-game-blood-pop-2361.wav" id="3_c2teu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8o2g8"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(0, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y352w"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(128, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk8wd"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(0, 64, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iy1tf"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(128, 64, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lc0hy"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(0, 128, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32r7d"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(128, 128, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbk66"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(0, 192, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bldy"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(128, 192, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrv7x"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(0, 256, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8i8ar"]
+atlas = ExtResource("2_i0c8b")
+region = Rect2(128, 256, 128, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04bo7"]
 atlas = ExtResource("1_unir8")
@@ -13,6 +55,41 @@ region = Rect2(0, 64, 128, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0l1aw"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8o2g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y352w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk8wd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iy1tf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lc0hy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32r7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbk66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bldy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrv7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8i8ar")
+}],
+"loop": true,
+"name": &"death",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_04bo7")
@@ -34,11 +111,16 @@ script = ExtResource("1_op3tn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["evileyeObst"]]
 sprite_frames = SubResource("SpriteFrames_0l1aw")
-animation = &"idle"
-frame_progress = 0.315502
+animation = &"death"
+frame_progress = 0.495254
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["evileyeObst"]]
 shape = SubResource("RectangleShape2D_2a70t")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_c2teu")
+volume_db = -15.178
+pitch_scale = 2.29
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -4,10 +4,10 @@ extends Area2D
 @onready var game_instance = get_node("/root/Game")
 @onready var projectile_mark = $Marker2D # Reference to the spawn point for the projectile
 @onready var startingxPosition = randf_range(500,600) 
-@export var projectile_speed: float = 300.0 # Speed of the projectile
+@export var projectile_speed: float = 500.0 # Speed of the projectile
 @export var speed: float = 100.0  # Speed for the up-and-down movement
 @export var top_point: Vector2 = Vector2(500, 100)  # The top point for vertical movement
-@export var bottom_point: Vector2 = Vector2(500, 400)  # The bottom point for vertical movement
+@export var bottom_point: Vector2 = Vector2(500, 340)  # The bottom point for vertical movement
 
 
 var moving_up: bool = false # Indicates direction of vertical movement
@@ -46,6 +46,7 @@ func _process(delta: float) -> void:
 # Function to shoot a projectile horizontally
 func shoot() -> void:
 	# Instantiate a new bullet
+	$BulletSound.play()
 	var bullet = bullet_scene.instantiate()
 	# Add bullet to the scene tree as a child of this enemy node
 	add_child(bullet)
@@ -75,5 +76,12 @@ func shoot() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("PlayerBullet"):
+		#resclae cus explosion too big
+	
+		$AnimatedSprite2D.scale = Vector2(0.5, 0.5)
+		$AnimatedSprite2D.play("death")
+		$DeathSound.play()
+		
+		await game_instance.get_tree().create_timer(0.42).timeout
 		print("enemy shot")
 		queue_free()	

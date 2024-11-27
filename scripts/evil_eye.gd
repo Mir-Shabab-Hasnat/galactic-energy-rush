@@ -12,6 +12,7 @@ signal player_collided(damage)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	animated_sprite.play("idle")
 	
 	game_instance = get_node("/root/Game")
 
@@ -22,7 +23,6 @@ func _process(delta: float) -> void:
 	update_move_state()
 	update_energy()
 	if can_move:
-		animated_sprite.play("idle")
 		position.x -= (speed + energy) * delta
 		
 	if global_position.x < viewport_rect.position.x:
@@ -48,4 +48,8 @@ func update_move_state() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("PlayerBullet"):
 		print("enemy shot")
+		$AnimatedSprite2D.play("death")
+		$DeathSound.play()
+		
+		await game_instance.get_tree().create_timer(0.6).timeout
 		queue_free()	

@@ -1,9 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://caqbfhi5qqcug"]
+[gd_scene load_steps=32 format=3 uid="uid://caqbfhi5qqcug"]
 
 [ext_resource type="Script" path="res://scripts/attcking_enemy.gd" id="1_1cxg5"]
 [ext_resource type="Texture2D" uid="uid://dngs1i6y5wbn1" path="res://assets/chitiniac-attack.png" id="2_lv032"]
 [ext_resource type="Texture2D" uid="uid://grkp67u4ghs5" path="res://assets/chitiniac-death.png" id="3_ry50c"]
 [ext_resource type="Texture2D" uid="uid://bgu7ein2kx12o" path="res://assets/chitiniac-move.png" id="4_1cqhc"]
+[ext_resource type="AudioStream" uid="uid://7cncje0nnbb8" path="res://sounds/vgdeathsound.wav" id="5_7mgor"]
+[ext_resource type="AudioStream" uid="uid://bfc5pe8lao7pd" path="res://sounds/bit-cannon-85932.mp3" id="6_bjiib"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kw4yx"]
 atlas = ExtResource("2_lv032")
@@ -155,7 +157,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -196,13 +198,24 @@ script = ExtResource("1_1cxg5")
 position = Vector2(-2.5, -4)
 scale = Vector2(0.921875, 0.875)
 sprite_frames = SubResource("SpriteFrames_avu3m")
-animation = &"move "
+animation = &"death"
 autoplay = "move "
+frame_progress = 0.0479195
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_hlt0e")
 
 [node name="projectileMarker" type="Marker2D" parent="."]
 position = Vector2(-1, 21)
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_7mgor")
+volume_db = 0.4
+pitch_scale = 3.45
+
+[node name="BulletSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_bjiib")
+volume_db = -10.136
+pitch_scale = 2.6
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

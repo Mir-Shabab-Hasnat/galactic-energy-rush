@@ -1,10 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://bqdmouxemwvb"]
+[gd_scene load_steps=28 format=3 uid="uid://bqdmouxemwvb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qojc7"]
 [ext_resource type="Texture2D" uid="uid://bw27sasqhccyv" path="res://assets/character-idl-run.png" id="2_7wq02"]
 [ext_resource type="PackedScene" uid="uid://djir7f54sk0bv" path="res://scenes/playerBullet.tscn" id="2_n0cy3"]
 [ext_resource type="Texture2D" uid="uid://dhk743fcgyw02" path="res://assets/player-shield-effect.png" id="4_27oyj"]
 [ext_resource type="Texture2D" uid="uid://g1mq8x2cnse2" path="res://assets/shotgun.png" id="4_qsviv"]
+[ext_resource type="AudioStream" uid="uid://ct7esm3gox0ji" path="res://sounds/laser4.wav" id="6_2bm7b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6q13"]
 atlas = ExtResource("2_7wq02")
@@ -201,3 +202,6 @@ position = Vector2(22, -37)
 scale = Vector2(1.32813, 1.29365)
 sprite_frames = SubResource("SpriteFrames_4bqbm")
 frame_progress = 0.358516
+
+[node name="BulletSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_2bm7b")

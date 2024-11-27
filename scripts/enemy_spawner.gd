@@ -16,14 +16,14 @@ var spawn_interval_general = randf_range(1.3, 3.0)  # Random interval between 1.
 
 # Attacking enemy spawning variables (spawnAttackingEnemy())
 var timer_attacking_enemy_delay = 0.0
-var start_delay_attacking_enemy = randf_range(25.0, 50.0)  # Initial delay between 1.5 and 2.3 minutes
+var start_delay_attacking_enemy = randf_range(5.0, 4.0)  # randf_range(25.0, 30.0)Initial delay between 1.5 and 2.3 minutes
 var can_spawn_attacking_enemy = false
 var timer_attacking_enemy_spawn = 0.0
 var spawn_interval_attacking_enemy = randf_range(6.0, 12.0)  # Spawn interval between 7 and 15 seconds
 
 # Vertical attacking enemy spawning variables (spawnAttackingEnemy_vertical())
 var timer_attacking_enemy_vertical_delay = 0.0
-var start_delay_attacking_enemy_vertical = randf_range(30.0,60.0)  # Initial delay between 2.5 and 3 minutes
+var start_delay_attacking_enemy_vertical = 1 #randf_range(30.0,60.0)  # Initial delay between 2.5 and 3 minutes
 var can_spawn_attacking_enemy_vertical = false
 var timer_attacking_enemy_vertical_spawn = 0.0
 var spawn_interval_attacking_enemy_vertical = randf_range(7.0, 10.0)  # Spawn interval between 10 and 20 seconds

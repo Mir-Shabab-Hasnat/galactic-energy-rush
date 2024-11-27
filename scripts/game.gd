@@ -139,7 +139,9 @@ func handle_input():
 		
 		if player.running or player.jump:
 			var direction := Input.get_axis("left", "right")
-			if direction:
+			if direction == -1:
+				player.velocity.x = direction * 1.5 *(Speed +player.energy)
+			elif direction ==1:
 				player.velocity.x = direction * (Speed + player.energy)
 			else:
 				player.velocity.x = move_toward(player.velocity.x, 0, (Speed + player.energy))

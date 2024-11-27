@@ -124,6 +124,8 @@ func shoot():
 		bullet_instance.rotation = shotGun.global_rotation
 		bullet_instance.direction = direction.normalized()  # Set bullet's direction
 		get_parent().add_child(bullet_instance)
+		$BulletSound.play()
+		
 		
 		
 
