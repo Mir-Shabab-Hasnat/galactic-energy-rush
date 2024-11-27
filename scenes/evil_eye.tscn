@@ -88,7 +88,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
-"speed": 15.0
+"speed": 36.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -112,7 +112,7 @@ script = ExtResource("1_op3tn")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["evileyeObst"]]
 sprite_frames = SubResource("SpriteFrames_0l1aw")
 animation = &"death"
-frame_progress = 0.495254
+frame_progress = 0.109977
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["evileyeObst"]]
 shape = SubResource("RectangleShape2D_2a70t")

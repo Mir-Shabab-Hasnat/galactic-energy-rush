@@ -128,11 +128,15 @@ func _tick_game(_delta: float) -> void:
 	
 func handle_input():
 	if Input.is_action_just_pressed("pause"):
-		_game_pause()
-		if start_run:
-			start_run = false
+		if !get_tree().paused:
+			
+			_game_pause()
+			if start_run:
+				start_run = false
+			else:
+				start_run = true
 		else:
-			start_run = true
+			_on_resume_game()
 	if start_run:
 		if Input.is_action_just_pressed("Jump") and player.is_on_floor():
 			player.velocity.y = Jump_velocity
@@ -223,6 +227,7 @@ func _game_end():
 func _game_pause():
 	print("Game paused!")
 	get_tree().paused = true
+	$PauseMusic.play()
 	print("Game tree:", get_tree())
 	game_paused.global_position.x = 0
 	game_paused.global_position.y = 0
@@ -233,6 +238,8 @@ func _on_resume_game():
 	print("Resume game signal received")
 	print("Game tree before checking:", get_tree())
 	print("Is node in tree?", is_inside_tree())  # Check if the node is part of the tree
+	
+	$PauseMusic.stop()
 	if get_tree():
 		get_tree().paused = false  # Resume the game
 		game_paused.visible = false  # Hide the pause menu

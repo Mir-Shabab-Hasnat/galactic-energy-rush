@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=14 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://u5migamxqtrq" path="res://scenes/Systems/weapon_spawner.tscn" id="8_012p4"]
 [ext_resource type="PackedScene" uid="uid://dmreecyac8yrb" path="res://scenes/ammunition.tscn" id="9_jvr4a"]
 [ext_resource type="AudioStream" uid="uid://bcoerpfje1ap5" path="res://sounds/Noise-Long-Version-chosic.com_.mp3" id="10_7ehm2"]
+[ext_resource type="AudioStream" uid="uid://dk5wfqlbpnuv5" path="res://sounds/Interlude Normal.ogg" id="11_pnqpo"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -97,5 +98,12 @@ scale = Vector2(0.5, 0.5)
 stream = ExtResource("10_7ehm2")
 volume_db = -3.748
 autoplay = true
+
+[node name="PauseMusic" type="AudioStreamPlayer2D" parent="."]
+process_mode = 2
+stream = ExtResource("11_pnqpo")
+volume_db = -9.355
+pitch_scale = 0.9
+parameters/looping = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

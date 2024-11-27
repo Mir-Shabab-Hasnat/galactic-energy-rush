@@ -51,5 +51,5 @@ func _on_area_entered(area: Area2D) -> void:
 		$AnimatedSprite2D.play("death")
 		$DeathSound.play()
 		
-		await game_instance.get_tree().create_timer(0.6).timeout
+		await game_instance.get_tree().create_timer(0.25).timeout
 		queue_free()	
