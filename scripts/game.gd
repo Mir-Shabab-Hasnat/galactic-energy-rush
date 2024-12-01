@@ -78,6 +78,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	print(get_viewport_rect().size)
 	elapsed_time += delta
 	
 	timeLabel.text = "Time: " + str(int(elapsed_time))
