@@ -39,7 +39,7 @@ var top_scores = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("SceneTree available:", get_tree())
+	# print("SceneTree available:", get_tree())
 	
 	load_scores()  # Load the top scores when the game starts
 	energyBar.energy = player.energy
@@ -78,14 +78,13 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(get_viewport_rect().size)
+	# print(get_viewport_rect().size)
 	elapsed_time += delta
 	
 	timeLabel.text = "Time: " + str(int(elapsed_time))
 	if player.energy > 100:
 		player.energy = 100
 		player_energy = player.energy
-	
 	
 	
 	if ammo > 15:
@@ -103,8 +102,16 @@ func _process(delta: float) -> void:
 		accumulated_score += max(5, player.energy) * delta
 
 		# Update the integer score variable when the accumulated score exceeds 1
-		if accumulated_score >= 1.0:
-			score += int(accumulated_score)
+		if accumulated_score >= 10.0:
+			score += int(accumulated_score/10)
+			if player.energy > 95:
+				score += int(accumulated_score/10)
+				scoreLabel.modulate = Color(1, 0, 0) # Red color
+			elif player.energy > 75:
+				score += int(accumulated_score/10)
+				scoreLabel.modulate = Color(1, 0.5, 0)  # Orange color
+			else:
+				scoreLabel.modulate = Color(0, 0, 0)  # White color
 			accumulated_score -= int(accumulated_score)
 		scoreLabel.text = "Score: " + str(int(score))  # Update the score label
 

@@ -96,15 +96,17 @@ func decrement_energy(amount: int):
 
 func _on_shield_body_entered(body):
 	if has_shield and shield_active and body.is_in_group("enemyObstacle"):
-		# print("Shield collided with enemyObstacle: ", body.name)
-		# Push the enemy away or vaporize it
+		# print("Shield collided with body enemyObstacle: ", body.name)
 		body.queue_free()
 
+func _on_shield_area_shape_entered(area_shape):
+	if has_shield and shield_active and area_shape.is_in_group("enemyObstacle"):
+		# print("Shield collided with area_shape enemyObstacle: ", area_shape.name)
+		area_shape.queue_free()
 
 func _on_shield_area_entered(area):
 	if has_shield and shield_active and area.is_in_group("enemyObstacle"):
-		# print("Shield collided with enemyObstacle: ", area.name)
-		# Push the enemy away or vaporize it
+		# print("Shield collided with area enemyObstacle: ", area.name)
 		area.queue_free()
 		
 func gunLogic():
@@ -146,13 +148,9 @@ func toggle_shield():
 		if shield_active:
 			shield_active = false
 			shield.visible = false
-			
-			
-			
 		else:
 			shield_active = true
 			shield.visible = true
-			
 			
 			check_and_free_existing_bodies()
 

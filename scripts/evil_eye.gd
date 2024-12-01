@@ -13,7 +13,7 @@ signal player_collided(damage)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animated_sprite.play("idle")
-	
+	add_to_group("enemyObstacle") # Used for shield collision detection
 	game_instance = get_node("/root/Game")
 
 

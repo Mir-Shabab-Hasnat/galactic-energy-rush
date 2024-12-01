@@ -23,6 +23,7 @@ var timer = 0.0 # Timer for projectile drop interval
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("enemyObstacle") # Used for shield collision detection
 	# Set initial position to be off-screen
 	position = off_screen_position
 

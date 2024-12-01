@@ -17,6 +17,7 @@ var timer: float = 0.0 # Timer for controlling shooting intervals
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("enemyObstacle") # Used for shield collision detection
 	# Set the initial position of the enemy to be between top_point and bottom_point
 	position = bottom_point
 	

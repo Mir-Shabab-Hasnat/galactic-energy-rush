@@ -17,6 +17,7 @@ func _ready() -> void:
 	game_instance = get_node("/root/Game")
 	# Add projectile to group for easier identification
 	add_to_group("enemyProjectile")
+	add_to_group("enemyObstacle") # Used for shield collision detection
 
 	# Connect collision signal to detect when projectile hits player
 	connect("body_entered", Callable(self, "_on_body_entered"))

@@ -8,6 +8,9 @@ var PowerUpScene = preload("res://scenes/powerup.tscn")
 @export var spawn_interval_variation: float = 0.5  # Maximum variation for powerup spawn interval
 @export var energy_pickup_spawn_interval_variation: float = 0.5  # Maximum variation for energy pickup spawn interval
 
+
+@onready var player = get_node("/root/Game/Player")
+
 # Preload the effect scenes
 var InvincibilityEffectScript = preload("res://scripts/powerups/Invincibility.gd")
 var ShieldEffectScript = preload("res://scripts/powerups/Shield.gd")
@@ -19,7 +22,7 @@ enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP }
 var start_spawn = false
 var timer = 0.0
 var energy_pickup_timer = -1.0
-var shield_spawn_time: float = 5.0  # Time in seconds after which the Shield powerup can start spawning
+var shield_spawn_time: float = 15.0  # Time in seconds after which the Shield powerup can start spawning
 
 
 var game_instance
@@ -66,12 +69,16 @@ func spawn_powerup() -> void:
 		# select a different powerup type
 		power_up_type = PowerUpType.INVINCIBILITY
 
+	if power_up_type == PowerUpType.SHIELD and player.has_shield:
+		power_up_type = PowerUpType.INVINCIBILITY
+
+
 	var viewport_rect = get_viewport().get_visible_rect()
 	var powerup = create_powerup(power_up_type)
 	add_child(powerup)
 	powerup.can_move = true
 	powerup.global_position.x = viewport_rect.size.x + 20 # Spawn just off the right side
-	powerup.global_position.y = 225
+	powerup.global_position.y = 235
 	powerup.game_instance = game_instance  # Pass the game reference to the powerup
 
 
@@ -82,6 +89,8 @@ func spawn_energy_pickup() -> void:
 	powerup.can_move = true
 	powerup.global_position.x = viewport_rect.size.x + 20 # Spawn just off the right side
 	powerup.global_position.y = 225
+	if powerup.effect_script == EnergyPickupEffectScript:
+			powerup.global_position.y = 235
 	powerup.game_instance = game_instance  # Pass the game reference to the powerup
 
 
@@ -110,6 +119,12 @@ func create_energy_pickup() -> Node:
 		var powerup = PowerUpScene.instantiate()
 		powerup.power_up_type = PowerUpType.ENERGY_PICKUP
 		powerup.effect_script = EnergyPickupEffectScript
+
+		# Set the scale of the sprite
+		var sprite = powerup.get_node("AnimatedPowerupSprite")  # Adjust the node path as needed
+		if sprite:
+			sprite.scale = Vector2(1.25, 1.25)
+
 		return powerup
 	else:
 		print("Error: PowerUpScene is not preloaded correctly")

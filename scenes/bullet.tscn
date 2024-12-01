@@ -161,6 +161,7 @@ animations = [{
 radius = 8.06226
 
 [node name="Bullet" type="Area2D"]
+collision_layer = 4
 script = ExtResource("1_ftq0r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

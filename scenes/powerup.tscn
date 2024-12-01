@@ -202,7 +202,7 @@ script = ExtResource("2_j2xb0")
 position = Vector2(0, -5)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ehdl3")
-animation = &"invincibility"
+animation = &"energy_pickup"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6gtkj")
