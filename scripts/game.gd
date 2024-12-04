@@ -155,6 +155,10 @@ func handle_input():
 	if start_run:
 		if Input.is_action_just_pressed("Jump") and player.is_on_floor():
 			player.velocity.y = Jump_velocity
+		if Input.is_action_just_pressed("Jump") and player.is_on_floor() and player.can_slide:
+			player.velocity.y = Jump_velocity
+			player.can_slide = false
+			
 		
 		if player.running or player.jump:
 			var direction := Input.get_axis("left", "right")
