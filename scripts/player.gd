@@ -8,6 +8,8 @@ var can_move = false
 var idle = false
 var running = false
 var jump = false
+var gun_run = false
+var gun_jump = false
 var is_invincible: bool = false
 var has_shield = false
 var shield_active: bool = false
@@ -59,14 +61,32 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if can_move:
-		if position.y < 250:
+		if position.y < 250 and !holdWeapon and !has_ammo:
 			jump = true
+			gun_jump = false
 			running = false
 			idle = false
-		else:
+			gun_run = false
+		elif position.y < 250 and holdWeapon and has_ammo:
+			jump = true
+			gun_jump = true
+			running = false
+			idle = false
+			gun_run = false
+			
+			
+		elif holdWeapon and has_ammo:
+			jump = false
+			gun_jump = false
 			running = true
 			idle = false
+			gun_run = true
+		else:
+			running = true
+			gun_jump = false
+			idle = false
 			jump = false
+			gun_run = false
 		
 	else:
 		idle = true
@@ -74,11 +94,15 @@ func _physics_process(delta: float) -> void:
 	if idle:
 		animated_player.play("idle")
 	
-	if jump:
+	if jump and !gun_jump:
 		animated_player.play("jump")
+	if jump and gun_jump:
+		animated_player.play("gun_jump")
 	
-	if running:
+	if running and !gun_run:
 		animated_player.play("run")
+	if gun_run and running and has_ammo:
+		animated_player.play("gun")
 
 	if is_invincible:
 		animated_player.modulate = Color(1, 1, 1, 0.4)
@@ -110,12 +134,14 @@ func _on_shield_area_entered(area):
 		area.queue_free()
 		
 func gunLogic():
-	if holdWeapon:
+	if holdWeapon and has_ammo:
 		shotGun.visible = true
 		shotGun.play("default")
 	else:
 		shotGun.visible = false
 		
+	
+	
 func shoot():
 	if bullet_scene and shotgunMuzzle:
 		

@@ -1,11 +1,44 @@
-[gd_scene load_steps=28 format=3 uid="uid://bqdmouxemwvb"]
+[gd_scene load_steps=37 format=3 uid="uid://bqdmouxemwvb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qojc7"]
 [ext_resource type="Texture2D" uid="uid://bw27sasqhccyv" path="res://assets/character-idl-run.png" id="2_7wq02"]
 [ext_resource type="PackedScene" uid="uid://djir7f54sk0bv" path="res://scenes/playerBullet.tscn" id="2_n0cy3"]
+[ext_resource type="Texture2D" uid="uid://ce0xxctakness" path="res://assets/run-gun.png" id="3_wqe7h"]
 [ext_resource type="Texture2D" uid="uid://dhk743fcgyw02" path="res://assets/player-shield-effect.png" id="4_27oyj"]
 [ext_resource type="Texture2D" uid="uid://g1mq8x2cnse2" path="res://assets/shotgun.png" id="4_qsviv"]
 [ext_resource type="AudioStream" uid="uid://ct7esm3gox0ji" path="res://sounds/laser4.wav" id="6_2bm7b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sodww"]
+atlas = ExtResource("3_wqe7h")
+region = Rect2(0, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b2t7"]
+atlas = ExtResource("3_wqe7h")
+region = Rect2(64, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a72jx"]
+atlas = ExtResource("3_wqe7h")
+region = Rect2(128, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdq6e"]
+atlas = ExtResource("3_wqe7h")
+region = Rect2(192, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsc00"]
+atlas = ExtResource("3_wqe7h")
+region = Rect2(256, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytnt3"]
+atlas = ExtResource("3_wqe7h")
+region = Rect2(320, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rysr6"]
+atlas = ExtResource("3_wqe7h")
+region = Rect2(64, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04xgu"]
+atlas = ExtResource("3_wqe7h")
+region = Rect2(128, 0, 64, 65)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6q13"]
 atlas = ExtResource("2_7wq02")
@@ -55,6 +88,40 @@ region = Rect2(576, 0, 64, 65)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_sodww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b2t7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a72jx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdq6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsc00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytnt3")
+}],
+"loop": true,
+"name": &"gun",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rysr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04xgu")
+}],
+"loop": true,
+"name": &"gun_jump",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_i6q13")
 }, {
 "duration": 1.0,
@@ -102,10 +169,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ohk5"]
-radius = 12.0
-height = 54.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ttvi"]
 atlas = ExtResource("4_qsviv")
 region = Rect2(0, 0, 64, 23)
@@ -125,8 +188,12 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 8.0
 }]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ohk5"]
+radius = 12.0
+height = 54.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ygws"]
 radius = 45.0999
@@ -168,24 +235,24 @@ bullet_scene = ExtResource("2_n0cy3")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 position = Vector2(0, -33)
 sprite_frames = SubResource("SpriteFrames_ktues")
-animation = &"run"
+animation = &"gun_jump"
 autoplay = "idle"
-frame_progress = 0.928722
+frame_progress = 0.093922
+
+[node name="Shotgun" type="AnimatedSprite2D" parent="."]
+position = Vector2(18.5667, -33.55)
+scale = Vector2(0.425, 0.386957)
+sprite_frames = SubResource("SpriteFrames_0blcx")
+frame_progress = 0.883601
+offset = Vector2(6.66667, 0)
+
+[node name="Muzzle" type="Node2D" parent="Shotgun"]
+position = Vector2(40, -3.33333)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
 visible = false
 position = Vector2(0, -27)
 shape = SubResource("CapsuleShape2D_1ohk5")
-
-[node name="Shotgun" type="AnimatedSprite2D" parent="."]
-position = Vector2(16, -30)
-scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_0blcx")
-frame_progress = 0.505689
-offset = Vector2(6.66667, 0)
-
-[node name="Muzzle" type="Node2D" parent="Shotgun"]
-position = Vector2(40, -3.33333)
 
 [node name="Shield" type="Area2D" parent="."]
 visible = false
