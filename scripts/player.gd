@@ -8,6 +8,10 @@ var can_move = false
 var idle = false
 var running = false
 var jump = false
+var gun_run = false
+var gun_jump = false
+var slide = false
+var can_slide = false
 var is_invincible: bool = false
 var has_shield = false
 var shield_active: bool = false
@@ -23,6 +27,8 @@ var energy_decrement_accumulator: float = 0.0
 @onready var shield = $Shield
 @onready var animated_shield = $Shield/AnimatedShield
 @onready var shield_collision_shape = $Shield/CollisionShape2D
+@onready var normal_collision_shape = $NormalCollisionShape
+@onready var slide_collision_shape = $SlideCollisionShape
 
 @onready var shield_icon = null
 var shield_icon_scene = preload("res://scenes/ShieldIcon.tscn")
@@ -36,6 +42,8 @@ func _ready():
 	shield.add_to_group("shield")
 	shield.connect("body_entered", Callable(self, "_on_shield_body_entered"))
 	shield.connect("area_entered", Callable(self, "_on_shield_area_entered"))
+	normal_collision_shape.disabled = false
+	slide_collision_shape.disabled = true
 	
 	
 func _physics_process(delta: float) -> void:
@@ -46,6 +54,7 @@ func _physics_process(delta: float) -> void:
 		has_ammo = false
 	# Add gravity
 	gunLogic()
+	handleSlide()
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -59,14 +68,44 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if can_move:
-		if position.y < 250:
+		
+		if position.y < 250 and !holdWeapon and !has_ammo and !can_slide:
 			jump = true
+			gun_jump = false
 			running = false
 			idle = false
-		else:
+			gun_run = false
+			slide = false
+		elif position.y < 250 and holdWeapon and has_ammo and !can_slide:
+			jump = true
+			gun_jump = true
+			running = false
+			idle = false
+			gun_run = false
+			slide = false
+		
+		elif  can_slide:
+			jump = false
+			gun_jump = false
+			running = false
+			idle = false
+			gun_run = false
+			slide = true
+			
+		elif holdWeapon and has_ammo and !can_slide:
+			jump = false
+			gun_jump = false
 			running = true
 			idle = false
+			gun_run = true
+			slide = false
+		else:
+			running = true
+			gun_jump = false
+			idle = false
 			jump = false
+			gun_run = false
+			slide = false
 		
 	else:
 		idle = true
@@ -74,11 +113,17 @@ func _physics_process(delta: float) -> void:
 	if idle:
 		animated_player.play("idle")
 	
-	if jump:
+	if jump and !gun_jump:
 		animated_player.play("jump")
+	if jump and gun_jump:
+		animated_player.play("gun_jump")
 	
-	if running:
+	if running and !gun_run:
 		animated_player.play("run")
+	if gun_run and running and has_ammo:
+		animated_player.play("gun")
+	if slide:
+		animated_player.play("slide")
 
 	if is_invincible:
 		animated_player.modulate = Color(1, 1, 1, 0.4)
@@ -110,12 +155,30 @@ func _on_shield_area_entered(area):
 		area.queue_free()
 		
 func gunLogic():
-	if holdWeapon:
+	if holdWeapon and has_ammo:
 		shotGun.visible = true
 		shotGun.play("default")
+		if slide:
+			shotGun.position.x = 17
+			shotGun.position.y = -23
+		else:
+			shotGun.position.x = 18.5
+			shotGun.position.y = -33.5
 	else:
 		shotGun.visible = false
 		
+
+func handleSlide():
+	if slide:
+		normal_collision_shape.disabled = true
+		slide_collision_shape.disabled = false
+		
+	else :
+		normal_collision_shape.disabled = false
+		slide_collision_shape.disabled = true
+		
+	
+	
 func shoot():
 	if bullet_scene and shotgunMuzzle:
 		
