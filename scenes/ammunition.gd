@@ -1,6 +1,7 @@
 extends Control
 
 var ammo = 0;
+var capacity = 50;
 
 @onready var ammoLabel = $current
 
@@ -11,4 +12,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	ammoLabel.text = str(ammo)
+	ammoLabel.text = str(ammo) + "/" + str(capacity)
