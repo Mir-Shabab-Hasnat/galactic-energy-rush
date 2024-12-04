@@ -33,6 +33,7 @@ var elapsed_time: float = 0.0
 var shoot_timer = 0.0
 
 var ammo = 0;
+var capacity = 50;
 
 enum PowerUpType { SHIELD, INVINCIBILITY, ENERGY_PICKUP }
 
@@ -88,8 +89,8 @@ func _process(delta: float) -> void:
 		player_energy = player.energy
 	
 	
-	if ammo > 15:
-		ammo = 15
+	if ammo > ammoLabel.capacity:
+		ammo = ammoLabel.capacity
 	if ammo < 0:
 		ammo = 0
 	
@@ -104,7 +105,7 @@ func _process(delta: float) -> void:
 			if shoot_timer >= 0.05:
 				player.shoot()
 				shoot_timer = 0.0  # Res
-			ammo = 15
+			ammo = capacity
 		# Increment the accumulated score based on the player's velocity
 		accumulated_score += max(5, player.energy) * delta
 
@@ -135,8 +136,10 @@ func _tick_game(_delta: float) -> void:
 	energyBar.energy = player.energy
 	player_energy = player.energy
 	ammoLabel.ammo = player.ammo
+	ammoLabel.capacity = player.capacity
 	
 	player.ammo = ammo
+	player.capacity = capacity
 	
 	apply_energy()
 	
