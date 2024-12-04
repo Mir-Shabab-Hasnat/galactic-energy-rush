@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bqdmouxemwvb"]
+[gd_scene load_steps=41 format=3 uid="uid://bqdmouxemwvb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_qojc7"]
 [ext_resource type="Texture2D" uid="uid://bw27sasqhccyv" path="res://assets/character-idl-run.png" id="2_7wq02"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ce0xxctakness" path="res://assets/run-gun.png" id="3_wqe7h"]
 [ext_resource type="Texture2D" uid="uid://dhk743fcgyw02" path="res://assets/player-shield-effect.png" id="4_27oyj"]
 [ext_resource type="Texture2D" uid="uid://g1mq8x2cnse2" path="res://assets/shotgun.png" id="4_qsviv"]
+[ext_resource type="Texture2D" uid="uid://corqvidqgl5wo" path="res://assets/slide.png" id="5_tojtl"]
 [ext_resource type="AudioStream" uid="uid://ct7esm3gox0ji" path="res://sounds/laser4.wav" id="6_2bm7b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sodww"]
@@ -83,6 +84,14 @@ region = Rect2(512, 0, 64, 65)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2n46j"]
 atlas = ExtResource("2_7wq02")
 region = Rect2(576, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjqsw"]
+atlas = ExtResource("5_tojtl")
+region = Rect2(0, 0, 64, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkb08"]
+atlas = ExtResource("5_tojtl")
+region = Rect2(64, 0, 64, 65)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ktues"]
 animations = [{
@@ -167,6 +176,17 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjqsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkb08")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 6.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ttvi"]
@@ -194,6 +214,9 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ohk5"]
 radius = 12.0
 height = 54.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_quhpr"]
+size = Vector2(48, 26)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ygws"]
 radius = 45.0999
@@ -235,24 +258,27 @@ bullet_scene = ExtResource("2_n0cy3")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 position = Vector2(0, -33)
 sprite_frames = SubResource("SpriteFrames_ktues")
-animation = &"gun_jump"
+animation = &"slide"
 autoplay = "idle"
-frame_progress = 0.093922
+frame_progress = 0.00612257
 
 [node name="Shotgun" type="AnimatedSprite2D" parent="."]
 position = Vector2(18.5667, -33.55)
 scale = Vector2(0.425, 0.386957)
 sprite_frames = SubResource("SpriteFrames_0blcx")
-frame_progress = 0.883601
+frame_progress = 0.733093
 offset = Vector2(6.66667, 0)
 
 [node name="Muzzle" type="Node2D" parent="Shotgun"]
 position = Vector2(40, -3.33333)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
-visible = false
+[node name="NormalCollisionShape" type="CollisionShape2D" parent="." groups=["player"]]
 position = Vector2(0, -27)
 shape = SubResource("CapsuleShape2D_1ohk5")
+
+[node name="SlideCollisionShape" type="CollisionShape2D" parent="." groups=["player"]]
+position = Vector2(7, -13)
+shape = SubResource("RectangleShape2D_quhpr")
 
 [node name="Shield" type="Area2D" parent="."]
 visible = false

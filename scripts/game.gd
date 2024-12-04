@@ -179,7 +179,11 @@ func handle_input():
 		if Input.is_action_just_pressed("shield") and player.has_shield:
 			# print("input detected for shield toggle")
 			player.toggle_shield()
-			
+		
+		if Input.is_action_just_pressed("slide"):
+			player.can_slide = true
+		if Input.is_action_just_released("slide"):
+			player.can_slide = false
 		
 
 	player.move_and_slide()
