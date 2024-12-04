@@ -115,7 +115,14 @@ func spawnBox() -> void:
 	var height = randf_range(0.5, 1.5)
 	MetalBox.scale = Vector2(0.5, height)
 	MetalBox.global_position.x = 640
-	MetalBox.global_position.y = 220
+	
+	# Assuming MetalBox has a CollisionShape2D or Sprite child named "CollisionShape2D"
+	var collision_shape = MetalBox.get_node("CollisionShape2D")
+	var shape = collision_shape.shape
+	var original_height = shape.extents.y * 2
+	
+	var base_y_position = 230 if randi() % 2 == 0 else 200
+	MetalBox.global_position.y = base_y_position - (original_height * (height - 1)/ 2)
 
 func spawnFloatingplatform() -> void:
 	var flPlatform = floatingPlatform_scene.instantiate()

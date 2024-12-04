@@ -23,6 +23,9 @@ var game_reload = preload("res://scenes/game.tscn")
 @onready var ammoLabel = $Ammunition
 
 @onready var leftBoundary = $LeftScreenBound
+
+@onready var background = $Backgrounf
+
 var appliedEnergy # whats the point of this
 var player_energy
 var score: int = 0;
@@ -35,6 +38,7 @@ var shoot_timer = 0.0
 
 var InstrutionTimer = 0.0
 var ammo = 0;
+var capacity = 50;
 
 enum PowerUpType { SHIELD, INVINCIBILITY, ENERGY_PICKUP }
 
@@ -42,12 +46,15 @@ var top_scores = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	background.modulate = Color(0.5, 0.2, 0.8, 1)
+	
 	# print("SceneTree available:", get_tree())
 	
 	
 	load_scores()  # Load the top scores when the game starts
 	energyBar.energy = player.energy
 	ammoLabel.ammo = player.ammo
+	scoreLabel.modulate = Color(0, 0, 0)  # Set the score label color to white
 	
 	# Start the timer when the game is ready
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
@@ -102,8 +109,8 @@ func _process(delta: float) -> void:
 		player_energy = player.energy
 	
 	
-	if ammo > 15:
-		ammo = 15
+	if ammo > ammoLabel.capacity:
+		ammo = ammoLabel.capacity
 	if ammo < 0:
 		ammo = 0
 	
@@ -118,7 +125,7 @@ func _process(delta: float) -> void:
 			if shoot_timer >= 0.05:
 				player.shoot()
 				shoot_timer = 0.0  # Res
-			ammo = 15
+			ammo = capacity
 		# Increment the accumulated score based on the player's velocity
 		accumulated_score += max(5, player.energy) * delta
 
@@ -132,9 +139,10 @@ func _process(delta: float) -> void:
 				score += int(accumulated_score/10)
 				scoreLabel.modulate = Color(1, 0.5, 0)  # Orange color
 			else:
-				scoreLabel.modulate = Color(0, 0, 0)  # White color
+				scoreLabel.modulate = Color(0, 0, 0)  # Black color
 			accumulated_score -= int(accumulated_score)
-		scoreLabel.text = "Score: " + str(int(score))  # Update the score label
+		scoreLabel.text = "Score: " + str(int(score))
+		
 
 	_check_if_player_off_screen()
 	_tick_game(delta)
@@ -149,8 +157,10 @@ func _tick_game(_delta: float) -> void:
 	energyBar.energy = player.energy
 	player_energy = player.energy
 	ammoLabel.ammo = player.ammo
+	ammoLabel.capacity = player.capacity
 	
 	player.ammo = ammo
+	player.capacity = capacity
 	
 	apply_energy()
 	
@@ -170,6 +180,10 @@ func handle_input():
 	if start_run:
 		if Input.is_action_just_pressed("Jump") and player.is_on_floor():
 			player.velocity.y = Jump_velocity
+		if Input.is_action_just_pressed("Jump") and player.is_on_floor() and player.can_slide:
+			player.velocity.y = Jump_velocity
+			player.can_slide = false
+			
 		
 		if player.running or player.jump:
 			var direction := Input.get_axis("left", "right")

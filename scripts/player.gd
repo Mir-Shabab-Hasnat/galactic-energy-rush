@@ -19,6 +19,7 @@ var has_unlimited_ammo: bool = false
 var energy: int = 50
 var holdWeapon = false
 var ammo: int = 0
+var capacity: int = 0
 
 var has_ammo = false
 var energy_decrement_accumulator: float = 0.0
