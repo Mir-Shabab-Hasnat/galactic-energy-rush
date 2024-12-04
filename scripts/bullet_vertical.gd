@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 	update_move_state()
 	update_energy()
 
-
+	
 	position += velocity * delta
 	#free off screen
 	if self.global_position.x < 0 :

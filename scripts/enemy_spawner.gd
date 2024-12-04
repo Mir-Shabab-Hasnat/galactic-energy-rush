@@ -20,9 +20,16 @@ var max_spawn_interval_general = 3.0  # Maximum interval
 var general_spawn_count = 1  # Number of enemies to spawn
 var max_general_spawns = 5  # Maximum spawns per cycle
 
+
+var spawn_interval_general_box = randf_range(4,6)
+var min_box_interval = 4.0
+var max_spawn_box_interv = 9.0
+var timer_general_box = 0.0
+
+
 # Attacking enemy spawning variables (spawnAttackingEnemy())
 var timer_attacking_enemy_spawn = 0.0
-var spawn_interval_attacking_enemy = 12.0  # Initial interval
+var spawn_interval_attacking_enemy = 15.0  # Initial interval
 var min_spawn_interval_attacking_enemy = 4.0  # Minimum interval
 var max_spawn_interval_attacking_enemy = 12.0  # Maximum interval
 var attacking_enemy_spawn_count = 1
@@ -30,7 +37,7 @@ var max_attacking_enemy_spawns = 5
 
 # Vertical attacking enemy spawning variables (spawnAttackingEnemy_vertical())
 var timer_attacking_enemy_vertical_spawn = 0.0
-var spawn_interval_attacking_enemy_vertical = 10.0  # Initial interval
+var spawn_interval_attacking_enemy_vertical = 45.0  # Initial interval
 var min_spawn_interval_attacking_enemy_vertical = 5.0
 var max_spawn_interval_attacking_enemy_vertical = 10.0
 var attacking_enemy_vertical_spawn_count = 1
@@ -58,10 +65,20 @@ func _process(delta: float) -> void:
 		if timer_general >= spawn_interval_general:
 			for i in range(general_spawn_count):
 				spawn()
-				spawnBox()
-				spawnBigBoss()
+				
+				
 			timer_general = 0.0
 			spawn_interval_general = max(spawn_interval_general - 0.2, min_spawn_interval_general)
+			general_spawn_count = 1
+			
+		timer_general_box += delta
+		if timer_general_box>= spawn_interval_general_box:
+			for i in range(general_spawn_count):
+				
+				spawnBox()
+				
+			timer_general_box = 0.0
+			spawn_interval_general_box = max(spawn_interval_general_box - 0.2, min_box_interval )
 			general_spawn_count = 1
 
 		# Attacking Enemy Spawning
@@ -83,7 +100,7 @@ func _process(delta: float) -> void:
 			for i in range(attacking_enemy_vertical_spawn_count):
 				spawnAttackingEnemy_vertical()
 			timer_attacking_enemy_vertical_spawn = 0.0
-			spawn_interval_attacking_enemy_vertical = max(spawn_interval_attacking_enemy_vertical - 0.5, min_spawn_interval_attacking_enemy_vertical)
+			spawn_interval_attacking_enemy_vertical = max(spawn_interval_attacking_enemy_vertical - 10, min_spawn_interval_attacking_enemy_vertical)
 			if spawn_interval_attacking_enemy_vertical == min_spawn_interval_attacking_enemy_vertical:
 				attacking_enemy_vertical_spawn_count = randi_range(1,2)
 			else:

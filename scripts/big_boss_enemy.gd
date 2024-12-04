@@ -6,7 +6,7 @@ extends Area2D
 @onready var bullet_sound = $BulletSound
 @onready var left_bound = game_instance.get_node("LeftScreenBound")  # Adjust path if needed
 @onready var right_bound = game_instance.get_node("RightScreenBounds")  # Adjust path if needed
-@export var projectile_speed: float = 450.0
+@export var projectile_speed: float = 200.0
 @export var move_speed: float = 200.0
 @export var shoot_interval: float = 2.0
 @export var vertical_shift_range: Vector2 = Vector2(50, 100)  # Random vertical shift range
