@@ -22,6 +22,9 @@ var game_reload = preload("res://scenes/game.tscn")
 @onready var ammoLabel = $Ammunition
 
 @onready var leftBoundary = $LeftScreenBound
+
+@onready var background = $Backgrounf
+
 var appliedEnergy # whats the point of this
 var player_energy
 var score: int = 0;
@@ -41,6 +44,8 @@ var top_scores = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	background.modulate = Color(0.5, 0.2, 0.8, 1)
+	
 	# print("SceneTree available:", get_tree())
 	
 	load_scores()  # Load the top scores when the game starts
@@ -119,9 +124,10 @@ func _process(delta: float) -> void:
 				score += int(accumulated_score/10)
 				scoreLabel.modulate = Color(1, 0.5, 0)  # Orange color
 			else:
-				scoreLabel.modulate = Color(0, 0, 0)  # White color
+				scoreLabel.modulate = Color(1, 1, 1)  # White color
 			accumulated_score -= int(accumulated_score)
-		scoreLabel.text = "Score: " + str(int(score))  # Update the score label
+		scoreLabel.text = "Score: " + str(int(score))
+		
 
 	_check_if_player_off_screen()
 	_tick_game(delta)
