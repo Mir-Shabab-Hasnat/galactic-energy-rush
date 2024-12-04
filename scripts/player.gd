@@ -23,7 +23,7 @@ var energy_decrement_accumulator: float = 0.0
 @onready var shield = $Shield
 @onready var animated_shield = $Shield/AnimatedShield
 @onready var shield_collision_shape = $Shield/CollisionShape2D
-@onready var shield_debug_sprite = $Shield/DebugSprite  # Temporary debug sprite
+
 @onready var shield_icon = null
 var shield_icon_scene = preload("res://scenes/ShieldIcon.tscn")
 

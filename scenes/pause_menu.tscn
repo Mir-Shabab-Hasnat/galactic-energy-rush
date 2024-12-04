@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://dytiw37k7yv7p"]
+[gd_scene load_steps=9 format=3 uid="uid://dytiw37k7yv7p"]
 
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_7k4f7"]
-[ext_resource type="Texture2D" uid="uid://dif20gqdsviee" path="res://assets/DALL·E 2024-11-25 17.18.32 - A pixel art background for a pause menu in a spacey robot shooter game. The background features a futuristic metallic design with robotic elements, gl.webp" id="2_q7erp"]
 [ext_resource type="Texture2D" uid="uid://2ix18i6my7gk" path="res://assets/demo-background.jpg" id="3_2atnp"]
 [ext_resource type="FontFile" uid="uid://d0rv36s7vgfl7" path="res://assets/Arcades Italic.ttf" id="4_0ukja"]
 
@@ -59,7 +58,6 @@ offset_top = 39.0
 offset_right = 1398.0
 offset_bottom = 1063.0
 scale = Vector2(0.6, 0.5)
-texture = ExtResource("2_q7erp")
 
 [node name="Panel" type="Panel" parent="."]
 visible = false

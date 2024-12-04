@@ -50,11 +50,11 @@ func shoot() -> void:
 	$BulletSound.play()
 	var bullet = bullet_scene.instantiate()
 	# Add bullet to the scene tree as a child of this enemy node
-	add_child(bullet)
+	game_instance.add_child(bullet)
 
 	# Connect the collision signal to handle player collision
 	bullet.connect("player_collided", Callable(game_instance, "_on_player_collided"))
-	bullet.scale = Vector2(0.5, 0.5)
+	bullet.scale = Vector2(1, 0.7)
 	# Set the bullet's starting position at the position of the `projectileMarker`
 	bullet.global_position = projectile_mark.global_position
 
@@ -76,6 +76,7 @@ func shoot() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
+	
 	if area.is_in_group("PlayerBullet"):
 		#resclae cus explosion too big
 	
