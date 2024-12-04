@@ -1,14 +1,14 @@
 extends Area2D
-
+@export var energy_multiplier: float = 3.0  # Multiplier to affect energy consumption
 @export var bullet_scene = preload("res://scenes/bullet_vertical.tscn") # Preload the projectile scene
 @onready var game_instance = get_node("/root/Game")
 @onready var projectile_mark = $Marker2D # Reference to the spawn point for the projectile
 @onready var startingxPosition = randf_range(500,600) 
-@export var projectile_speed: float = 500.0 # Speed of the projectile
+@export var projectile_speed: float = 400.0 # Speed of the projectile
 @export var speed: float = 100.0  # Speed for the up-and-down movement
 @export var top_point: Vector2 = Vector2(500, 100)  # The top point for vertical movement
 @export var bottom_point: Vector2 = Vector2(500, 340)  # The bottom point for vertical movement
-
+var energy = 0
 
 var moving_up: bool = false # Indicates direction of vertical movement
 var timer: float = 0.0 # Timer for controlling shooting intervals
@@ -17,6 +17,7 @@ var timer: float = 0.0 # Timer for controlling shooting intervals
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	game_instance = get_node("/root/Game")
 	add_to_group("enemyObstacle") # Used for shield collision detection
 	# Set the initial position of the enemy to be between top_point and bottom_point
 	position = bottom_point
@@ -25,7 +26,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
+	update_energy()
 	# Update vertical movement between top_point and bottom_point
 	var target = top_point if moving_up else bottom_point
 	var direction = (target - position).normalized()
@@ -49,6 +50,8 @@ func shoot() -> void:
 	# Instantiate a new bullet
 	$BulletSound.play()
 	var bullet = bullet_scene.instantiate()
+	
+	
 	# Add bullet to the scene tree as a child of this enemy node
 	game_instance.add_child(bullet)
 
@@ -66,7 +69,7 @@ func shoot() -> void:
 	var direction = (player_position - bullet.global_position).normalized()
 
 	# Set the bullet's velocity towards the player
-	var velocity = direction * projectile_speed
+	var velocity = direction * (projectile_speed * (energy/100))
 
 	# Set the bullet's velocity if the bullet has the `set_velocity` method
 	
@@ -87,3 +90,7 @@ func _on_area_entered(area: Area2D) -> void:
 		await game_instance.get_tree().create_timer(0.42).timeout
 		print("enemy shot")
 		queue_free()	
+
+func update_energy() -> void:
+	if game_instance:
+		energy = game_instance.player_energy * energy_multiplier

@@ -6,7 +6,7 @@ extends Area2D
 @onready var bullet_sound = $BulletSound
 @onready var left_bound = game_instance.get_node("LeftScreenBound")  # Adjust path if needed
 @onready var right_bound = game_instance.get_node("RightScreenBounds")  # Adjust path if needed
-@export var projectile_speed: float = 500.0
+@export var projectile_speed: float = 450.0
 @export var move_speed: float = 200.0
 @export var shoot_interval: float = 2.0
 @export var vertical_shift_range: Vector2 = Vector2(50, 100)  # Random vertical shift range
@@ -17,12 +17,15 @@ var traveling_right: bool = true  # Tracks whether the enemy is moving right
 var vertical_target: float = 0.0  # Target Y position for vertical movement
 var state: String = "horizontal"  # Movement state: "horizontal" or "vertical"d
 var ShotCounter: int = 0
+var energy = 0
+@export var energy_multiplier: float = 3.0  # Multiplier to affect energy consumption
 
 func _ready() -> void:
 	$fullCol.disabled = false
 	$lowCol.disabled = true
 
 func _process(delta: float) -> void:
+	update_energy()
 	# Handle shooting
 	timer += delta
 	if timer >= shoot_interval:
@@ -36,7 +39,7 @@ func _process(delta: float) -> void:
 		handle_vertical_movement(delta)
 
 func handle_horizontal_movement(delta: float) -> void:
-	# Move horizontally
+	# Move horizontallyvar velocity = direction * projectile_speed
 	var move_step = direction * move_speed * delta
 	global_position += move_step
 
@@ -84,7 +87,7 @@ func shoot() -> void:
 	var direction = (player_position - bullet.global_position).normalized()
 
 	# Set the bullet's velocity towards the player
-	var velocity = direction * projectile_speed
+	var velocity = direction * (projectile_speed * (energy/100))
 
 	# Set the bullet's velocity if the bullet has the `set_velocity` method
 	bullet.set_velocity(velocity)
@@ -114,3 +117,7 @@ func _on_area_entered(area: Area2D) -> void:
 			await game_instance.get_tree().create_timer(0.42).timeout
 			print("enemy shot")
 			queue_free()	
+
+func update_energy() -> void:
+	if game_instance:
+		energy = game_instance.player_energy * energy_multiplier

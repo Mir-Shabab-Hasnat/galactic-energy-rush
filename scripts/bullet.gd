@@ -1,5 +1,5 @@
 extends Area2D
-
+var speed = 200
 @export var velocity: Vector2 = Vector2(0, 200) # Velocity of the projectile, downward by default
 @export var energy_multiplier: float = 3.0  # Multiplier to affect energy consumption
 @export var damage: int = 5  # Damage value when colliding with the player
@@ -26,9 +26,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	update_move_state()
 	update_energy()
-
+	
+	
 	# If allowed to move, update the projectile's position
 	if can_move:
+		velocity= Vector2(0, speed * (energy/100) )
 		position += velocity * delta
 
 	# Check if the projectile has gone out of bounds, and remove it if so
