@@ -54,7 +54,7 @@ func _ready() -> void:
 	load_scores()  # Load the top scores when the game starts
 	energyBar.energy = player.energy
 	ammoLabel.ammo = player.ammo
-	scoreLabel.modulate = Color(0, 0, 0)  # Set the score label color to white
+	scoreLabel.modulate = Color(1, 1, 1)  # Set the score label color to white
 	
 	# Start the timer when the game is ready
 	$Timer.wait_time = 2.0  # Set the wait time to 2 seconds
@@ -139,7 +139,7 @@ func _process(delta: float) -> void:
 				score += int(accumulated_score/10)
 				scoreLabel.modulate = Color(1, 0.5, 0)  # Orange color
 			else:
-				scoreLabel.modulate = Color(0, 0, 0)  # Black color
+				scoreLabel.modulate = Color(1, 1, 1)  # White color
 			accumulated_score -= int(accumulated_score)
 		scoreLabel.text = "Score: " + str(int(score))
 		

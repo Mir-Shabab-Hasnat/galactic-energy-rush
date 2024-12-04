@@ -172,8 +172,9 @@ func gunLogic():
 
 func handleSlide():
 	if slide:
+		# Enable slide collision shape before disabling normal collision shape
+		slide_collision_shape.disabled = false 
 		normal_collision_shape.disabled = true
-		slide_collision_shape.disabled = false
 		
 	else :
 		normal_collision_shape.disabled = false
