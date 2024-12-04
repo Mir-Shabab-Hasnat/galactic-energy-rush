@@ -30,6 +30,7 @@ var game_started: bool = false
 var game_ended: bool = false
 var start_run = false
 var elapsed_time: float = 0.0
+var shoot_timer = 0.0
 
 var ammo = 0;
 
@@ -98,6 +99,12 @@ func _process(delta: float) -> void:
 		_game_end()
 	
 	if start_run:
+		if player.has_unlimited_ammo and player.holdWeapon:
+			shoot_timer += delta
+			if shoot_timer >= 0.05:
+				player.shoot()
+				shoot_timer = 0.0  # Res
+			ammo = 15
 		# Increment the accumulated score based on the player's velocity
 		accumulated_score += max(5, player.energy) * delta
 
@@ -169,10 +176,12 @@ func handle_input():
 		
 		if player.holdWeapon and player.gunDirection == "straight" and Input.is_action_just_pressed("ui_right") and player.has_ammo:
 			player.shoot()
-			ammo -= 1
+			if !player.has_unlimited_ammo:
+				ammo -= 1
 		if player.holdWeapon and player.gunDirection == "up" and Input.is_action_just_pressed("ui_up") and player.has_ammo:
 			player.shoot()
-			ammo -= 1
+			if !player.has_unlimited_ammo:
+				ammo -= 1
 		
 		
 		# Handle shield toggle input

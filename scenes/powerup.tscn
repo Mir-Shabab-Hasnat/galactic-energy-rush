@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://cpcc2lykr8k7y"]
+[gd_scene load_steps=33 format=3 uid="uid://cpcc2lykr8k7y"]
 
 [ext_resource type="Texture2D" uid="uid://oy3ufxami0w2" path="res://assets/invincibility-gem.png" id="2_eiyyb"]
 [ext_resource type="Script" path="res://scripts/powerups/power_up.gd" id="2_j2xb0"]
 [ext_resource type="Texture2D" uid="uid://cx6livdcko7j" path="res://assets/energy-powerup.png" id="2_pcrsq"]
 [ext_resource type="Texture2D" uid="uid://j2oq54d1qaa1" path="res://assets/shield-powerup.png" id="2_s61yf"]
+[ext_resource type="Texture2D" uid="uid://c88w1c1r1fdn0" path="res://assets/Laser Bullet-1.png.png" id="4_jrqut"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_axepv"]
 atlas = ExtResource("2_pcrsq")
@@ -101,6 +102,10 @@ region = Rect2(384, 0, 64, 64)
 atlas = ExtResource("2_s61yf")
 region = Rect2(448, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vbmn"]
+atlas = ExtResource("4_jrqut")
+region = Rect2(0, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ehdl3"]
 animations = [{
 "frames": [{
@@ -189,6 +194,14 @@ animations = [{
 "loop": true,
 "name": &"shield",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vbmn")
+}],
+"loop": true,
+"name": &"unlimited_ammo",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gtkj"]
@@ -202,7 +215,7 @@ script = ExtResource("2_j2xb0")
 position = Vector2(0, -5)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ehdl3")
-animation = &"energy_pickup"
+animation = &"unlimited_ammo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6gtkj")
