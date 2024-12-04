@@ -109,7 +109,7 @@ func _on_area_entered(area: Area2D) -> void:
 		elif ShotCounter ==3 :
 			$AnimatedSprite2D.play("death")
 			$AnimatedSprite2D.scale = Vector2(0.5, 0.5)
-			
+			$DeathSound.play()
 			#resclae cus explosion too big
 			await game_instance.get_tree().create_timer(0.42).timeout
 			print("enemy shot")
