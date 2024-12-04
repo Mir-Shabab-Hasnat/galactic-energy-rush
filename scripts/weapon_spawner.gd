@@ -48,11 +48,17 @@ func spawn_weapon() -> void:
 func _process(delta: float) -> void:
 	_elapsed_time += delta
 
-	# Adjust spawn intervals as time progresses
+	# Adjust spawn intervals based on elapsed time
 	adjust_spawn_rate()
 
 func adjust_spawn_rate() -> void:
-	# Decrease the interval range over 5 minutes (300 seconds)
-	var time_factor = _elapsed_time / 300.0
-	min_spawn_interval = lerp(min_spawn_interval, 2.0, clamp(time_factor, 0, 1)) # Min interval reduces from 8s to 2s
-	max_spawn_interval = lerp(max_spawn_interval, 5.0, clamp(time_factor, 0, 1)) # Max interval reduces from 15s to 5s
+	if _elapsed_time > 120.0:
+		# After 2 minutes, decrease intervals faster
+		var time_factor = (_elapsed_time - 120.0) / 180.0 # Adjust over the next 3 minutes
+		min_spawn_interval = lerp(min_spawn_interval, 1.0, clamp(time_factor, 0, 1)) # Min interval reduces to 1s
+		max_spawn_interval = lerp(max_spawn_interval, 3.0, clamp(time_factor, 0, 1)) # Max interval reduces to 3s
+	else:
+		# Gradual reduction in the first 2 minutes
+		var time_factor = _elapsed_time / 120.0
+		min_spawn_interval = lerp(min_spawn_interval, 5.0, clamp(time_factor, 0, 1)) # Min interval reduces from 8s to 5s
+		max_spawn_interval = lerp(max_spawn_interval, 10.0, clamp(time_factor, 0, 1)) # Max interval reduces from 15s to 10s
