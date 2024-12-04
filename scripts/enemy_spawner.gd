@@ -59,7 +59,6 @@ func _process(delta: float) -> void:
 			for i in range(general_spawn_count):
 				spawn()
 				spawnBox()
-				spawnBigBoss()
 			timer_general = 0.0
 			spawn_interval_general = max(spawn_interval_general - 0.2, min_spawn_interval_general)
 			general_spawn_count = 1
