@@ -15,9 +15,10 @@ var PowerUpScene = preload("res://scenes/powerup.tscn")
 var InvincibilityEffectScript = preload("res://scripts/powerups/Invincibility.gd")
 var ShieldEffectScript = preload("res://scripts/powerups/Shield.gd")
 var EnergyPickupEffectScript = preload("res://scripts/powerups/EnergyPickup.gd")
+var UnlimitedAmmoEffectScript = preload("res://scripts/powerups/UnlimitedAmmo.gd")
 
 # Define the PowerUpType enum
-enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP }
+enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP, UNLIMITED_AMMO }
 
 var start_spawn = false
 var timer = 0.0
@@ -59,17 +60,28 @@ func spawn_powerup() -> void:
 
 	if power_up_type == PowerUpType.ENERGY_PICKUP:
 		# select a different powerup type
-		if randi() % 2 == 0:
+		if randi() % 3 == 0:
 			power_up_type = PowerUpType.INVINCIBILITY
+		elif randi() % 3 == 1:
+			power_up_type = PowerUpType.UNLIMITED_AMMO
 		else:
 			power_up_type = PowerUpType.SHIELD
 			
 	# Ensure Shield powerup doesn't spawn before the specified time
 	if power_up_type == PowerUpType.SHIELD and game_instance.elapsed_time < shield_spawn_time:
 		# select a different powerup type
-		power_up_type = PowerUpType.INVINCIBILITY
+		if randi() % 2 == 0:
+			power_up_type = PowerUpType.INVINCIBILITY
+		else:
+			power_up_type = PowerUpType.UNLIMITED_AMMO
 
 	if power_up_type == PowerUpType.SHIELD and player.has_shield:
+		if randi() % 2 == 0:
+			power_up_type = PowerUpType.INVINCIBILITY
+		else:
+			power_up_type = PowerUpType.UNLIMITED_AMMO
+	
+	if power_up_type == PowerUpType.UNLIMITED_AMMO and !player.holdWeapon:
 		power_up_type = PowerUpType.INVINCIBILITY
 
 
@@ -107,6 +119,14 @@ func create_powerup(power_up_type: int) -> Node:
 				# print("Shield powerup created")
 				powerup.power_up_type = PowerUpType.SHIELD
 				powerup.effect_script = ShieldEffectScript
+			PowerUpType.UNLIMITED_AMMO:
+				# print("Unlimited Ammo powerup created")
+				powerup.power_up_type = PowerUpType.UNLIMITED_AMMO
+				powerup.effect_script = UnlimitedAmmoEffectScript
+				var sprite = powerup.get_node("AnimatedPowerupSprite") 
+				if sprite:
+					sprite.modulate = Color(1, 0, 0, 1)
+					sprite.scale = Vector2(7, 7)
 		
 		return powerup
 	else:

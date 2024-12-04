@@ -15,6 +15,7 @@ var can_slide = false
 var is_invincible: bool = false
 var has_shield = false
 var shield_active: bool = false
+var has_unlimited_ammo: bool = false
 var energy: int = 50
 var holdWeapon = false
 var ammo: int = 0

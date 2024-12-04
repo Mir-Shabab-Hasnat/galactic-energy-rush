@@ -1,7 +1,7 @@
 # power_up.gd
 extends Area2D
 
-enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP }
+enum PowerUpType { INVINCIBILITY, SHIELD, ENERGY_PICKUP, UNLIMITED_AMMO }
 
 var power_up_type: PowerUpType 
 var effect_script: GDScript
@@ -71,6 +71,8 @@ func set_powerup_animation():
 			animated_sprite.animation = "shield"
 		PowerUpType.ENERGY_PICKUP:
 			animated_sprite.animation = "energy_pickup"
+		PowerUpType.UNLIMITED_AMMO:
+			animated_sprite.animation = "unlimited_ammo"
 	animated_sprite.play()
 
 
