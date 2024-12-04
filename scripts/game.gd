@@ -8,6 +8,7 @@ var main_menu = preload("res://scenes/main_menu.tscn")
 var game_reload = preload("res://scenes/game.tscn")
 @onready var game_over = preload("res://scenes/game_over_menu.tscn").instantiate()
 @onready var game_paused = preload("res://scenes/pause_menu.tscn").instantiate()
+@onready var game_instruction_Display = preload("res://scenes/GameInstructions.tscn").instantiate()
 
 @onready var player = $Player
 @onready var platform = $Platform
@@ -31,6 +32,7 @@ var game_ended: bool = false
 var start_run = false
 var elapsed_time: float = 0.0
 
+var InstrutionTimer = 0.0
 var ammo = 0;
 
 enum PowerUpType { SHIELD, INVINCIBILITY, ENERGY_PICKUP }
@@ -40,6 +42,7 @@ var top_scores = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# print("SceneTree available:", get_tree())
+	
 	
 	load_scores()  # Load the top scores when the game starts
 	energyBar.energy = player.energy
@@ -51,6 +54,16 @@ func _ready() -> void:
 	$Timer.start()           # Start the timer
 
 	powerup_manager.start_spawn = true
+	
+	add_child(game_instruction_Display)
+	game_instruction_Display.scale = Vector2(3.5, 3.5)
+	game_instruction_Display.global_position.x = 250
+	game_instruction_Display.global_position.y = 50
+	game_instruction_Display.visible = true
+	
+	
+	
+
 	
 	#for game over menu
 	add_child(game_over)
@@ -78,6 +91,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	DisplayInstructions()
 	# print(get_viewport_rect().size)
 	elapsed_time += delta
 	
@@ -136,6 +150,7 @@ func _tick_game(_delta: float) -> void:
 	
 func handle_input():
 	if Input.is_action_just_pressed("pause"):
+		game_instruction_Display.visible = false
 		if !get_tree().paused:
 			
 			_game_pause()
@@ -317,3 +332,12 @@ func load_scores():
 		top_scores.reverse()
 		if top_scores.size() > 10:
 			top_scores.resize(10)
+			
+			
+func DisplayInstructions():
+	
+	game_instruction_Display.scale = Vector2(0.2, 0.2)
+	game_instruction_Display.global_position.x = 250
+	game_instruction_Display.global_position.y = 50
+	await get_tree().create_timer(20).timeout
+	game_instruction_Display.visible = false
