@@ -260,13 +260,13 @@ position = Vector2(0, -33)
 sprite_frames = SubResource("SpriteFrames_ktues")
 animation = &"slide"
 autoplay = "idle"
-frame_progress = 0.851679
+frame_progress = 0.409799
 
 [node name="Shotgun" type="AnimatedSprite2D" parent="."]
 position = Vector2(18.5667, -33.55)
 scale = Vector2(0.425, 0.386957)
 sprite_frames = SubResource("SpriteFrames_0blcx")
-frame_progress = 0.527173
+frame_progress = 0.938011
 offset = Vector2(6.66667, 0)
 
 [node name="Muzzle" type="Node2D" parent="Shotgun"]

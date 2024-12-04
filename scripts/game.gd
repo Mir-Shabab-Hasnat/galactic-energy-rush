@@ -180,9 +180,9 @@ func handle_input():
 			# print("input detected for shield toggle")
 			player.toggle_shield()
 		
-		if Input.is_action_just_pressed("slide"):
+		if Input.is_action_just_pressed("slide") and player.is_on_floor():
 			player.can_slide = true
-		if Input.is_action_just_released("slide"):
+		if Input.is_action_just_released("slide")  and player.is_on_floor():
 			player.can_slide = false
 		
 
