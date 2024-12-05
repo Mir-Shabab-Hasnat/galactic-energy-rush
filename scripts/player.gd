@@ -38,6 +38,7 @@ var shield_icon_scene = preload("res://scenes/ShieldIcon.tscn")
 
 @onready var shotgunMuzzle = shotGun.get_node("Muzzle")
 @export var bullet_scene: PackedScene
+@onready var core = $Core
 
 var gunDirection = "straight"
 
@@ -49,6 +50,8 @@ func _ready():
 	slide_collision_shape.disabled = true
 	invincibilityIcon.visible = false
 	invincibilityIcon.play("default")
+	core.visible = false
+	core.play("default")
 	
 	
 func _physics_process(delta: float) -> void:
@@ -57,6 +60,8 @@ func _physics_process(delta: float) -> void:
 		has_ammo = true
 	if ammo <= 0:
 		has_ammo = false
+	#if running and energy >= 100:
+		#core.visible = true
 	# Add gravity
 	gunLogic()
 	handleSlide()
