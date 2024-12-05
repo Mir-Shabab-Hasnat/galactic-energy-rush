@@ -31,6 +31,7 @@ var energy_decrement_accumulator: float = 0.0
 @onready var shield_collision_shape = $Shield/CollisionShape2D
 @onready var normal_collision_shape = $NormalCollisionShape
 @onready var slide_collision_shape = $SlideCollisionShape
+@onready var invincibilityIcon = $InvincibilityIcon
 
 @onready var shield_icon = null
 var shield_icon_scene = preload("res://scenes/ShieldIcon.tscn")
@@ -46,6 +47,8 @@ func _ready():
 	shield.connect("area_entered", Callable(self, "_on_shield_area_entered"))
 	normal_collision_shape.disabled = false
 	slide_collision_shape.disabled = true
+	invincibilityIcon.visible = false
+	invincibilityIcon.play("default")
 	
 	
 func _physics_process(delta: float) -> void:
@@ -129,11 +132,13 @@ func _physics_process(delta: float) -> void:
 
 	if is_invincible:
 		animated_player.modulate = Color(1, 1, 1, 0.4)
+		invincibilityIcon.visible = true
 	elif has_shield and shield.visible:
 		animated_shield.play("default")
 		pass
 	else:
 		shield.visible = false
+		invincibilityIcon.visible = false
 		animated_player.modulate = Color(1, 1, 1, 1)
 
 
