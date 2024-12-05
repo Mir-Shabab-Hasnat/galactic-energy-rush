@@ -248,10 +248,12 @@ text = "                                                   																					
 
   move left:         A
   move right:       D
+  slide:                  S
   jump:                 Spacebar    
   shoot Right:      >  (right arrow key)
   shoot up:           ^ (up arrow key)
-  Use sheild:         S"
+  Use sheild:         C
+"
 label_settings = SubResource("LabelSettings_gt7lm")
 
 [node name="Panel2" type="Panel" parent="."]

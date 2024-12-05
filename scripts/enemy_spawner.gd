@@ -65,12 +65,8 @@ func _process(delta: float) -> void:
 		if timer_general >= spawn_interval_general:
 			for i in range(general_spawn_count):
 				spawn()
-<<<<<<< HEAD
-				
-				
-=======
-				spawnBox()
->>>>>>> 826d9d8b09fc5c9fb69af8850d13c76fa7ff8d55
+
+
 			timer_general = 0.0
 			spawn_interval_general = max(spawn_interval_general - 0.2, min_spawn_interval_general)
 			general_spawn_count = 1
