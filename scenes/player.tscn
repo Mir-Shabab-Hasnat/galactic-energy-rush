@@ -391,4 +391,4 @@ visible = false
 position = Vector2(8, -33)
 scale = Vector2(0.0742188, 0.0742188)
 sprite_frames = SubResource("SpriteFrames_rs8f1")
-frame_progress = 0.26755
+frame_progress = 0.522306
