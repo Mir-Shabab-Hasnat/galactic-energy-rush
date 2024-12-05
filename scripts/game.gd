@@ -100,6 +100,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	DisplayInstructions()
+	
 	# print(get_viewport_rect().size)
 	elapsed_time += delta
 	
@@ -179,9 +180,9 @@ func handle_input():
 			_on_resume_game()
 	if start_run:
 		if Input.is_action_just_pressed("Jump") and player.is_on_floor():
-			player.velocity.y = Jump_velocity
+			player.velocity.y = Jump_velocity - player.energy * 2
 		if Input.is_action_just_pressed("Jump") and player.is_on_floor() and player.can_slide:
-			player.velocity.y = Jump_velocity
+			player.velocity.y = Jump_velocity - player.energy * 2
 			player.can_slide = false
 			
 		
