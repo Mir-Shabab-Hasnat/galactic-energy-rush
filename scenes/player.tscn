@@ -372,6 +372,8 @@ frame_progress = 0.358516
 
 [node name="BulletSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_2bm7b")
+volume_db = -14.667
+pitch_scale = 0.65
 
 [node name="InvincibilityIcon" type="AnimatedSprite2D" parent="."]
 position = Vector2(7, -57)
@@ -381,7 +383,6 @@ frame_progress = 0.00296985
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
 position = Vector2(0, -33)
-scale = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_ktues")
 animation = &"run"
 autoplay = "idle"

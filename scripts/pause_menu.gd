@@ -15,14 +15,9 @@ signal resume_game
 @onready var ControlsBackButton = $Controls/BackButton
 @onready var ControlsLabel = $Controls/ControlsLabel
 @onready var AudioBus = "Master"  # Audio bus for volume control
-
+@onready var Intructions = $Panel2
 func _ready() -> void:
-	# Connect button signals
-	#ResumeButton.connect("pressed", Callable(self, "_on_resume_button_pressed"))
-	#RestartButton.connect("pressed", Callable(self, "_on_restart_button_pressed"))
-	#ExitButton.connect("pressed", Callable(self, "_on_exit_button_pressed"))
-	#ControlsButton.connect("pressed", Callable(self, "_on_controls_button_pressed"))
-	#ControlsBackButton.connect("pressed", Callable(self, "_on_back_button_pressed"))
+
 
 	# Connect the volume slider's value_changed signal
 	VolumeSlider.connect("value_changed", Callable(self, "_on_volume_slider_changed"))
@@ -50,11 +45,16 @@ func _on_controls_pressed() -> void:
 	# Show the controls panel and hide the main pause menu
 	ControlsPanel.visible = true
 	$VBoxContainer.visible = false
+	Intructions.visible = false
+	
+	
 
 func _on_back_button_pressed() -> void:
 	# Return to the main pause menu and hide the controls panel
 	ControlsPanel.visible = false
 	$VBoxContainer.visible = true
+	Intructions.visible = true
+	
 
 func _on_volume_slider_changed(value: float) -> void:
 	# Convert slider value (0.0 to 1.0) to decibels (-80.0 to 0.0)

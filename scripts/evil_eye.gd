@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	update_move_state()
 	update_energy()
 	if can_move:
-		position.x -= (speed + energy) * delta
+		position.x -= (speed + (energy*2)) * delta
 		
 	if global_position.x < viewport_rect.position.x:
 		# print("eye free at ", position.x)

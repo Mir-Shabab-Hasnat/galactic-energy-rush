@@ -145,7 +145,7 @@ func _process(delta: float) -> void:
 		scoreLabel.text = "Score: " + str(int(score))
 		
 
-	_check_if_player_off_screen()
+	
 	_tick_game(delta)
 	
 	
@@ -264,6 +264,8 @@ func _game_end():
 	print("Game Over!")
 	update_scoreboard(score)
 	save_scores()  # Save the top scores when the game ends
+	if game_instruction_Display.visible == true:
+		game_instruction_Display.visible = false
 	display_scoreboard()
 
 	get_tree().paused = true
@@ -313,9 +315,29 @@ func _on_left_boundary_entered(body):
 	if body.is_in_group("player"):
 		print("Player hit the left boundary, taking 10 damage")
 		_on_player_collided(10)  # Player takes 10 damage when hitting the left boundary
-func _check_if_player_off_screen():
-	if player.global_position.x < leftBoundary.global_position.x:
-		_on_player_collided(10*((leftBoundary.global_position.x-player.global_position.x)/1000))
+		apply_knockback_to_player(body)
+		$WallCollision.play()
+		start_screen_shake()
+
+func apply_knockback_to_player(player_body):
+	var knockback_distance = 20  # Adjust as needed
+	var target_position = player_body.position.x + knockback_distance
+	
+	# Use a tween to smoothly move the player
+	var tween = get_tree().create_tween()
+	tween.tween_property(player_body, "position:x", target_position, 0.2)  # 0.2 seconds duration
+
+
+func start_screen_shake():
+	# Reference to the camera (assumes a child camera node named "Camera2D")
+	var camera = $Camera2D
+	if camera:
+		# Perform a screen shake using a tween
+		var tween = get_tree().create_tween()
+		for i in range(5):  # Number of shake cycles
+			var offset = Vector2(randi() % 10 - 5, randi() % 10 - 5)  # Random offset within (-5, 5)
+			tween.tween_property(camera, "offset", offset, 0.05)  # Small shake duration
+		tween.tween_property(camera, "offset", Vector2.ZERO, 0.1)  # Reset to original position
 
 # Update the scoreboard with the player's score
 func update_scoreboard(player_score: int) -> void:

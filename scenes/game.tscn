@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=17 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dmreecyac8yrb" path="res://scenes/ammunition.tscn" id="9_jvr4a"]
 [ext_resource type="AudioStream" uid="uid://bcoerpfje1ap5" path="res://sounds/Noise-Long-Version-chosic.com_.mp3" id="10_7ehm2"]
 [ext_resource type="AudioStream" uid="uid://dk5wfqlbpnuv5" path="res://sounds/Interlude Normal.ogg" id="11_pnqpo"]
+[ext_resource type="AudioStream" uid="uid://bn8pueust2xkd" path="res://assets/doorhit-98828.mp3" id="14_7kd4l"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n7mas"]
 
@@ -114,14 +115,19 @@ scale = Vector2(0.5, 0.5)
 
 [node name="GameMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_7ehm2")
-volume_db = -3.748
+volume_db = -15.748
 autoplay = true
+parameters/looping = true
 
 [node name="PauseMusic" type="AudioStreamPlayer2D" parent="."]
 process_mode = 2
 stream = ExtResource("11_pnqpo")
-volume_db = -9.355
+volume_db = -14.833
 pitch_scale = 0.9
 parameters/looping = true
+
+[node name="WallCollision" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_7kd4l")
+volume_db = -15.267
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
