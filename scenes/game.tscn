@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://dxoyqjirljn4f"]
+[gd_scene load_steps=18 format=3 uid="uid://dxoyqjirljn4f"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_07uqo"]
 [ext_resource type="PackedScene" uid="uid://bqdmouxemwvb" path="res://scenes/player.tscn" id="1_41bkr"]
 [ext_resource type="Texture2D" uid="uid://bhcd3iuyc37hg" path="res://assets/landscape 2.png" id="2_sfjxc"]
 [ext_resource type="PackedScene" uid="uid://cdbf2so3gvxyi" path="res://scenes/platform.tscn" id="3_d7q4l"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="3_j3apj"]
 [ext_resource type="PackedScene" uid="uid://buea86mone3fc" path="res://scenes/MetalBlock.tscn" id="5_bdi6l"]
 [ext_resource type="PackedScene" uid="uid://c8g7ytr2jjwhn" path="res://scenes/Systems/enemy_spawner.tscn" id="5_os26m"]
 [ext_resource type="PackedScene" uid="uid://d1jri3j612yir" path="res://scenes/Systems/PowerUpManager.tscn" id="5_rp0wt"]
@@ -32,6 +33,7 @@ texture = ExtResource("2_sfjxc")
 position = Vector2(0, 1)
 anchor_mode = 0
 zoom = Vector2(2, 2)
+script = ExtResource("3_j3apj")
 
 [node name="FloorStatic" type="StaticBody2D" parent="." groups=["barriers"]]
 position = Vector2(0, -47)

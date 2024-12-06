@@ -25,6 +25,7 @@ var game_reload = preload("res://scenes/game.tscn")
 @onready var leftBoundary = $LeftScreenBound
 
 @onready var background = $Backgrounf
+@onready var camera = $Camera2D
 
 var appliedEnergy # whats the point of this
 var player_energy
@@ -221,6 +222,8 @@ func handle_input():
 		
 		if Input.is_action_just_pressed("slide") and player.is_on_floor():
 			player.can_slide = true
+		if Input.is_action_just_pressed("slide") and !player.is_on_floor():
+			player.velocity.y = Jump_velocity * -1.5
 		if Input.is_action_just_released("slide")  and player.is_on_floor():
 			player.can_slide = false
 		
@@ -233,6 +236,7 @@ func _on_player_collided(energy_loss):
 		player.energy -= energy_loss
 		player_energy = player.energy
 		energyBar.energy = player.energy  # Update energy bar with player's energy
+		camera.trigger_shake(1)
 
 func _on_weapon_collided() :
 	pass
